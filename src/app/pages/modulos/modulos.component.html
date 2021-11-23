@@ -1,9 +1,9 @@
-<app-breadcrumb titulo="Publicidad" [menu]="menu"></app-breadcrumb>
+<app-breadcrumb titulo="Módulos de venta" [menu]="menu"></app-breadcrumb>
 <div class="container-fluid">
   <div class="card">
     <div class="card-body">
       <div class="form-group">
-        <label>Seleccione una Urbanización</label>
+        <label>Seleccione una urbanización</label>
         <select
           name="id_urbanizacion"
           [(ngModel)]="idUrbanizacion"
@@ -15,7 +15,7 @@
         </select>
       </div>
       <div class="form-group" *ngIf="idUrbanizacion">
-        <label>Seleccione una Etapa</label>
+        <label>Seleccione una etapa</label>
         <select
           name="id_urbanizacion"
           [(ngModel)]="idEtapa"
@@ -34,12 +34,12 @@
   <div class="container-fluid">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Lista de Publicidades</h4>
+        <h4 class="card-title">Lista de módulos</h4>
         <button
           class="btn btn-dark"
           (click)="openPublicidad(contentPublicidad)"
         >
-          Crear nueva Publicidad
+          Crear módulo
         </button>
         <h6 class="card-subtitle"></h6>
         <div class="table-responsive m-t-40">
@@ -49,9 +49,12 @@
           >
             <thead>
               <tr style="text-align: center">
-                <th>#</th>
+                <th>No.</th>
                 <th>Imagen</th>
-                <th>Prioridad</th>
+                <th>Nombre</th>
+                <th>Empresa</th>
+                <th>Documento</th>
+                <th>Teléfono</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -63,17 +66,11 @@
                 "
               >
                 <th scope="row ">{{ i + 1 }}</th>
-                <td>
-                  <figure class="avatar avatar-sm">
-                    <img
-                      [src]="mat.imagen"
-                      class=""
-                      alt="image"
-                      width="130px"
-                    />
-                  </figure>
-                </td>
-                <td>{{ mat.prioridad }}</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
                 <td>
                   <a
                     data-toggle="tooltip"
@@ -101,10 +98,10 @@
     <ng-template #contentPublicidad let-modal>
       <div class="modal-header">
         <h4 *ngIf="!publicidad.edit" class="modal-title" id="modal-basic-title">
-          Crear nueva Publicidad
+          Crear módulo
         </h4>
         <h4 *ngIf="publicidad.edit" class="modal-title" id="modal-basic-title">
-          Editar Publicidad
+          Editar módulo
         </h4>
         <button
           type="button"
@@ -124,7 +121,7 @@
             <input type="file" name="image" (change)="preview($event)" />
           </div>
           <div class="form-group">
-            <label>Asignar Prioridad</label>
+            <label>Asignar módulo</label>
             <select
               name="prioridad"
               [(ngModel)]="prioridad"

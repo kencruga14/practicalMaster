@@ -1,16 +1,16 @@
-<app-breadcrumb titulo="Categorías de Emprendimiento"></app-breadcrumb>
+<app-breadcrumb titulo="Categorías de emprendimiento"></app-breadcrumb>
 <div class="container-fluid">
   <div class="card">
     <div class="card-body">
-      <h4 class="card-title">Lista de Categorías</h4>
+      <h4 class="card-title">Lista de categorías</h4>
       <div *ngIf="!markets">
         <button class="btn btn-dark" (click)="openMarket(contentMarket)">
-          Crear Categoría
+          Crear categoría
         </button>
       </div>
       <div *ngIf="markets?.length > 0">
         <button class="btn btn-dark" (click)="openMarket(contentMarket)">
-          Agregar Categoría
+          Agregar categoría
         </button>
       </div>
       <div
@@ -83,10 +83,10 @@
   <ng-template #contentMarket let-modal>
     <div class="modal-header">
       <h4 *ngIf="!market.edit" class="modal-title" id="modal-basic-title">
-        Crear nueva Categoría de Emprendimiento
+        Crear categoría
       </h4>
       <h4 *ngIf="market.edit" class="modal-title" id="modal-basic-title">
-        Editar Categoría de Emprendimiento
+        Editar categoría
       </h4>
       <button
         type="button"

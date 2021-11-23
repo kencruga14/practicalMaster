@@ -3,7 +3,7 @@
   <div class="card">
     <div class="card-body">
       <div class="form-group">
-        <label>Seleccione una Urbanización</label>
+        <label>Seleccione una urbanización</label>
         <select
           name="id_urbanizacion"
           [(ngModel)]="idUrbanizacion"
@@ -15,7 +15,7 @@
         </select>
       </div>
       <div class="form-group" *ngIf="idUrbanizacion">
-        <label>Seleccione una Etapa</label>
+        <label>Seleccione una etapa</label>
         <select
           name="id_urbanizacion"
           [(ngModel)]="idEtapa"
@@ -27,13 +27,13 @@
         </select>
       </div>
       <div *ngIf="idEtapa">
-        <h4 class="card-title">Lista de Publicidades</h4>
+        <h4 class="card-title">Lista de publicidades</h4>
         <div *ngIf="!publicidades">
           <button
             class="btn btn-dark"
             (click)="openPublicidad(contentPublicidad)"
           >
-            Crear nueva Publicidad
+            Crear  publicidad
           </button>
         </div>
         <div *ngIf="publicidades?.length > 0">
@@ -41,7 +41,7 @@
             class="btn btn-dark"
             (click)="openPublicidad(contentPublicidad)"
           >
-            Agregar Publicidad
+            Agregar publicidad
           </button>
         </div>
         <h6 class="card-subtitle"></h6>
@@ -177,10 +177,10 @@
   <ng-template #contentPublicidad let-modal>
     <div class="modal-header">
       <h4 *ngIf="!publicidad.edit" class="modal-title" id="modal-basic-title">
-        Crear nueva Publicidad
+        Crear publicidad
       </h4>
       <h4 *ngIf="publicidad.edit" class="modal-title" id="modal-basic-title">
-        Editar Publicidad
+        Editar publicidad
       </h4>
       <button
         type="button"

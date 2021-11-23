@@ -2,15 +2,15 @@
 <div class="container-fluid">
   <div class="card">
     <div class="card-body">
-      <h4 class="card-title">Lista de Autorizados</h4>
+      <h4 class="card-title">Lista de autorizados</h4>
       <div *ngIf="!admins">
         <button class="btn btn-dark" (click)="openAdmin(contentAdmin)">
-          Crear Autorización
+          Crear autorización
         </button>
       </div>
       <div *ngIf="admins?.length > 0">
         <button class="btn btn-dark" (click)="openAdmin(contentAdmin)">
-          Agregar Autorización
+          Agregar autorización
         </button>
       </div>
       <div
@@ -102,10 +102,10 @@
   <ng-template #contentAdmin let-modal>
     <div class="modal-header">
       <h4 *ngIf="!admin.edit" class="modal-title" id="modal-basic-title">
-        Crear Autorización
+        Crear autorización
       </h4>
       <h4 *ngIf="admin.edit" class="modal-title" id="modal-basic-title">
-        Editar Autorización
+        Editar autorización
       </h4>
       <button
         type="button"

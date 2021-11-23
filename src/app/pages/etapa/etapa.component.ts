@@ -204,7 +204,7 @@ export class EtapaComponent implements OnInit {
         pagos_tarjeta: this.pagos_tarjeta,
       };
       console.log("crear etapa: ", body);
-      // response = await this.auth.editEtapa(this.id, body);
+      response = await this.auth.editEtapa(this.id, body);
     } else {
       const body = {
         correo: this.correo,

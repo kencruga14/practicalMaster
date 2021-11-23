@@ -2,15 +2,15 @@
 <div class="container-fluid">
   <div class="card">
     <div class="card-body">
-      <h4 class="card-title">Lista de Urbanizaciones</h4>
+      <h4 class="card-title">Lista de urbanizaciones</h4>
       <div *ngIf="!urbs">
         <button class="btn btn-dark" (click)="openUrb(contentUrb)">
-          Crear Urbanización
+          Crear urbanización
         </button>
       </div>
       <div *ngIf="urbs?.length > 0">
         <button class="btn btn-dark" (click)="openUrb(contentUrb)">
-          Agregar Urbanización
+          Agregar urbanización
         </button>
       </div>
 
@@ -74,10 +74,10 @@
   <ng-template #contentUrb let-modal>
     <div class="modal-header">
       <h4 *ngIf="!urb.edit" class="modal-title" id="modal-basic-title">
-        Crear Urbanización
+        Crear urbanización
       </h4>
       <h4 *ngIf="urb.edit" class="modal-title" id="modal-basic-title">
-        Editar Urbanización
+        Editar urbanización
       </h4>
       <button
         type="button"

@@ -61,7 +61,7 @@
             [routerLink]="['urbanizacion']"
             routerLinkActive="active"
             aria-expanded="false"
-            ><i class="fa fa-users"></i
+            ><i class="fas fa-place-of-worship"></i
             ><span class="hide-menu">Urbanizaciones</span></a
           >
         </li>
@@ -87,6 +87,16 @@
         <li>
           <a
             class="waves-effect waves-dark"
+            [routerLink]="['adminetapa']"
+            routerLinkActive="active"
+            aria-expanded="false"
+            ><i class="fa fa-users"></i
+            ><span class="hide-menu">Directivos</span></a
+          >
+        </li>
+        <li>
+          <a
+            class="waves-effect waves-dark"
             [routerLink]="['market']"
             routerLinkActive="active"
             aria-expanded="false"
@@ -101,8 +111,9 @@
             [routerLink]="['publicidad']"
             routerLinkActive="active"
             aria-expanded="false"
-            ><i class="fas fa-bullhorn"></i
-            ><span class="hide-menu">Publicidad</span></a
+          >
+            <i class="fas fa-funnel-dollar"></i>
+            <span class="hide-menu">Publicidad</span></a
           >
         </li>
         <li>
@@ -111,8 +122,9 @@
             [routerLink]="['modulos']"
             routerLinkActive="active"
             aria-expanded="false"
-            ><i class="fas fa-bullhorn"></i
-            ><span class="hide-menu">Módulos</span></a
+          >
+            <i class="fas fa-chart-line"></i>
+            <span class="hide-menu">Módulos de ventas</span></a
           >
         </li>
         <li>
@@ -121,8 +133,9 @@
             [routerLink]="['transaccion']"
             routerLinkActive="active"
             aria-expanded="false"
-            ><i class="fas fa-money-check-alt"></i
-            ><span class="hide-menu">Transacción</span></a
+          >
+            <i class="fas fa-cash-register"></i>
+            <span class="hide-menu">Facturación</span></a
           >
         </li>
         <li>
@@ -131,8 +144,9 @@
             [routerLink]="['transaccion']"
             routerLinkActive="active"
             aria-expanded="false"
-            ><i class="fas fa-money-check-alt"></i
-            ><span class="hide-menu">Residentes</span></a
+          >
+            <i class="fas fa-user-alt"></i>
+            <span class="hide-menu">Residentes</span></a
           >
         </li>
         <li>
@@ -141,8 +155,20 @@
             [routerLink]="['transaccion']"
             routerLinkActive="active"
             aria-expanded="false"
-            ><i class="fas fa-money-check-alt"></i
-            ><span class="hide-menu">Usuarios</span></a
+          >
+            <i class="fas fa-user-check"></i>
+            <span class="hide-menu">Usuarios</span></a
+          >
+        </li>
+        <li>
+          <a
+            class="waves-effect waves-dark"
+            [routerLink]="['adminetapa']"
+            routerLinkActive="active"
+            aria-expanded="false"
+          >
+            <i class="fas fa-car-side"></i>
+            <span class="hide-menu">Bitácora</span></a
           >
         </li>
       </ul>
