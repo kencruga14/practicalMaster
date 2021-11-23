@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
   private loadScripts() {
     this.scriptServ.load('slimscroll', 'sidebarmenu', 'sticky', 'sparkline', 'custom').then(data => {
-      console.log('Correcto');
+      // console.log('Correcto');
     }).catch(error => console.log(error));
   }
 }

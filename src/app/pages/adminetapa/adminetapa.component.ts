@@ -13,7 +13,10 @@ import Swal from 'sweetalert2';
 export class AdminetapaComponent implements OnInit {
 
 
-
+  title = 'testJobNestedArray';
+  searchableList: any;
+  searchText : string = "";
+  users : any;
 
   etapas: UsuarioModelo[] = [];
   admins: UsuarioModelo[] = [];
@@ -119,6 +122,7 @@ export class AdminetapaComponent implements OnInit {
       .subscribe( (resp: any) => {
         console.log(resp);
         this.admins = resp;
+        console.log("admin etapas: ", this.admins)
       });
     }
 

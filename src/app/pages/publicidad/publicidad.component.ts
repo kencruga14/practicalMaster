@@ -33,7 +33,7 @@ export class PublicidadComponent implements OnInit {
     id_publicidad: "",
   };
 
-  menu = ["Publicidad"];
+  // menu = ["Publicidad"];
   constructor(
     public auth: AuthService,
     private router: Router,
@@ -64,6 +64,7 @@ export class PublicidadComponent implements OnInit {
     this.modalService.open(content);
   }
   preview(event: any) {
+    console.log("entró preview:");
     const fileData = event.target.files[0];
     const mimeType = fileData.type;
     if (mimeType.match(/image\/*/) == null) {

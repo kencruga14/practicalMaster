@@ -1,215 +1,421 @@
-<app-breadcrumb titulo="Etapas" [menu]="menu"></app-breadcrumb>
+<app-breadcrumb titulo="Etapas"></app-breadcrumb>
 <!--tabla principal-->
 <div class="container-fluid">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Lista de Etapas</h4>
-            <button class="btn btn-dark" (click)="openEtapa(contentEtapa)">Crear Etapa</button>
-            <div class="form-group col-md-4 m-t-20" style="display: inline-flex;float:right">
-                <input type="text" class="form-control" name="filterName" placeholder="Buscar por nombres..."
-                 [(ngModel)]="filterName">
-            </div>
-            <h6 class="card-subtitle"></h6>
-            <div class="table-responsive m-t-40">
-                <table id="myTable" class="table color-bordered-table inverse-bordered-table">
-                    <thead>
-                        <tr style="text-align: center;">
-                            <th>No.</th>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Télefono</th>
-                            <th>Banco</th>
-                            <th>Tipo </th>
-                            <th>Número</th>        
-                            <th>Botón</th>                     
-                              <th>Urbanización</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody style="text-align: center;">
-                        <tr *ngFor="let et of etapas | filter:filterName; let i=index ">
-                            <th scope="row ">{{i+1}}</th>
-                            <td>{{et.nombre}}</td>
-                            <!-- <td>{{et.correo}}</td> -->
-                            <td>{{et.correo}}</td>
-                            <th></th>
-                            <td>{{et.nombre_banco}}</td>
-                            <td>{{et.tipo_cuenta}}</td>
-                            <td>{{et.numero_cuenta}}</td>  
-                            <td *ngIf="et.pagos_tarjeta === true">Sí</td>
-                            <th *ngIf="et.pagos_tarjeta === false">No</th>                          <td>{{et.nombre_urbanizacion}}</td>
-                            <td>
-                              <button style="border-color:transparent;background-color: transparent !important;" [routerLink]="['/home/listaetapa', et.ID, et.nombre]" type="button" class="btn btn-square">
-                                <i style="color: black;
-                                font-size: larger;" class="fas fa-info-circle"></i>
-                            </button><a data-toggle="tooltip" data-original-title="Editar" (click)="openEtapa(contentEtapa, et)"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                <a data-toggle="tooltip" data-original-title="Eliminar" (click)="delete(et.ID)"> <i class="fa fa-trash text-danger m-r-10"></i> </a>
-                            </td>
-                        </tr>
-                        <tr *ngIf="(etapas).length === 0">
-                          <td style="text-align: center !important;" colspan="10"><label class="text-primary">No existen datos</label></td>
-                      </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!--- Datos Información-->
-    <ng-template #contentInfo let-modal>
-      <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Datos</h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Lista de Etapas</h4>
+      <div *ngIf="!etapas">
+        <button class="btn btn-dark" (click)="openEtapa(contentEtapa)">
+          Crear Etapa
         </button>
-        <div class="table-responsive m-t-40">
-          <table id="myTable" class="table color-bordered-table inverse-bordered-table">
-              <thead>
-                  <tr style="text-align: center;">
-                      <th>#</th>
-                      <th>Tipo de Documento</th>
-                      <th>Número de Documento</th>
-                  </tr>
-              </thead>
-              <tbody style="text-align: center;">
-                  <tr *ngFor="let et of etapas | filter:filterName; let i=index ">
-                      <th scope="row ">{{i+1}}</th>
-                      <td>
-                        <figure class="avatar avatar-sm">
-                          <img [src]="et.imagen" class="rounded-circle" alt="image" width="60px">
-                      </figure>
-                      </td>
-                      <td>{{et.tipo_documento}}</td>
-                      <th>{{et.numero_documento}}</th>
-                  </tr>
-                  <tr *ngIf="(etapas).length === 0">
-                    <td style="text-align: center !important;" colspan="10"><label class="text-primary">No existen datos</label></td>
-                </tr>
-              </tbody>
-          </table>
       </div>
+      <div *ngIf="etapas?.length > 0">
+        <button class="btn btn-dark" (click)="openEtapa(contentEtapa)">
+          Agregar Etapa
+        </button>
       </div>
+
+      <div
+        class="form-group col-md-4 m-t-20"
+        style="display: inline-flex; float: right"
+      >
+        <input
+          type="text"
+          class="form-control"
+          name="filterName"
+          placeholder="Buscar"
+          [(ngModel)]="filterName"
+        />
+      </div>
+      <h6 class="card-subtitle"></h6>
+      <div class="table-responsive m-t-40">
+        <table
+          id="myTable"
+          class="table color-bordered-table inverse-bordered-table"
+        >
+          <thead>
+            <tr style="text-align: center">
+              <th>No.</th>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Télefono</th>
+              <th>Banco</th>
+              <th>Tipo</th>
+              <th>Número</th>
+              <th>Botón</th>
+              <th>Urbanización</th>
+              <th>Ingreso</th>
+              <th>Salida</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody style="text-align: center">
+            <tr *ngFor="let et of etapas | filter: filterName; let i = index">
+              <th scope="row ">{{ i + 1 }}</th>
+              <td>{{ et.nombre }}</td>
+              <!-- <td>{{et.correo}}</td> -->
+              <td>{{ et.correo }}</td>
+              <th></th>
+              <td>{{ et.nombre_banco }}</td>
+              <td>{{ et.tipo_cuenta }}</td>
+              <td>{{ et.numero_cuenta }}</td>
+              <td *ngIf="et.pagos_tarjeta === true">Sí</td>
+              <th *ngIf="et.pagos_tarjeta === false">No</th>
+              <td>{{ et.nombre_urbanizacion }}</td>
+              <td>-</td>
+              <td>-</td>
+              <td>
+                <button
+                  style="
+                    border-color: transparent;
+                    background-color: transparent !important;
+                  "
+                  [routerLink]="['/home/listaetapa', et.ID, et.nombre]"
+                  type="button"
+                  class="btn btn-square"
+                >
+                  <i
+                    style="color: black; font-size: larger"
+                    class="fas fa-info-circle"
+                  ></i></button
+                ><a
+                  data-toggle="tooltip"
+                  data-original-title="Editar"
+                  (click)="openEtapa(contentEtapa, et)"
+                >
+                  <i class="fa fa-pencil text-inverse m-r-10"></i>
+                </a>
+                <a
+                  data-toggle="tooltip"
+                  data-original-title="Eliminar"
+                  (click)="delete(et.ID)"
+                >
+                  <i class="fa fa-trash text-danger m-r-10"></i>
+                </a>
+              </td>
+            </tr>
+            <tr *ngIf="etapas.length === 0">
+              <td style="text-align: center !important" colspan="10">
+                <label class="text-primary">No existen datos</label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!--- Datos Información-->
+  <ng-template #contentInfo let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Datos</h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="table-responsive m-t-40">
+        <table
+          id="myTable"
+          class="table color-bordered-table inverse-bordered-table"
+        >
+          <thead>
+            <tr style="text-align: center">
+              <th>#</th>
+              <th>Tipo de Documento</th>
+              <th>Número de Documento</th>
+            </tr>
+          </thead>
+          <tbody style="text-align: center">
+            <tr *ngFor="let et of etapas | filter: filterName; let i = index">
+              <th scope="row ">{{ i + 1 }}</th>
+              <td>
+                <figure class="avatar avatar-sm">
+                  <img
+                    [src]="et.imagen"
+                    class="rounded-circle"
+                    alt="image"
+                    width="60px"
+                  />
+                </figure>
+              </td>
+              <td>{{ et.tipo_documento }}</td>
+              <th>{{ et.numero_documento }}</th>
+            </tr>
+            <tr *ngIf="etapas.length === 0">
+              <td style="text-align: center !important" colspan="10">
+                <label class="text-primary">No existen datos</label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </ng-template>
 
-<!--Modal Crar Etapa-->
-    <ng-template #contentEtapa let-modal>
-        <div class="modal-header">
-            <h4 *ngIf="!etapa.edit" class="modal-title" id="modal-basic-title">Crear Etapa</h4>
-            <h4 *ngIf="etapa.edit" class="modal-title" id="modal-basic-title">Editar Etapa</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
+  <!--Modal Crar Etapa-->
+  <ng-template #contentEtapa let-modal>
+    <div class="modal-header">
+      <h4 *ngIf="!etapa.edit" class="modal-title" id="modal-basic-title">
+        Crear Etapa
+      </h4>
+      <h4 *ngIf="etapa.edit" class="modal-title" id="modal-basic-title">
+        Editar Etapa
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form (ngSubmit)="gestionEtapa()" #form="ngForm">
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Seleccione una Urbanización</label>
+          <select
+            name="id_urbanizacion"
+            [(ngModel)]="id_urbanizacion"
+            class="form-control custom-select"
+          >
+            <option *ngFor="let ur of urbanizaciones" [ngValue]="ur.ID">
+              {{ ur.nombre }}
+            </option>
+          </select>
         </div>
-        <form (ngSubmit)="gestionEtapa()" #form="ngForm">
-            <div class="modal-body">
-              <div class="form-group">
-                <label>Seleccione una Urbanización</label>
-                  <select name="id_urbanizacion" [(ngModel)]="id_urbanizacion" class="form-control custom-select">
-                      <option *ngFor="let ur of urbanizaciones" [ngValue]="ur.ID">{{ ur.nombre }}</option>
-                  </select>
-              </div>
-              <div *ngIf="id_urbanizacion">
-              <div class="form-group">
-                  
-                    <input [value]="nombre"  [(ngModel)]="nombre" name="nombre" class="form-control" type="text" required placeholder="Nombre">
-                </div>
-                <div class="form-group">
-                    <input [value]="correo" [(ngModel)]="correo" name="correo" class="form-control" type="text" required placeholder="Correo">
-                </div>
-                <div class="form-group">
-                  <input [value]="telefono"  [(ngModel)]="telefono" name="telefono" class="form-control" type="text" required placeholder="Télefono">
-                 </div>
-                <div class="form-group">
-                  <input [value]="nombre_banco"  [(ngModel)]="nombre_banco" name="nombre_banco" class="form-control" type="text" required placeholder="Banco">
-                 </div>
-                <div class="form-group">
-                 <input [value]="tipo_cuenta"  [(ngModel)]="tipo_cuenta" name="tipo_cuenta" class="form-control" type="text" required placeholder="Tipo Cuenta">
-                 </div>
-                 <div class="form-group">
-                    <input [value]="numero_cuenta"  [(ngModel)]="numero_cuenta" name="numero_cuenta" class="form-control" type="text" required placeholder="Número de cuenta">
-                  </div>
-                  <div class="form-group">
-                    <label>Botón de Pago</label>
-                    <select name="modulo_area_social" [(ngModel)]="modulo_area_social" class="form-control custom-select">
-                        <option  [ngValue]="true">Si</option>
-                        <option  [ngValue]="false">No</option>
-                    </select>                  
-                  </div>
-                  <div class="form-group">
-                    <label>Módulo Mi Registro</label>
-                    <select name="modulo_publicacion" [(ngModel)]="modulo_publicacion" class="form-control custom-select">
-                        <option  [ngValue]="true">Si</option>
-                        <option  [ngValue]="false">No</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Módulo de Alícuotas</label>
-                    <select name="modulo_area_social" [(ngModel)]="modulo_area_social" class="form-control custom-select">
-                        <option  [ngValue]="true">Si</option>
-                        <option  [ngValue]="false">No</option>
-                    </select>                  
-                  </div>
-                 
-                <div class="form-group">
-                  <label>Módulo Emprendimientos</label>
-                  <select name="modulo_area_social" [(ngModel)]="modulo_area_social" class="form-control custom-select">
-                      <option  [ngValue]="true">Si</option>
-                      <option  [ngValue]="false">No</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Módulo Mi Voto</label>
-                  <select name="modulo_bitacora" [(ngModel)]="modulo_bitacora" class="form-control custom-select">
-                      <option  [ngValue]="true">Si</option>
-                      <option  [ngValue]="false">No</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Módulo Área Social</label>
-                  <select name="modulo_equipo" [(ngModel)]="modulo_equipo" class="form-control custom-select">
-                      <option  [ngValue]="true">Si</option>
-                      <option  [ngValue]="false">No</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Módulo Cámaras</label>
-                  <select name="modulo_historia" [(ngModel)]="modulo_historia" class="form-control custom-select">
-                      <option  [ngValue]="true">Si</option>
-                      <option  [ngValue]="false">No</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Módulo Directiva</label>
-                  <select name="modulo_market" [(ngModel)]="modulo_market" class="form-control custom-select">
-                      <option  [ngValue]="true">Si</option>
-                      <option  [ngValue]="false">No</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Módulo Galería</label>
-                  <select name="modulo_votacion" [(ngModel)]="modulo_votacion" class="form-control custom-select">
-                      <option  [ngValue]="true">Si</option>
-                      <option [ngValue]="false">No</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Módulo Horarios</label>
-                  <select name="modulo_publicacion" [(ngModel)]="modulo_publicacion" class="form-control custom-select">
-                      <option  [ngValue]="true">Si</option>
-                      <option  [ngValue]="false">No</option>
-                  </select>
-                </div>
-            </div>
+        <div *ngIf="id_urbanizacion">
+          <div class="form-group">
+            <input
+              [value]="nombre"
+              [(ngModel)]="nombre"
+              name="nombre"
+              class="form-control"
+              type="text"
+              required
+              placeholder="Nombre"
+            />
           </div>
-           <div class="modal-footer">
-                <button *ngIf="!auth.loading" [disabled]="!form.valid" type="submit" class="btn btn-outline-dark">
-                    <span *ngIf="!etapa.edit">Guardar</span>
-                    <span *ngIf="etapa.edit">Editar</span>
-                </button>
-                <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i>
+          <div class="form-group">
+            <input
+              [value]="correo"
+              [(ngModel)]="correo"
+              name="correo"
+              class="form-control"
+              type="email"
+              required
+              placeholder="Correo"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              [value]="telefono"
+              [(ngModel)]="telefono"
+              name="telefono"
+              class="form-control"
+              type="number"
+              required
+              placeholder="Télefono"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              [value]="nombre_banco"
+              [(ngModel)]="nombre_banco"
+              name="nombre_banco"
+              class="form-control"
+              type="text"
+              required
+              placeholder="Banco"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              [value]="tipo_cuenta"
+              [(ngModel)]="tipo_cuenta"
+              name="tipo_cuenta"
+              class="form-control"
+              type="text"
+              required
+              placeholder="Tipo Cuenta"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              [value]="numero_cuenta"
+              [(ngModel)]="numero_cuenta"
+              name="numero_cuenta"
+              class="form-control"
+              type="number"
+              required
+              placeholder="Número de cuenta"
+            />
+          </div>
+          <div class="form-group">
+            <label>Módulo Mi Registro</label>
+            <select
+              name="modulo_publicacion"
+              [(ngModel)]="modulo_publicacion"
+              class="form-control custom-select"
+            >
+              <option [ngValue]="true">Si</option>
+              <option [ngValue]="false">No</option>
+            </select>
+          </div>
+          <div *ngIf="modulo_publicacion">
+            <div class="form-group">
+              <label>Formulario de Ingreso</label>
+              <select
+                name="modulo_votacion"
+                [(ngModel)]="formularioIngreso"
+                class="form-control custom-select" 
+              >
+                <option [ngValue]="true">Si</option>
+                <!-- <option [ngValue]="false">No</option> -->
+              </select>
             </div>
-        </form>
-    </ng-template>
 
+            <div class="form-group" *ngIf="formularioIngreso">
+              <label>Formulario de Salida</label>
+              <select
+                name="modulo_votacion"
+                [(ngModel)]="formularioSalida"
+                class="form-control custom-select" 
+              >
+                <option [ngValue]="true">Si</option>
+                <option [ngValue]="false">No</option>
+              </select>
+            </div>
+          </div>  
 
+            <div class="form-group">
+              <label>Botón de Pago</label>
+              <select
+                name="pagos_tarjeta"
+                [(ngModel)]="pagos_tarjeta"
+                class="form-control custom-select"
+              >
+                <option [ngValue]="true">Si</option>
+                <option [ngValue]="false">No</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Módulo de Alícuotas</label>
+              <select
+                name="modulo_area_social"
+                [(ngModel)]="modulo_alicuota"
+                class="form-control custom-select"
+              >
+                <option [ngValue]="true">Si</option>
+                <option [ngValue]="false">No</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Módulo Emprendimientos</label>
+              <select
+                name="modulo_emprendimiento"
+                [(ngModel)]="modulo_emprendimiento"
+                class="form-control custom-select"
+              >
+                <option [ngValue]="true">Si</option>
+                <option [ngValue]="false">No</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Módulo Mi Voto</label>
+              <select
+                name="modulo_votacion"
+                [(ngModel)]="modulo_votacion"
+                class="form-control custom-select"
+              >
+                <option [ngValue]="true">Si</option>
+                <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label>Módulo Área Social</label>
+              <select
+                name="modulo_area_social"
+                [(ngModel)]="modulo_area_social"
+                class="form-control custom-select"
+              >
+                <option [ngValue]="true">Si</option>
+                <option [ngValue]="false">No</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Módulo Cámaras</label>
+              <select
+                name="modulo_historia"
+                [(ngModel)]="modulo_historia"
+                class="form-control custom-select"
+              >
+                <option [ngValue]="true">Si</option>
+                <option [ngValue]="false">No</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Módulo Directiva</label>
+              <select
+                name="modulo_market"
+                [(ngModel)]="modulo_market"
+                class="form-control custom-select"
+              >
+                <option [ngValue]="true">Si</option>
+                <option [ngValue]="false">No</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Módulo Galería</label>
+              <select
+                name="modulo_votacion"
+                [(ngModel)]="modulo_votacion"
+                class="form-control custom-select"
+              >
+                <option [ngValue]="true">Si</option>
+                <option [ngValue]="false">No</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Módulo Horarios</label>
+              <select
+                name="modulo_publicacion"
+                [(ngModel)]="modulo_publicacion"
+                class="form-control custom-select" 
+              >
+                <option [ngValue]="true">Si</option>
+                <option [ngValue]="false">No</option>
+              </select>
+            </div>
+
+         
+          </div>
+        </div>
+      <!-- </div> -->
+      <div class="modal-footer">
+        <button
+          *ngIf="!auth.loading"
+          [disabled]="!form.valid"
+          type="submit"
+          class="btn btn-outline-dark"
+        >
+          <span *ngIf="!etapa.edit">Guardar</span>
+          <span *ngIf="etapa.edit">Editar</span>
+        </button>
+        <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i>
+      </div>
+    </form>
+  </ng-template>
 </div>

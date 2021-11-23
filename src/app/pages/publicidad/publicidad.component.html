@@ -1,4 +1,4 @@
-<app-breadcrumb titulo="Publicidad" [menu]="menu"></app-breadcrumb>
+<app-breadcrumb titulo="Publicidad"></app-breadcrumb>
 <div class="container-fluid">
   <div class="card">
     <div class="card-body">
@@ -26,22 +26,26 @@
           </option>
         </select>
       </div>
-    </div>
-  </div>
-</div>
-
-<div *ngIf="idEtapa">
-  <div class="container-fluid">
-    <div class="card">
-      <div class="card-body">
+      <div *ngIf="idEtapa">
         <h4 class="card-title">Lista de Publicidades</h4>
-        <button
-          class="btn btn-dark"
-          (click)="openPublicidad(contentPublicidad)"
-        >
-          Crear nueva Publicidad
-        </button>
+        <div *ngIf="!publicidades">
+          <button
+            class="btn btn-dark"
+            (click)="openPublicidad(contentPublicidad)"
+          >
+            Crear nueva Publicidad
+          </button>
+        </div>
+        <div *ngIf="publicidades?.length > 0">
+          <button
+            class="btn btn-dark"
+            (click)="openPublicidad(contentPublicidad)"
+          >
+            Agregar Publicidad
+          </button>
+        </div>
         <h6 class="card-subtitle"></h6>
+
         <div class="table-responsive m-t-40">
           <table
             id="myTable"
@@ -51,7 +55,6 @@
               <tr style="text-align: center">
                 <th>#</th>
                 <th>Imagen</th>
-                <!-- <th>Prioridad</th> -->
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -73,17 +76,19 @@
                     />
                   </figure>
                 </td>
-                <!-- <td>{{ mat.prioridad }}</td> -->
                 <td>
                   <a
                     data-toggle="tooltip"
                     data-original-title="Editar"
-                    (click)="openPublicidad(contentPublicidad, mat)">
+                    (click)="openPublicidad(contentPublicidad, mat)"
+                  >
                     <i class="fa fa-pencil text-inverse m-r-10"></i>
                   </a>
-                  <a data-toggle="tooltip"
+                  <a
+                    data-toggle="tooltip"
                     data-original-title="Eliminar"
-                    (click)="delete(mat.ID)">
+                    (click)="delete(mat.ID)"
+                  >
                     <i class="fa fa-trash text-danger m-r-10"></i>
                   </a>
                 </td>
@@ -98,46 +103,119 @@
         </div>
       </div>
     </div>
-    <ng-template #contentPublicidad let-modal>
-      <div class="modal-header">
-        <h4 *ngIf="!publicidad.edit" class="modal-title" id="modal-basic-title">
-          Crear nueva Publicidad
-        </h4>
-        <h4 *ngIf="publicidad.edit" class="modal-title" id="modal-basic-title">
-          Editar Publicidad
-        </h4>
-        <button
-          type="button"
-          class="close"
-          aria-label="Close"
-          (click)="modal.dismiss('Cross click')"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form (ngSubmit)="gestionPublicidad()" #form="ngForm">
-        <div class="modal-body">
-          <div class="form-group">
-            <div class="image-preview mb-3" *ngIf="imagen">
-              <img class="img-fluid" [src]="imagen" height="500" />
-            </div>
-            <input type="file" name="image" (change)="preview($event)" />
-          </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button
-            *ngIf="!auth.loading"
-            [disabled]="!form.valid"
-            type="submit"
-            class="btn btn-outline-dark"
-          >
-            <span *ngIf="!publicidad.edit">Guardar</span>
-            <span *ngIf="publicidad.edit">Editar</span>
-          </button>
-          <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i>
-        </div>
-      </form>
-    </ng-template>
   </div>
+</div>
+
+<div class="container-fluid">
+  <!-- <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Lista de Publicidades</h4>
+        <button
+          class="btn btn-dark"
+          (click)="openPublicidad(contentPublicidad)"
+        >
+          Crear nueva Publicidad
+        </button>
+        <h6 class="card-subtitle"></h6>
+        <div class="table-responsive m-t-40">
+          <table
+            id="myTable"
+            class="table color-bordered-table inverse-bordered-table"
+          >
+            <thead>
+              <tr style="text-align: center">
+                <th>#</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody style="text-align: center">
+              <tr
+                *ngFor="
+                  let mat of publicidades | filter: filterName;
+                  let i = index
+                "
+              >
+                <th scope="row ">{{ i + 1 }}</th>
+                <td>
+                  <figure class="avatar avatar-sm">
+                    <img
+                      [src]="mat.imagen"
+                      class=""
+                      alt="image"
+                      width="130px"
+                    />
+                  </figure>
+                </td>
+                <td>
+                  <a
+                    data-toggle="tooltip"
+                    data-original-title="Editar"
+                    (click)="openPublicidad(contentPublicidad, mat)"
+                  >
+                    <i class="fa fa-pencil text-inverse m-r-10"></i>
+                  </a>
+                  <a
+                    data-toggle="tooltip"
+                    data-original-title="Eliminar"
+                    (click)="delete(mat.ID)"
+                  >
+                    <i class="fa fa-trash text-danger m-r-10"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr *ngIf="publicidades.length === 0">
+                <td style="text-align: center !important" colspan="10">
+                  <label class="text-primary">No existen datos</label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div> -->
+  <ng-template #contentPublicidad let-modal>
+    <div class="modal-header">
+      <h4 *ngIf="!publicidad.edit" class="modal-title" id="modal-basic-title">
+        Crear nueva Publicidad
+      </h4>
+      <h4 *ngIf="publicidad.edit" class="modal-title" id="modal-basic-title">
+        Editar Publicidad
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form (ngSubmit)="gestionPublicidad()" #form="ngForm">
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="image-preview mb-3" *ngIf="imagen">
+            <img class="img-fluid" [src]="imagen" height="500" />
+          </div>
+          <input type="file" name="image" (change)="preview($event)" />
+          <small id="passwordHelpBlock" class="form-text text-muted">
+            El peso de la imagen debe ser menor a y la resolucion debe ser 1078
+            x 442.
+          </small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          *ngIf="!auth.loading"
+          [disabled]="!form.valid"
+          type="submit"
+          class="btn btn-outline-dark"
+        >
+          <span *ngIf="!publicidad.edit">Guardar</span>
+          <span *ngIf="publicidad.edit">Editar</span>
+        </button>
+        <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i>
+      </div>
+    </form>
+  </ng-template>
 </div>

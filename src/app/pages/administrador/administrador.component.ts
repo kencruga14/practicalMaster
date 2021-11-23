@@ -26,7 +26,7 @@ export class AdministradorComponent implements OnInit {
   changeFoto = false;
   cedula: "";
 
-  filterName = "";
+  searchText = "";
   admin = {
     id_usuario: 0,
     correo: "",
@@ -55,6 +55,7 @@ export class AdministradorComponent implements OnInit {
   }
 
   preview(event: any) {
+    console.log("entró preview:");
     const fileData = event.target.files[0];
     const mimeType = fileData.type;
     if (mimeType.match(/image\/*/) == null) {
@@ -67,6 +68,7 @@ export class AdministradorComponent implements OnInit {
     };
     this.changeFoto = true;
   }
+
 
   openAcceso(content, acceso) {
     this.acceso.id_usuario = acceso.id_usuario;
@@ -86,7 +88,7 @@ export class AdministradorComponent implements OnInit {
       this.usuario = admin.usuario.usuario;
       this.telefono = admin.usuario.telefono;
       this.contrasena = admin.usuario.contrasena;
-      this.imagen = null;
+      this.imagen = null
       console.log("admin: ", admin);
     } else {
       this.id_usuario = 0;
@@ -98,7 +100,7 @@ export class AdministradorComponent implements OnInit {
       this.admin.edit = false;
       this.telefono = "";
       this.usuario = "";
-      this.imagen = null;
+      this.imagen = this.imagen;
     }
     this.modalService.open(content);
   }
@@ -106,6 +108,7 @@ export class AdministradorComponent implements OnInit {
     this.auth.getAdmin().subscribe((resp: any) => {
       console.log(resp);
       this.admins = resp;
+      console.log("autorizados: ", this.admins)
     });
   }
 
