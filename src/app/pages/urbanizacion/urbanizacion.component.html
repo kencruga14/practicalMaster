@@ -1,0 +1,119 @@
+<app-breadcrumb titulo="Urbanizaciones" [menu]="menu"></app-breadcrumb>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Lista de Urbanizaciones</h4>
+            <button class="btn btn-dark" (click)="openUrb(contentUrb)">Crear Urbanización</button>
+            <div class="form-group col-md-4 m-t-20" style="display: inline-flex;float:right">
+                <input type="text" class="form-control" name="filterName" placeholder="Buscar por nombres..."
+                 [(ngModel)]="filterName">
+            </div>
+            <h6 class="card-subtitle"></h6>
+            <div class="table-responsive m-t-40">
+                <table id="myTable" class="table color-bordered-table inverse-bordered-table">
+                    <thead>
+                        <tr style="text-align: center;">
+                            <th>No.</th>
+                            <th>Nombre</th>
+                            <!-- <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
+                            <th>Ciudad</th> -->
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align: center;">
+                        <tr *ngFor="let urb of urbs | filter:filterName; let i=index ">
+                            <th scope="row ">{{i+1}}</th>
+                            <td>{{urb.nombre}}</td>
+                            <!-- <td>{{urb.direccion}}</td>
+                            <td>{{urb.telefono}}</td>
+                            <td>{{urb.correo}}</td>
+                            <td>{{urb.ciudad}}</td> -->
+                            <td>
+                                <a data-toggle="tooltip" data-original-title="Editar" (click)="openUrb(contentUrb, urb)"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                <a data-toggle="tooltip" data-original-title="Eliminar" (click)="delete(urb.ID)"> <i class="fa fa-trash text-danger m-r-10"></i> </a>
+                            </td>
+                        </tr>
+                        <tr *ngIf="(urbs).length === 0">
+                            <td style="text-align: center !important;" colspan="10"><label class="text-primary">No existen datos</label></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #contentUrb let-modal>
+        <div class="modal-header">
+            <h4 *ngIf="!urb.edit" class="modal-title" id="modal-basic-title">Crear Urbanización</h4>
+            <h4 *ngIf="urb.edit" class="modal-title" id="modal-basic-title">Editar Urbanización</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form (ngSubmit)="gestionUrb()" #form="ngForm">
+            <div *ngIf="urb">
+            <div class="modal-body">
+                <div class="form-group">
+                    <input [value]="nombre"  [(ngModel)]="nombre" name="nombre" class="form-control" type="text" required placeholder="Nombre">
+                </div>
+                <!-- <div class="form-group">
+                    <input [value]="direccion"  [(ngModel)]="direccion" name="direccion" class="form-control" type="text" required placeholder="Direccion">
+                </div>
+
+                <div class="form-group">
+                    <input [value]="telefono"  [(ngModel)]="telefono" name="telefono" class="form-control" type="text" required placeholder="Teléfono">
+                </div>
+
+                <div class="form-group">
+                    <input [value]="correo"  [(ngModel)]="correo" name="correo" class="form-control" type="text" required placeholder="Correo">
+                </div>
+                <div class="form-group">
+                    <input [value]="ciudad"  [(ngModel)]="ciudad" name="ciudad" class="form-control" type="text" required placeholder="Ciudad">
+                </div>
+             -->
+            <div class="modal-footer">
+                <button *ngIf="!auth.loading" [disabled]="!form.valid" type="submit" class="btn btn-outline-dark">
+                    <span *ngIf="!urb.edit">Guardar</span>
+                    <span *ngIf="urb.edit">Editar</span>
+                </button>
+                <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!urb">
+        <div class="modal-body">
+            <div class="form-group">
+                <input [value]="nombre"  [(ngModel)]="nombre" name="nombre" class="form-control" type="text" required placeholder="Nombre">
+            </div>
+            <!-- <div class="form-group">
+                <input [value]="direccion"  [(ngModel)]="direccion" name="direccion" class="form-control" type="text" required placeholder="Direccion">
+            </div>
+
+            <div class="form-group">
+                <input [value]="telefono"  [(ngModel)]="telefono" name="telefono" class="form-control" type="text" required placeholder="Teléfono">
+            </div>
+
+            <div class="form-group">
+                <input [value]="correo"  [(ngModel)]="correo" name="correo" class="form-control" type="text" required placeholder="Correo">
+            </div>
+            <div class="form-group">
+                <input [value]="ciudad"  [(ngModel)]="ciudad" name="ciudad" class="form-control" type="text" required placeholder="Ciudad">
+            </div> -->
+        
+        <div class="modal-footer">
+            <button *ngIf="!auth.loading" [disabled]="!form.valid" type="submit" class="btn btn-outline-dark">
+                <span *ngIf="!urb.edit">Guardar</span>
+                <span *ngIf="urb.edit">Editar</span>
+            </button>
+            <!-- <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i> -->
+        </div>
+    </div>
+</div>
+        </form>
+    </ng-template>
+
+
+
+</div>
