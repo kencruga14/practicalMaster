@@ -1,8 +1,8 @@
-<app-breadcrumb titulo="Datos de Etapa" [menu]="menu"></app-breadcrumb>
+<app-breadcrumb titulo="Módulos fijos" ></app-breadcrumb>
 <div class="container-fluid">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Datos de Etapa</h4>
+            <h4 class="card-title">Detalles</h4>
             <div class="form-group col-md-4 m-t-20" style="display: inline-flex;float:right">
                
             </div>
@@ -11,27 +11,37 @@
                 <table id="myTable" class="table color-bordered-table inverse-bordered-table">
                     <thead>
                         <tr style="text-align: center;">
-                            <th>Mi Registro</th>
-                            <th>Alícuotas</th>
+                            <!-- <th>Mi Registro</th> -->
+                            <th>Módulo </th>
+                            <th>Acceso</th>
+
+                            <!-- <th>Alícuotas</th>
                             <th>Emprendimientos</th>
                             <th>Mi Voto</th>
                             <th>Área Social</th>
                             <th>Camaras</th>
                             <th>Directiva</th>
                             <th>Galería</th>
-                            <th>Horarios</th>
+                            <th>Horarios</th> -->
                     </thead>
                     <tbody style="text-align: center;">
-                        <tr >
-                            <th scope="row "></th>
-                            <!-- <td>{{etapas.nombre_banco}}</td>
-                            <td>{{etapas.tipo_cuenta}}</td>
-                            <td>{{etapas.numero_cuenta}}</td> -->
-                            <!-- <td>{{etapas.tipo_documento}}</td> -->
-                            <!-- <td *ngIf="etapas.pagos_tarjeta === true">Sí</td>
-                            <th *ngIf="etapas.pagos_tarjeta === false">No</th> -->
-                            <!-- <th>{{etapas.numero_documento}}</th> -->
-                            <th *ngIf="etapas.modulo_area_social === true">Sí</th>
+                        <tr>
+                            <!-- <th scope="row "></th> -->
+                            <th scope="row ">Mi Registro</th>
+                            <td>Si</td>
+                        </tr>
+                            <tr>
+                                <td scope="row ">Alícuotas</td>
+                                <td>Si</td>
+                            </tr>
+                            <!-- <td scope="row ">Emprendimientos</td>
+                            <td scope="row ">Mi Voto</td>
+                            <td scope="row ">Área Social</td>
+                            <td scope="row ">Camaras</td>
+                            <td scope="row ">Directiva</td>
+                            <td scope="row ">Directiva</td>
+                            <td scope="row ">Galería</td>  -->
+                            <!-- <th *ngIf="etapas.modulo_area_social === true">Sí</th>
                             <th *ngIf="etapas.modulo_area_social === false">No</th>
                             <th *ngIf="etapas.modulo_bitacora === true">Sí</th>
                             <th *ngIf="etapas.modulo_bitacora === false">No</th>
@@ -44,9 +54,9 @@
                             <th *ngIf="etapas.modulo_publicacion === true">Sí</th>
                             <th *ngIf="etapas.modulo_publicacion === false">No</th>
                             <th *ngIf="etapas.modulo_votacion === true">Sí</th>
-                            <th *ngIf="etapas.modulo_votacion === false">No</th>
+                            <th *ngIf="etapas.modulo_votacion === false">No</th> -->
 
-                        </tr>
+                        <!-- </tr> -->
                         <tr *ngIf="etapas === null">
                           <td style="text-align: center !important;" colspan="10"><label class="text-primary">No existen datos</label></td>
                           

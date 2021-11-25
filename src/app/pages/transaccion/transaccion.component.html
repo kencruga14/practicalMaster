@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Lista de Transacciones</h4>
+            <h4 class="card-title">Lista de transacciones</h4>
             <div class="form-group col-md-4 m-t-20" style="display: inline-flex;float:right">
                 <input type="text" class="form-control" name="filterName" placeholder="Buscar por nombres..."
                  [(ngModel)]="filterName">
@@ -12,13 +12,19 @@
                 <table id="myTable" class="table color-bordered-table inverse-bordered-table">
                     <thead>
                         <tr style="text-align: center;">
-                            <th>#</th>
-                            <th>Estado del pago</th>
+                            <th>No</th>
+                            <th>Tipo</th>
+                            <th>Fecha inicio</th>
+                            <th>Fecha fin</th>
+                            <th>Valor</th>
+                            <!-- <th>Estado de la devolución</th>
+                            <th>Detalle de la devolución</th> -->
+                            <!-- <th>Estado del pago</th>
                             <th>Día del pago</th>
                             <th>Monto</th>
                             <th>Descripción</th>
                             <th>Estado de la devolución</th>
-                            <th>Detalle de la devolución</th>
+                            <th>Detalle de la devolución</th> -->
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -28,10 +34,12 @@
                             <td><button *ngIf="(tran.estado_pago === 'success')" class="btn waves-effect waves-light btn-xs btn-success">Exitoso</button>
                                 <button *ngIf="(tran.estado_pago !== 'success')" class="btn waves-effect waves-light btn-xs btn-danger">Fallido</button></td>
                             <td>{{tran.dia_pago}}</td>
+                            <td>{{tran.dia_pago}}</td>
+
                             <td>${{tran.monto}}</td>
-                            <td>{{tran.descripcion}}</td>
+                            <!-- <td>{{tran.descripcion}}</td>
                             <td>{{tran.estado_devolucion}}</td>
-                            <td>{{tran.detalle_devolucion}}</td>
+                            <td>{{tran.detalle_devolucion}}</td> -->
                             <td>
                                 <button style="border-color: transparent;background-color: transparent !important" (click)="gestionTransaccion(tran.ID)" type="button" class="btn btn-primary btn-square">
                                     <i style="color: darkorange" class="fas fa-undo"></i>

@@ -15,6 +15,7 @@ export class AdminetapaComponent implements OnInit {
   searchableList: any;
   searchText: string = "";
   users: any;
+  apellidos: "";
   urbs: UsuarioModelo[] = [];
   idUrbanizacion: any;
   etapas: UsuarioModelo[] = [];
@@ -30,9 +31,29 @@ export class AdminetapaComponent implements OnInit {
   celular: "";
   cedula: "";
   accesos: "";
+  imagenPerfila: any;
+  imagenPerfil: any;
+  nombre_banco: any;
+  tipo_cuenta: any;
+  pagos_tarjeta: any;
+  numero_cuenta: any;
+  modulo_alicuota: any;
   imagen = null;
   id: 0;
   changeFoto = false;
+  modulo_camaras: any;
+  modulo_directiva: any;
+  modulo_galeria: any;
+  modulo_horarios: any;
+  modulo_mi_registro: any;
+  modulo_emprendimiento: any;
+  modulo_votacion: any;
+  modulo_area_social: any;
+  // modulo_camaras: any;
+  // modulo_directiva: any;
+  // modulo_galeria: any;
+  // modulo_horarios: any;
+
 
   filterName = "";
   admin = {
@@ -100,6 +121,7 @@ export class AdminetapaComponent implements OnInit {
       this.cedula = admin.cedula;
       this.id_etapa = admin.id_etapa;
       this.imagen = null;
+      this.imagenPerfila = admin.usuario.imagen
     } else {
       this.id_adminetapa = 0;
       this.id_etapa = 0;
@@ -130,6 +152,14 @@ export class AdminetapaComponent implements OnInit {
     });
   }
 
+  openImage(content, admin) {
+    console.log("content: ", content);
+    console.log("admin: ", admin);
+    this.imagenPerfil = admin;
+    console.log("imagen perfil: ", this.imagenPerfil);
+    this.modalService.open(content);
+  }
+  
   async gestionAdminEtapa() {
     let response: any;
     if (this.admin.edit) {
@@ -147,6 +177,7 @@ export class AdminetapaComponent implements OnInit {
         },
       };
       JSON.stringify(body);
+      console.log("cuerpo a editar: ", body)
       response = await this.auth.editAdminEtapa(this.id, body);
     } else {
       const body = {
@@ -154,13 +185,32 @@ export class AdminetapaComponent implements OnInit {
         cedula: this.cedula,
         usuario: {
           imagen: this.imagen,
-          nombres: this.nombres,
+          nombre: this.nombres,
           correo: this.correo,
-          telefono: this.telefono,
           usuario: this.usuario,
-          contrasena: this.contrasena,
-          celular: this.celular,
-        },
+          telefono: this.telefono,
+          nombre_banco: this.nombre_banco,
+          tipo_cuenta: this.tipo_cuenta,
+          numero_cuenta: this.numero_cuenta,
+          pagos_tarjeta: this.pagos_tarjeta,
+          modulo_mi_registro: this.modulo_mi_registro,
+          modulo_alicuota: this.modulo_alicuota,
+          modulo_emprendimiento: this.modulo_emprendimiento
+          // modulo_votacion:
+          // modulo_area_social:
+          // modulo_camaras:
+          // modulo_directiva:
+          // modulo_galeria:
+          // modulo_horarios:
+
+    //       formulario_entrada
+    // formulario_salida
+
+
+
+    //                 modulo_area_social
+
+                },
       };
       JSON.stringify(body);
       console.log(body);

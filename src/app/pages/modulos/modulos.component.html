@@ -43,7 +43,111 @@
         </button>
         <h6 class="card-subtitle"></h6>
         <div class="table-responsive m-t-40">
-          <table
+          <div class="container-fluid linea">
+            <div>
+              <div class="card" style="width: 250px; height: 250px">
+                <img
+                  class="card-img-top centrado"
+                  src="../assets/images/registro.jpg"
+                  alt="Error Horarios"
+                />
+              </div>
+              <p class="card-text centrartexto">Mi Registro</p>
+            </div>
+
+            <div>
+              <div class="card" style="width: 250px; height: 250px">
+                <img
+                  class="card-img-top centrado"
+                  src="../assets/images/alicuota.jpg"
+                  alt="Error Horarios"
+                />
+              </div>
+              <p class="card-text centrartexto">Alícuotas</p>
+            </div>
+
+            <div>
+              <div class="card" style="width: 250px; height: 250px">
+                <img
+                  class="card-img-top centrado"
+                  src="../assets/images/emprendimiento.jpg"
+                  alt="Error Horarios"
+                />
+              </div>
+              <p class="card-text centrartexto">Emprendimiento</p>
+            </div>
+          </div>
+
+          <div class="container-fluid linea">
+            <div>
+              <div class="card" style="width: 250px; height: 250px">
+                <img
+                  class="card-img-top centrado"
+                  src="../assets/images/voto.jpg"
+                  alt="Error Horarios"
+                />
+              </div>
+              <p class="card-text centrartexto">Mi voto</p>
+            </div>
+
+            <div>
+              <div class="card" style="width: 250px; height: 250px">
+                <img
+                  class="card-img-top centrado"
+                  src="../assets/images/area.jpg"
+                  alt="Error Horarios"
+                />
+              </div>
+              <p class="card-text centrartexto">Área Social</p>
+            </div>
+
+            <div>
+              <div class="card" style="width: 250px; height: 250px">
+                <img
+                  class="card-img-top centrado"
+                  src="../assets/images/camara.jpg"
+                  alt="Error Horarios"
+                />
+              </div>
+              <p class="card-text centrartexto">Cámaras</p>
+            </div>
+          </div>
+
+          <div class="container-fluid linea centrarcontenido">
+            <div>
+              <div class="card" style="width: 250px; height: 250px">
+                <img
+                  class="card-img-top centrado"
+                  src="../assets/images/camara.jpg"
+                  alt="Error Horarios"
+                />
+              </div>
+              <p class="card-text centrartexto">Directiva</p>
+            </div>
+
+            <div>
+              <div class="card" style="width: 250px; height: 250px">
+                <img
+                  class="card-img-top centrado"
+                  src="../assets/images/galeria.jpg"
+                  alt="Error Horarios"
+                />
+              </div>
+              <p class="card-text centrartexto">Galería</p>
+            </div>
+
+            <div>
+              <div class="card" style="width: 250px; height: 250px">
+                <img
+                  class="card-img-top centrado"
+                  src="../assets/images/horario.jpg"
+                  alt="Error Horarios"
+                />
+              </div>
+              <p class="card-text centrartexto">Horarios</p>
+            </div>
+          </div>
+          <!-- <table
             id="myTable"
             class="table color-bordered-table inverse-bordered-table"
           >
@@ -75,12 +179,15 @@
                   <a
                     data-toggle="tooltip"
                     data-original-title="Editar"
-                    (click)="openPublicidad(contentPublicidad, mat)">
+                    (click)="openPublicidad(contentPublicidad, mat)"
+                  >
                     <i class="fa fa-pencil text-inverse m-r-10"></i>
                   </a>
-                  <a data-toggle="tooltip"
+                  <a
+                    data-toggle="tooltip"
                     data-original-title="Eliminar"
-                    (click)="delete(mat.ID)">
+                    (click)="delete(mat.ID)"
+                  >
                     <i class="fa fa-trash text-danger m-r-10"></i>
                   </a>
                 </td>
@@ -91,7 +198,7 @@
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table> -->
         </div>
       </div>
     </div>
@@ -121,17 +228,49 @@
             <input type="file" name="image" (change)="preview($event)" />
           </div>
           <div class="form-group">
-            <label>Asignar módulo</label>
-            <select
-              name="prioridad"
-              [(ngModel)]="prioridad"
-              class="form-control custom-select"
-            >
-              <option [ngValue]="1">1</option>
-              <option [ngValue]="2">2</option>
-              <option [ngValue]="3">3</option>
-            </select>
+            <input
+              [value]="nombre"
+              [(ngModel)]="nombre"
+              name="nombre"
+              class="form-control"
+              type="text"
+              required
+              placeholder="Nombre"
+            />
           </div>
+          <!-- <div class="form-group">
+            <input
+              [value]="nombre"
+              [(ngModel)]="nombre"
+              name="nombre"
+              class="form-control"
+              type="text"
+              required
+              placeholder="Empresa"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              [value]="nombre"
+              [(ngModel)]="nombre"
+              name="nombre"
+              class="form-control"
+              type="number"
+              required
+              placeholder="Documento"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              [value]="nombre"
+              [(ngModel)]="nombre"
+              name="nombre"
+              class="form-control"
+              type="number"
+              required
+              placeholder="Teléfono"
+            />
+          </div> -->
         </div>
         <div class="modal-footer">
           <button
@@ -149,4 +288,3 @@
     </ng-template>
   </div>
 </div>
-

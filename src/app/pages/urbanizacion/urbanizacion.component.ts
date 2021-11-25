@@ -18,7 +18,10 @@ export class UrbanizacionComponent implements OnInit {
   ciudad: "";
   telefono: "";
   direccion: "";
+  nombre_banco: "";
   imagen = null;
+  tipo_cuenta: any;
+  numero_cuenta: any;
   id: 0;
   changeFoto = false;
 
@@ -114,17 +117,22 @@ export class UrbanizacionComponent implements OnInit {
       response = await this.auth.editUrb(this.id, body);
     } else {
       const body = {
+        urbanizacion: null,
         nombre: this.nombre,
         correo: this.correo,
+        telefono: this.telefono,
+        nombre_banco: this.nombre_banco,
+        tipo_cuenta: this.tipo_cuenta,
+        numero_cuenta: this.numero_cuenta,
+
         ciudad: this.ciudad,
         imagen: this.imagen,
-        telefono: this.telefono,
         direccion: this.direccion,
       };
       JSON.stringify(body);
       console.log("datos urb crear: ", body);
 
-      // response = await this.auth.createUrb(body);
+      response = await this.auth.createUrb(body);
     }
     if (response) {
       this.modalService.dismissAll();

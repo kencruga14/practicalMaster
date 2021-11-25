@@ -14,9 +14,11 @@ export class EtapaComponent implements OnInit {
   etapas: UsuarioModelo[] = [];
   urbanizaciones: UsuarioModelo[] = [];
   urbanizacionseleccionada: any;
+  base: any;
   id_etapa: 0;
   fecha_alicuota: "";
   nombre: "";
+  nombres: any;
   edit: false;
   correo: "";
   telefono: "";
@@ -40,7 +42,7 @@ export class EtapaComponent implements OnInit {
   modulo_horario: boolean;
   formularioIngreso: true;
   formularioSalida: true;
-
+  usuario: any;
   tipo_cuenta: "";
   nombre_banco: "";
   numero_cuenta: "";
@@ -51,6 +53,7 @@ export class EtapaComponent implements OnInit {
 
   filterName = "";
   etapa = {
+    usuario: "",
     id_etapa: 0,
     fecha_alicuota: "",
     nombre: "",
@@ -91,6 +94,7 @@ export class EtapaComponent implements OnInit {
     this.getEtapa();
     this.getUrb();
     const id = Number(this.activatedRoute.snapshot.paramMap.get("ID"));
+    this.getLastIdEtapa();
   }
   getUrb() {
     this.auth.getUrb().subscribe((resp: any) => {
@@ -146,6 +150,8 @@ export class EtapaComponent implements OnInit {
       this.pagos_tarjeta = etapa.pagos_tarjeta;
     } else {
       this.id_etapa = 0;
+      this.nombre = "";
+      this.usuario = "";
       this.correo = "";
       this.telefono = "";
       this.nombre = "";
@@ -175,67 +181,100 @@ export class EtapaComponent implements OnInit {
     this.auth.getEtapa().subscribe((resp: any) => {
       console.log(resp);
       this.etapas = resp;
-      console.log("etapas");
+      this.base = resp;
+      console.log("base; ", this.etapas);
     });
   }
+
+  getLastIdEtapa() {
+    var output = [];
+    var vals=[];
+    for(var item of this.base){
+       vals.push(item.ID); 
+    }
+    console.log("valor: ", vals)
+    // return output;
+}
+    // return suma;
+  // }
 
   async gestionEtapa() {
     let response: any;
     if (this.etapa.edit) {
       const body = {
+        id_urbanizacion: this.id_urbanizacion,
+        nombre: this.nombre,
+        usuario: this.usuario,
         correo: this.correo,
         telefono: this.telefono,
-        nombre: this.nombre,
-        fecha_alicuota: this.fecha_alicuota,
-        imagen: this.imagen,
-        id_urbanizacion: this.id_urbanizacion,
-        modulo_market: this.modulo_market,
-        modulo_publicacion: this.modulo_publicacion,
-        modulo_votacion: this.modulo_votacion,
-        modulo_area_social: this.modulo_area_social,
-        modulo_equipo: this.modulo_equipo,
-        modulo_historia: this.modulo_historia,
-        modulo_bitacora: this.modulo_bitacora,
-        tipo_cuenta: this.tipo_cuenta,
         nombre_banco: this.nombre_banco,
-        numero_cuenta: this.numero_cuenta,
-        tipo_documento: this.tipo_documento,
-        numero_documuento: this.numero_documento,
-        pagos_tarjeta: this.pagos_tarjeta,
-      };
-      console.log("crear etapa: ", body);
-      response = await this.auth.editEtapa(this.id, body);
-    } else {
-      const body = {
-        correo: this.correo,
-        telefono: this.telefono,
-        nombre: this.nombre,
-        fecha_alicuota: this.fecha_alicuota,
-        imagen: this.imagen,
-        id_urbanizacion: this.id_urbanizacion,
-        modulo_market: this.modulo_market,
-        modulo_publicacion: this.modulo_publicacion,
-        modulo_votacion: this.modulo_votacion,
-        modulo_area_social: this.modulo_area_social,
-        modulo_equipo: this.modulo_equipo,
-        modulo_historia: this.modulo_historia,
-        modulo_bitacora: this.modulo_bitacora,
         tipo_cuenta: this.tipo_cuenta,
-        nombre_banco: this.nombre_banco,
         numero_cuenta: this.numero_cuenta,
-        tipo_documento: this.tipo_documento,
-        numero_documuento: this.numero_documento,
-        pagos_tarjeta: this.pagos_tarjeta,
+
+        modulo_mi_registro: this.modulo_market,
+        formulario_entrada: this.modulo_publicacion,
+        formulario_salida: this.modulo_votacion,
+        pagos_tarjeta: this.modulo_area_social,
+        modulo_alicuota: this.modulo_equipo,
+        modulo_emprendimiento: this.modulo_historia,
+        modulo_votacion: this.modulo_bitacora,
+        modulo_area_social: this.pagos_tarjeta,
       };
       console.log("modificar etapa: ", body);
+      // response = await this.auth.editEtapa(this.id, body);
+    } else {
+      const body = {
+        id_urbanizacion: this.id_urbanizacion,
+        nombre: this.nombre,
+        usuario: this.usuario,
+        correo: this.correo,
+        telefono: this.telefono,
+        nombre_banco: this.nombre_banco,
 
-      response = await this.auth.createEtapa(body);
+        modulo_mi_registro: true,
+        formulario_entrada: true,
+        formulario_salida: true,
+        pagos_tarjeta: true,
+        modulo_alicuota: true,
+        modulo_emprendimiento: true,
+        modulo_votacion: true,
+        modulo_area_social: true,
+      };
+      console.log("modificar etapa: ", body);
+      let lastId = this.getLastIdEtapa();
+      console.log("last Id: ", lastId);
+      let datosUsuarios = {
+        id_etapa: lastId,
+        cedula: null,
+        usuario: {
+          nombres: this.nombre,
+          usuario: this.usuario,
+          correo: this.correo,
+          telefono: this.telefono,
+        },
+      };
+
+      this.createUser(datosUsuarios);
+      // response = await this.auth.createEtapa(body);
     }
     if (response) {
+      // let usuario = {
+      //   nombre: this.nombre,
+      //   usuario: this.usuario,
+      //   correo: this.correo,
+      //   telefono: this.telefono,
+      // };
+
+      // this.createUser(usuario);
       this.modalService.dismissAll();
       this.getEtapa();
     }
   }
+
+  createUser(objeto: any) {
+    console.log("Datos del usuario a crear: ", objeto);
+  }
+
   delete(id: number) {
     Swal.fire({
       title: "¿Seguro que desea eliminar este registro?",

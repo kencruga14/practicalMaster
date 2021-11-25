@@ -2,5 +2,10 @@ th,
 td {
   padding: 10px;
   width: 50%;
-  white-space:nowrap
+  white-space: nowrap;
 }
+.centrado{
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  }

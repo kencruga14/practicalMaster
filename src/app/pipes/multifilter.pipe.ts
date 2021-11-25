@@ -6,6 +6,9 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 export class MultiFilterPipe implements PipeTransform {
     transform(items: any, filter: any, defaultFilter: boolean): any {
+        console.log("items:", items);
+        console.log("filter:", filter);
+        console.log("defaultFilter:", defaultFilter);
         if (!filter || !Array.isArray(items)) {
             return items;
         }

@@ -1,4 +1,4 @@
-<app-breadcrumb titulo="Categorías de emprendimiento"></app-breadcrumb>
+<app-breadcrumb titulo="Categorías de emprendimientos"></app-breadcrumb>
 <div class="container-fluid">
   <div class="card">
     <div class="card-body">
@@ -32,14 +32,14 @@
           class="table color-bordered-table inverse-bordered-table"
         >
           <thead>
-            <tr style="text-align: center">
-              <th>#</th>
+            <tr style="text-align: left">
+              <th>No.</th>
               <th>Imagen</th>
               <th>Nombre</th>
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody style="text-align: center">
+          <tbody style="text-align: left">
             <tr *ngFor="let mat of markets | filter: filterName; let i = index">
               <th scope="row ">{{ i + 1 }}</th>
               <td>
@@ -101,7 +101,7 @@
       <div class="modal-body">
         <div class="form-group">
           <div class="image-preview mb-3" *ngIf="imagen">
-            <img class="img-fluid" [src]="imagen" height="500" />
+            <img class="img-fluid" [src]="imagen" height="100" width="100" />
           </div>
           <input type="file" name="image" (change)="preview($event)" />
           <small id="passwordHelpBlock" class="form-text text-muted">

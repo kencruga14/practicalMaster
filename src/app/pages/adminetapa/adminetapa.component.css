@@ -1,7 +1,13 @@
-
-th ,td {
+th,
+td {
   padding: 10px;
   width: 50%;
-  white-space:nowrap;
+  white-space: nowrap;
   text-align: center;
+}
+
+.centrado {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }

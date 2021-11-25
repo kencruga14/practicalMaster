@@ -12,8 +12,11 @@ import Swal from "sweetalert2";
 })
 export class AdministradorComponent implements OnInit {
   admins: UsuarioModelo[] = [];
+  prueba: any;
   id_usuario: 0;
+  nombre: any;
   correo: "";
+  cedula: "";
   nombres: "";
   apellidos: "";
   edit: false;
@@ -21,22 +24,25 @@ export class AdministradorComponent implements OnInit {
   usuario: "";
   telefono: "";
   accesos: "";
-  id: 0;
+  imagenPerfila: any;
+  id: any;
   imagen = null;
   changeFoto = false;
-  cedula: "";
-
+  imagenPerfil: any;
   searchText = "";
+  apellido: any;
   admin = {
-    id_usuario: 0,
+    // id_usuario: null,
     correo: "",
     nombres: "",
     apellidos: "",
+    cedula: "",
     edit: false,
     contrasena: "",
     usuario: "",
-    telefono: "",
+    telefono: 0,
     imagen: null,
+    apellido: "",
   };
   acceso = {
     accesos: "",
@@ -52,6 +58,9 @@ export class AdministradorComponent implements OnInit {
 
   ngOnInit() {
     this.getAdmin();
+    console.log("admin: ", this.admin);
+    // console.log("telefono: ", this.admin.usuario.telefono);
+    // console.log("cedula: ", this.admin.usuario.cedula);
   }
 
   preview(event: any) {
@@ -66,86 +75,105 @@ export class AdministradorComponent implements OnInit {
     reader.onload = (response) => {
       this.imagen = reader.result;
     };
+    console.log("imagen: ", this.imagen);
     this.changeFoto = true;
   }
-
-
+  //Abre modales
   openAcceso(content, acceso) {
-    this.acceso.id_usuario = acceso.id_usuario;
+    this.modalService.open(content);
+  }
+  //Abre Modal Imagen
+  openImage(content, admin) {
+    this.imagenPerfil = admin;
     this.modalService.open(content);
   }
 
+  //setea valores al modelo
   openAdmin(content, admin = null) {
     if (admin) {
-      this.id_usuario = admin.usuario.id_usuario;
+      // this.id_usuario = admin.id_usuario;
       this.id = admin.ID;
-      this.correo = admin.usuario.correo;
-      this.contrasena = admin.clave;
       this.nombres = admin.usuario.nombres;
-      // this.apellidos = admin.usuario.apellidos;
-      // this.cedula = admin.usuario.cedula;
-      this.admin.edit = true;
+      this.apellido = admin.usuario.apellido;
       this.usuario = admin.usuario.usuario;
       this.telefono = admin.usuario.telefono;
-      this.contrasena = admin.usuario.contrasena;
-      this.imagen = null
-      console.log("admin: ", admin);
+      this.cedula = admin.usuario.cedula;
+      this.correo = admin.usuario.correo;
+      this.imagenPerfila = admin.usuario.imagen;
+      this.imagen = this.imagen;
+      this.admin.edit = true;
+      // this.contrasena = admin.usuario.contrasena;
+      // console.log("admin: ", admin);
+      // console.log("imagen perfila: ", this.imagenPerfila);
+      console.log("admin editar cuerpo:", admin);
     } else {
-      this.id_usuario = 0;
-      this.correo = "";
+      //Inicializa variables
+
       this.nombres = "";
-      // apellidos: ='',
-      // this.cedula = "";
-      this.contrasena = "";
-      this.admin.edit = false;
-      this.telefono = "";
+      // this.id_usuario = 0;
+      this.apellido = "";
       this.usuario = "";
+      this.telefono = "";
+      this.cedula = "";
+      this.contrasena = "";
+      this.correo = "";
+      this.admin.edit = false;
       this.imagen = this.imagen;
     }
     this.modalService.open(content);
   }
+  //Servicio que trae la información de los usuarios
   getAdmin() {
     this.auth.getAdmin().subscribe((resp: any) => {
-      console.log(resp);
+      // console.log(resp);
       this.admins = resp;
-      console.log("autorizados: ", this.admins)
+      this.prueba = resp;
+      // this.prueba = resp;
+      console.log("autorizados: ", this.admins);
+      console.log("autorizados prueba: ", this.prueba);
+      // console.log("pruebas: ", this.admins);
     });
   }
 
+  //Servicio Post y Put
   async gestionAdmin() {
     let response: any;
     if (this.admin.edit) {
       const body = {
         usuario: {
+          // ID: this.id,
           nombres: this.nombres,
-          apellidos: this.apellidos,
+          apellido: this.apellido,
           correo: this.correo,
           telefono: this.telefono,
           usuario: this.usuario,
           contrasena: this.contrasena,
-          imagen: this.imagen,
           cedula: this.cedula,
+          imagen: this.imagen,
         },
       };
       console.log("body edit:", body);
+      console.log("id del Usuario a editar: ", this.id);
       JSON.stringify(body);
-      // response = await this.auth.editAdmin(this.id, body);
+      response = await this.auth.editAdmin(this.id, body);
     } else {
+      // let fono = Number(this.telefono);
       const body = {
         usuario: {
           nombres: this.nombres,
-          apellidos: this.apellidos,
+          apellido: this.apellido,
           correo: this.correo,
           telefono: this.telefono,
           usuario: this.usuario,
-          contrasena: this.contrasena,
+          cedula: this.cedula,
+          // contrasena: this.contrasena,
           imagen: this.imagen,
-          cedula: this.cedula
         },
       };
       JSON.stringify(body);
+      // console.log(typeof(fono));
       console.log("usuario crear: ", body);
-      // response = await this.auth.createAdmin(body);
+      response = await this.auth.createAdmin(body);
     }
     if (response) {
       this.modalService.dismissAll();
@@ -153,6 +181,7 @@ export class AdministradorComponent implements OnInit {
     }
   }
 
+  //Servicio sweatAlert
   delete(id: number) {
     Swal.fire({
       title: "¿Seguro que desea eliminar este registro?",
@@ -170,6 +199,7 @@ export class AdministradorComponent implements OnInit {
     });
   }
 
+  //Servicio que elimina
   async deleteAdmin(id: number) {
     const response = await this.auth.deleteAdmin(id);
     if (response) {

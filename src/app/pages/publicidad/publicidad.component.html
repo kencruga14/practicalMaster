@@ -33,7 +33,7 @@
             class="btn btn-dark"
             (click)="openPublicidad(contentPublicidad)"
           >
-            Crear  publicidad
+            Crear publicidad
           </button>
         </div>
         <div *ngIf="publicidades?.length > 0">
@@ -52,13 +52,16 @@
             class="table color-bordered-table inverse-bordered-table"
           >
             <thead>
-              <tr style="text-align: center">
-                <th>#</th>
-                <th>Imagen</th>
+              <tr style="text-align: left">
+                <th>No</th>
+                <th>Publicidad</th>
+                <th>Empresa</th>
+                <th>Documento</th>
+                <th>Teléfono</th>
                 <th>Acciones</th>
               </tr>
             </thead>
-            <tbody style="text-align: center">
+            <tbody style="text-align: left">
               <tr
                 *ngFor="
                   let mat of publicidades | filter: filterName;
@@ -76,6 +79,9 @@
                     />
                   </figure>
                 </td>
+                <td>-----</td>
+                <td>-----</td>
+                <td>-----</td>
                 <td>
                   <a
                     data-toggle="tooltip"

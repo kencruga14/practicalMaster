@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
 import { UsuarioModelo } from "src/app/models/usuario.model";
 import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import Swal from "sweetalert2";
 @Component({
-  selector: 'app-modulos',
-  templateUrl: './modulos.component.html',
-  styleUrls: ['./modulos.component.css']
+  selector: "app-modulos",
+  templateUrl: "./modulos.component.html",
+  styleUrls: ["./modulos.component.css"],
 })
 export class ModulosComponent implements OnInit {
   publicidades: UsuarioModelo[] = [];
   urbanizaciones: UsuarioModelo[] = [];
   idUrbanizacion: any;
+  idEtapa: "";
   id_publicidad: 0;
+  nombre: any;
   prioridad: 0;
   edit: false;
   imagen = null;

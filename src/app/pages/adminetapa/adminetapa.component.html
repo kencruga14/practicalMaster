@@ -41,23 +41,24 @@
               <!-- <th class="col-sm-1">Nombres</th> -->
               <th>Nombres</th>
               <th>Apellidos</th>
-              <th>Usuario</th>
+              <!-- <th>Usuario</th> -->
               <th>Cédula</th>
               <th>Etapa</th>
               <th>Correo</th>
-              <th>Celular</th>
+              <th>Teléfono</th>
               <!-- <th>Teléfono Convencional</th> -->
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody style="text-align: center">
-            <tr
+            <!-- <tr
               *ngFor="
                 let admin of admins
                   | multifilter: { nombres: searchText, cedula: searchText };
                 let i = index
               "
-            >
+            > -->
+            <tr *ngFor="let admin of admins; let i = index">
               <!-- <tr *ngFor="let admin of admins  | multifilter: [ 
                             'admin.usuario.nombres'
                             ]:searchText; let i=index " > -->
@@ -67,21 +68,20 @@
                 <figure class="avatar avatar-sm">
                   <img
                     [src]="admin.usuario.imagen"
-                    class=""
+                    class="rounded-circle"
                     alt="image"
                     width="60px"
+                    (click)="openImage(contentImage, admin)"
                   />
                 </figure>
               </td>
               <td>{{ admin.usuario.nombres }}</td>
               <td>--</td>
-              <!-- <td>{{ admin.usuario.apellidos }}</td> -->
-              <td>{{ admin.usuario.usuario }}</td>
+              <!-- <td>{{ admin.usuario.usuario }}</td> -->
               <td>{{ admin.cedula }}</td>
               <td>SantaMaria de casagrande</td>
               <td>{{ admin.usuario.correo }}</td>
               <td>{{ admin.usuario.celular }}</td>
-              <!-- <td>{{ admin.usuario.telefono }}</td> -->
               <td>
                 <a
                   data-toggle="tooltip"
@@ -157,8 +157,13 @@
     </div>
     <div class="modal-body" *ngIf="id_etapa">
       <div class="form-group">
-        <div class="image-preview mb-3" *ngIf="imagen">
-          <img class="img-fluid" [src]="imagen" height="500" />
+        <div class="image-preview mb-3" *ngIf="imagenPerfila">
+          <img
+            class="img-fluid"
+            [src]="imagenPerfila"
+            height="500"
+            width="100"
+          />
         </div>
         <input type="file" name="image" (change)="preview($event)" />
         <small id="passwordHelpBlock" class="form-text text-muted">
@@ -205,22 +210,11 @@
           [(ngModel)]="cedula"
           name="number"
           class="form-control"
-          type="number"
+          type="text"
           required
           placeholder="cédula"
         />
       </div>
-      <!-- <div class="form-group">
-          <input
-            [value]="etapa"
-            [(ngModel)]="etapa"
-            name="etapa"
-            class="form-control"
-            type="text"
-            required
-            placeholder="Etapa"
-          />
-        </div> -->
       <div class="form-group">
         <input
           [value]="correo"
@@ -238,22 +232,11 @@
           [(ngModel)]="celular"
           name="celular"
           class="form-control"
-          type="number"
+          type="text"
           required
-          placeholder="Celular"
+          placeholder="Teléfono"
         />
       </div>
-      <!-- <div class="form-group">
-        <input
-          [value]="telefono"
-          [(ngModel)]="telefono"
-          name="telefono"
-          class="form-control"
-          type="number"
-          required
-          placeholder="Teléfono Convencional"
-        />
-      </div> -->
     </div>
     <div class="modal-footer">
       <button
@@ -268,4 +251,28 @@
       <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i>
     </div>
   </form>
+</ng-template>
+
+<ng-template #contentImage let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Imagen de Perfil</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" *ngIf="imagenPerfil">
+    <figure class="avatar avatar-sm">
+      <img
+        class="centrado"
+        [src]="imagenPerfil.usuario.imagen"
+        alt="image"
+        width="250px"
+      />
+    </figure>
+  </div>
 </ng-template>

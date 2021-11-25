@@ -15,6 +15,7 @@ export class PublicidadComponent implements OnInit {
   idUrbanizacion: any;
   id_publicidad: 0;
   prioridad: 0;
+  idEtapa: "";
   edit: false;
   imagen = null;
   id: 0;
