@@ -42,46 +42,28 @@
               <th>Télefono</th>
               <th>Banco</th>
               <th>Tipo de cuenta</th>
-              <!-- <th>Usuario</th> -->
               <th>Número de cuenta</th>
               <th>Botón de Pago</th>
               <th>Urbanización</th>
-              <!-- <th>Formulario de ingreso</th>
-              <th>Formulario de salida</th> -->
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody style="text-align: center">
             <tr *ngFor="let et of etapas | filter: filterName; let i = index">
-              <th scope="row ">{{ i + 1 }}</th>
-              <td>{{ et.nombre }}</td>
-              <!-- <td>{{et.correo}}</td> -->
-              <td>{{ et.correo }}</td>
-              <th>---</th>
-              <th>---</th>
+              <!-- <th scope="row ">{{ i + 1 }}</th> -->
+              <th scope="row ">{{et.ID}}</th>
 
+              <td>{{ et.nombre }}</td>
+              <td>{{ et.correo }}</td>
+              <td>---</td>
+              <td>{{ et.telefono }}</td>
               <td>{{ et.nombre_banco }}</td>
               <td>{{ et.tipo_cuenta }}</td>
               <td>{{ et.numero_cuenta }}</td>
               <td *ngIf="et.pagos_tarjeta === true">Sí</td>
-              <th *ngIf="et.pagos_tarjeta === false">No</th>
+              <td *ngIf="et.pagos_tarjeta === false">No</td>
               <td>{{ et.nombre_urbanizacion }}</td>
-              <!-- <td>-</td>
-              <td>-</td> -->
               <td>
-                <!-- <button
-                  style="
-                    border-color: transparent;
-                    background-color: transparent !important;
-                  "
-                  [routerLink]="['/home/listaetapa', et.ID, et.nombre]"
-                  type="button"
-                  class="btn btn-square"
-                >
-                  <i
-                    style="color: black; font-size: larger"
-                    class="fas fa-info-circle"
-                  ></i></button -->
                 <a
                   data-toggle="tooltip"
                   data-original-title="Editar"
@@ -108,57 +90,6 @@
       </div>
     </div>
   </div>
-
-  <!--- Datos Información-->
-  <ng-template #contentInfo let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Datos</h4>
-      <button
-        type="button"
-        class="close"
-        aria-label="Close"
-        (click)="modal.dismiss('Cross click')"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <div class="table-responsive m-t-40">
-        <table
-          id="myTable"
-          class="table color-bordered-table inverse-bordered-table"
-        >
-          <thead>
-            <tr style="text-align: center">
-              <th>#</th>
-              <th>Tipo de Documento</th>
-              <th>Número de Documento</th>
-            </tr>
-          </thead>
-          <tbody style="text-align: center">
-            <tr *ngFor="let et of etapas | filter: filterName; let i = index">
-              <th scope="row ">{{ i + 1 }}</th>
-              <td>
-                <figure class="avatar avatar-sm">
-                  <img
-                    [src]="et.imagen"
-                    class="rounded-circle"
-                    alt="image"
-                    width="60px"
-                  />
-                </figure>
-              </td>
-              <td>{{ et.tipo_documento }}</td>
-              <th>{{ et.numero_documento }}</th>
-            </tr>
-            <tr *ngIf="etapas.length === 0">
-              <td style="text-align: center !important" colspan="10">
-                <label class="text-primary">No existen datos</label>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </ng-template>
 
   <!--Modal Crar Etapa-->
   <ng-template #contentEtapa let-modal>
@@ -226,7 +157,7 @@
               placeholder="Usuario"
             />
           </div>
-         
+
           <div class="form-group">
             <input
               [value]="telefono"
@@ -282,154 +213,8 @@
               <option [ngValue]="false">No</option>
             </select>
           </div>
-
-          <!-- <div class="form-group">
-            <label>Módulo mi registro</label>
-            <select
-              name="modulo_publicacion"
-              [(ngModel)]="modulo_publicacion"
-              class="form-control custom-select"
-            >
-              <option [ngValue]="true">Si</option>
-              <option [ngValue]="false">No</option>
-            </select>
-          </div>
-          <div *ngIf="modulo_publicacion">
-            <div class="form-group">
-              <label>Formulario de ingreso</label>
-              <select
-                name="formularioIngreso"
-                [(ngModel)]="formularioIngreso"
-                class="form-control custom-select"
-              > -->
-                <!-- <option [ngValue]="true">Si</option> -->
-                <!-- <option [ngValue]="false">No</option> -->
-              <!-- </select>
-            </div> -->
-
-            <!-- <div class="form-group" *ngIf="formularioIngreso">
-              <label>Formulario de salida</label>
-              <select
-                name="modulo_votacion"
-                [(ngModel)]="formularioSalida"
-                class="form-control custom-select"
-              >
-                <option [ngValue]="true">Si</option>
-                <option [ngValue]="false">No</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Botón de pago</label>
-            <select
-              name="pagos_tarjeta"
-              [(ngModel)]="pagos_tarjeta"
-              class="form-control custom-select"
-            >
-              <option [ngValue]="true">Si</option>
-              <option [ngValue]="false">No</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Módulo de alícuotas</label>
-            <select
-              name="modulo_area_social"
-              [(ngModel)]="modulo_alicuota"
-              class="form-control custom-select"
-            >
-              <option [ngValue]="true">Si</option>
-              <option [ngValue]="false">No</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Módulo emprendimientos</label>
-            <select
-              name="modulo_emprendimiento"
-              [(ngModel)]="modulo_emprendimiento"
-              class="form-control custom-select"
-            >
-              <option [ngValue]="true">Si</option>
-              <option [ngValue]="false">No</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Módulo mi voto</label>
-            <select
-              name="modulo_votacion"
-              [(ngModel)]="modulo_votacion"
-              class="form-control custom-select"
-            >
-              <option [ngValue]="true">Si</option>
-              <option [ngValue]="false">No</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Módulo área social</label>
-            <select
-              name="modulo_area_social"
-              [(ngModel)]="modulo_area_social"
-              class="form-control custom-select"
-            >
-              <option [ngValue]="true">Si</option>
-              <option [ngValue]="false">No</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Módulo cámaras</label>
-            <select
-              name="modulo_historia"
-              [(ngModel)]="modulo_historia"
-              class="form-control custom-select"
-            >
-              <option [ngValue]="true">Si</option>
-              <option [ngValue]="false">No</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Módulo directiva</label>
-            <select
-              name="modulo_market"
-              [(ngModel)]="modulo_market"
-              class="form-control custom-select"
-            >
-              <option [ngValue]="true">Si</option>
-              <option [ngValue]="false">No</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Módulo galería</label>
-            <select
-              name="modulo_votacion"
-              [(ngModel)]="modulo_votacion"
-              class="form-control custom-select"
-            >
-              <option [ngValue]="true">Si</option>
-              <option [ngValue]="false">No</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Módulo horarios</label>
-            <select
-              name="modulo_publicacion"
-              [(ngModel)]="modulo_publicacion"
-              class="form-control custom-select"
-            >
-              <option [ngValue]="true">Si</option>
-              <option [ngValue]="false">No</option>
-            </select>
-          </div> -->
         </div>
       </div>
-      <!-- </div> -->
       <div class="modal-footer">
         <button
           *ngIf="!auth.loading"
