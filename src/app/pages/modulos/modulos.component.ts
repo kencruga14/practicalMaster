@@ -14,6 +14,8 @@ export class ModulosComponent implements OnInit {
   urbanizaciones: UsuarioModelo[] = [];
   idUrbanizacion: any;
   idEtapa: "";
+  id_etapa: any;
+  etapasid: any;
   id_publicidad: 0;
   nombre: any;
   prioridad: 0;
@@ -53,6 +55,16 @@ export class ModulosComponent implements OnInit {
       this.urbanizaciones = resp;
     });
   }
+
+  getUrbId(id) {
+    console.log("id: ", id);
+    // console.log("id_etapa ", this.id_etapa);
+    this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
+      this.etapasid = resp;
+      console.log("etapas por id: ", this.etapasid);
+    });
+  }
+
   getEtapa() {
     this.auth.getEtapa().subscribe((resp: any) => {
       console.log(resp);
@@ -77,6 +89,14 @@ export class ModulosComponent implements OnInit {
       this.imagen = reader.result;
     };
     this.changeFoto = true;
+  }
+
+  getModulo(id) {
+    console.log("id: ", id);
+    // this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
+    //   this.etapas = resp;
+    //   console.log("urbanizaciones por id: ", this.etapas);
+    // });
   }
 
   openPublicidad(content, publicidad = null) {

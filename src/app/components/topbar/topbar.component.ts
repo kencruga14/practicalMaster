@@ -19,7 +19,7 @@ masters: UsuarioModelo[] =[];
   ngOnInit() {
     const infomaster = localStorage.getItem("info");
     this.masters = [JSON.parse(infomaster)];
-    console.log(this.masters)
+    console.log("masters: ", this.masters)
   }
 
   logout() {

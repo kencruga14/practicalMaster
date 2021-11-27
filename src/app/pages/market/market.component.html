@@ -49,6 +49,7 @@
                     class="rounded-circle"
                     alt="image"
                     width="60px"
+                    (click)="openImage(contentImage, mat)"
                   />
                 </figure>
               </td>
@@ -134,5 +135,30 @@
         <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i>
       </div>
     </form>
+  </ng-template>
+
+  <ng-template #contentImage let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        Imagen de Emprendimiento
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" *ngIf="imagenPerfil">
+      <figure class="avatar avatar-sm">
+        <img
+          class="centrado"
+          [src]="imagenPerfil.imagen"
+          alt="image"
+        />
+      </figure>
+    </div>
   </ng-template>
 </div>

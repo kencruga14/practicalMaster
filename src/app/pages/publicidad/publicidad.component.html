@@ -3,32 +3,36 @@
   <div class="card">
     <div class="card-body">
       <div class="form-group">
-        <label>Seleccione una urbanización</label>
+        <label>Urbanización</label>
         <select
-          name="id_urbanizacion"
           [(ngModel)]="idUrbanizacion"
+          name="idUrbanizacion"
           class="form-control custom-select"
+          id="companydropdown"
+          (change)="getUrbId($event.target.value)"
         >
-          <option *ngFor="let ur of urbanizaciones" [ngValue]="ur.ID">
+          <option *ngFor="let ur of urbanizaciones" value="{{ ur.ID }}">
             {{ ur.nombre }}
           </option>
         </select>
       </div>
+
       <div class="form-group" *ngIf="idUrbanizacion">
-        <label>Seleccione una etapa</label>
+        <label>Etapa</label>
         <select
-          name="id_urbanizacion"
-          [(ngModel)]="idEtapa"
+          name="id_etapa"
+          [(ngModel)]="id_etapa"
           class="form-control custom-select"
+          (change)="getPublicidadbIdEtapa($event.target.value)"
         >
-          <option *ngFor="let ur of etapas" [ngValue]="ur.ID">
+          <option *ngFor="let ur of etapasid" value="{{ ur.ID }}">
             {{ ur.nombre }}
           </option>
         </select>
       </div>
-      <div *ngIf="idEtapa">
+      <div *ngIf="id_etapa">
         <h4 class="card-title">Lista de publicidades</h4>
-        <div *ngIf="!publicidades">
+        <div *ngIf="publicidades.length === 0">
           <button
             class="btn btn-dark"
             (click)="openPublicidad(contentPublicidad)"
@@ -75,13 +79,15 @@
                       [src]="mat.imagen"
                       class=""
                       alt="image"
-                      width="130px"
+                      width="150px"
+                      height="100px"
+                      (click)="openImage(contentImage, mat)"
                     />
                   </figure>
                 </td>
-                <td>-----</td>
-                <td>-----</td>
-                <td>-----</td>
+                <td>{{ mat.empresa }}</td>
+                <td>{{ mat.documento }}</td>
+                <td>{{ mat.telefono }}</td>
                 <td>
                   <a
                     data-toggle="tooltip"
@@ -113,73 +119,6 @@
 </div>
 
 <div class="container-fluid">
-  <!-- <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Lista de Publicidades</h4>
-        <button
-          class="btn btn-dark"
-          (click)="openPublicidad(contentPublicidad)"
-        >
-          Crear nueva Publicidad
-        </button>
-        <h6 class="card-subtitle"></h6>
-        <div class="table-responsive m-t-40">
-          <table
-            id="myTable"
-            class="table color-bordered-table inverse-bordered-table"
-          >
-            <thead>
-              <tr style="text-align: center">
-                <th>#</th>
-                <th>Imagen</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody style="text-align: center">
-              <tr
-                *ngFor="
-                  let mat of publicidades | filter: filterName;
-                  let i = index
-                "
-              >
-                <th scope="row ">{{ i + 1 }}</th>
-                <td>
-                  <figure class="avatar avatar-sm">
-                    <img
-                      [src]="mat.imagen"
-                      class=""
-                      alt="image"
-                      width="130px"
-                    />
-                  </figure>
-                </td>
-                <td>
-                  <a
-                    data-toggle="tooltip"
-                    data-original-title="Editar"
-                    (click)="openPublicidad(contentPublicidad, mat)"
-                  >
-                    <i class="fa fa-pencil text-inverse m-r-10"></i>
-                  </a>
-                  <a
-                    data-toggle="tooltip"
-                    data-original-title="Eliminar"
-                    (click)="delete(mat.ID)"
-                  >
-                    <i class="fa fa-trash text-danger m-r-10"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr *ngIf="publicidades.length === 0">
-                <td style="text-align: center !important" colspan="10">
-                  <label class="text-primary">No existen datos</label>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div> -->
   <ng-template #contentPublicidad let-modal>
     <div class="modal-header">
       <h4 *ngIf="!publicidad.edit" class="modal-title" id="modal-basic-title">
@@ -209,6 +148,43 @@
             x 442.
           </small>
         </div>
+        <div class="form-group">
+          <input
+            [value]="empresa"
+            id="empresa"
+            [(ngModel)]="empresa"
+            name="empresa"
+            class="form-control"
+            type="text"
+            required
+            placeholder="Empresa"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            [value]="documento"
+            id="documento"
+            [(ngModel)]="documento"
+            name="documento"
+            class="form-control"
+            type="text"
+            required
+            placeholder="Documento"
+          />
+        </div>
+
+        <div class="form-group">
+          <input
+            [value]="telefono"
+            [(ngModel)]="telefono"
+            id="telefono"
+            name="telefono"
+            class="form-control"
+            type="text"
+            required
+            placeholder="Teléfono"
+          />
+        </div>
       </div>
       <div class="modal-footer">
         <button
@@ -223,5 +199,26 @@
         <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i>
       </div>
     </form>
+  </ng-template>
+
+  <ng-template #contentImage let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        Imagen de Emprendimiento
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" *ngIf="imagenPerfil">
+      <figure class="avatar avatar-sm">
+        <img class="centrado" [src]="imagenPerfil.imagen" alt="image" />
+      </figure>
+    </div>
   </ng-template>
 </div>

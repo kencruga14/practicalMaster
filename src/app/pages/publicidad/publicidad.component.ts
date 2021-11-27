@@ -14,10 +14,18 @@ export class PublicidadComponent implements OnInit {
   urbanizaciones: UsuarioModelo[] = [];
   idUrbanizacion: any;
   id_publicidad: 0;
+  id_etapa: 0;
+  imagenPerfil: any;
+  etapasid: any;
+  urbs: any;
   prioridad: 0;
   idEtapa: "";
   edit: false;
   imagen = null;
+  etapa_id: 0;
+  empresa: any;
+  documento: any;
+  telefono: any;
   id: 0;
   changeFoto = false;
   etapas: UsuarioModelo[] = [];
@@ -25,7 +33,9 @@ export class PublicidadComponent implements OnInit {
   filterName = "";
   publicidad = {
     id_publicidad: 0,
-    prioridad: "",
+    empresa: "",
+    documento: "",
+    telefono: "",
     edit: false,
     imagen: null,
   };
@@ -43,8 +53,7 @@ export class PublicidadComponent implements OnInit {
 
   ngOnInit() {
     this.getUrb();
-    this.getPublicidad();
-    this.getEtapa();
+    // this.getPublicidad();
   }
   getUrb() {
     this.auth.getUrb().subscribe((resp: any) => {
@@ -52,11 +61,12 @@ export class PublicidadComponent implements OnInit {
       this.urbanizaciones = resp;
     });
   }
-  getEtapa() {
-    this.auth.getEtapa().subscribe((resp: any) => {
-      console.log(resp);
-      this.etapas = resp;
-      console.log("etapas");
+
+  getUrbId(id) {
+    console.log("id: ", id);
+    this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
+      this.etapasid = resp;
+      this.publicidades = [];
     });
   }
 
@@ -83,45 +93,58 @@ export class PublicidadComponent implements OnInit {
     if (publicidad) {
       this.id_publicidad = publicidad.ID;
       this.id = publicidad.ID;
-      this.prioridad = publicidad.nombre;
+      // this.prioridad = publicidad.nombre;
       this.publicidad.edit = true;
       this.imagen = null;
+      this.etapa_id = publicidad.etapa_id;
+      this.empresa = publicidad.empresa;
+      this.documento = publicidad.documento;
+      this.telefono = publicidad.telefono;
     } else {
-      this.id_publicidad = 0;
-      this.prioridad = 0;
+      // this.id_publicidad = 0;
       this.publicidad.edit = false;
       this.imagen = null;
+      this.etapa_id = 0;
+      this.empresa = "";
+      this.documento = "";
+      this.telefono = "";
     }
     this.modalService.open(content);
   }
-  getPublicidad() {
-    this.auth.getPublicidad().subscribe((resp: any) => {
-      console.log(resp);
-      this.publicidades = resp;
-      console.log("publicidad: ", this.publicidades);
-    });
-  }
+  // getPublicidad() {
+  //   this.auth.getPublicidad().subscribe((resp: any) => {
+  //     this.publicidades = resp;
+  //   });
+  // }
 
   async gestionPublicidad() {
     let response: any;
+    let ids = Number(this.id_etapa);
     if (this.publicidad.edit) {
       const body = {
-        prioridad: this.prioridad,
+        etapa_id: Number(this.id_etapa),
         imagen: this.imagen,
+        empresa: this.empresa,
+        documento: this.documento,
+        telefono: this.telefono,
       };
-
+      console.log("body editar publicidad: ", body);
       response = await this.auth.editPublicidad(this.id, body);
     } else {
+      // console.log("tipo id_etapa: ", typeof this.id_etapa);
       const body = {
-        prioridad: this.prioridad,
+        etapa_id: Number(this.id_etapa),
         imagen: this.imagen,
+        empresa: this.empresa,
+        documento: this.documento,
+        telefono: this.telefono,
       };
-
+      console.log("body crear publicidad: ", body);
       response = await this.auth.createPublicidad(body);
     }
     if (response) {
       this.modalService.dismissAll();
-      this.getPublicidad();
+      this.getPublicidadbIdEtapa(ids);
     }
   }
   delete(id: number) {
@@ -144,7 +167,20 @@ export class PublicidadComponent implements OnInit {
   async deletePublicidad(id: number) {
     const response = await this.auth.deletePublicidad(id);
     if (response) {
-      this.getPublicidad();
+      // this.getPublicidad();
     }
+  }
+
+  getPublicidadbIdEtapa(value) {
+    console.log("id_etapa: ", value);
+    this.auth.getPublicidadIdEtapa(value).subscribe((resp: any) => {
+      this.publicidades = resp;
+    });
+  }
+
+  openImage(content, admin) {
+    this.imagenPerfil = admin;
+    // console.log("imagen perfil: ", this.imagenPerfil);
+    this.modalService.open(content);
   }
 }

@@ -33,7 +33,7 @@ export class AuthService {
       .pipe(
         map((resp: any) => {
           this.guardarToken(resp.respuesta);
-          console.log(resp.respuesta.token);
+          // console.log("login: ", resp.respuesta.token);
           return resp;
         })
       );
@@ -89,7 +89,8 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            // console.log("error servicio: ", error.error.respuesta)
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -104,15 +105,20 @@ export class AuthService {
     console.log("editar id usuario servicio: ", id);
     console.log("informacion a editar: ", data);
     return new Promise((resolve) => {
-      this.http.put(`${environment.apiUrl}/master/${id}`, data, {headers}).subscribe((response: any) => {
-        this.showAlert(response.message, 'success', 'Listo');
-        resolve(true);
-        this.loading = false;
-      }, (error: any) => {
-        this.loading = false;
-        this.showAlert(error.error.message, 'error');
-        resolve(false);
-      });
+      this.http
+        .put(`${environment.apiUrl}/master/${id}`, data, { headers })
+        .subscribe(
+          (response: any) => {
+            this.showAlert(response.message, "success", "Listo");
+            resolve(true);
+            this.loading = false;
+          },
+          (error: any) => {
+            this.loading = false;
+            this.showAlert(error.error.respuesta, "error");
+            resolve(false);
+          }
+        );
     });
   }
 
@@ -132,7 +138,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -155,6 +161,18 @@ export class AuthService {
       );
   }
 
+  EtapaById(id) {
+    const headers = new HttpHeaders({
+      token: this.userToken,
+    });
+    return this.http.get(`${environment.apiUrl}/etapa/${id}`, { headers }).pipe(
+      map((resp: any) => {
+        console.log(resp.respuesta);
+        return resp.respuesta;
+      })
+    );
+  }
+
   createUrb(data) {
     this.loading = true;
     const headers = new HttpHeaders({
@@ -171,7 +189,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -188,13 +206,13 @@ export class AuthService {
         .put(`${environment.apiUrl}/urbanizacion/${id}`, data, { headers })
         .subscribe(
           (response: any) => {
-            // this.showAlert(response.message, 'success', 'Listo');
+            this.showAlert(response.message, 'success', 'Listo');
             resolve(true);
             this.loading = false;
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -217,7 +235,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -238,6 +256,21 @@ export class AuthService {
     );
   }
 
+  getEtapaByIdUrbanizacion(id) {
+    console.log("getEtapaId: ", id);
+    const headers = new HttpHeaders({
+      token: this.userToken,
+    });
+    return this.http
+      .get(`${environment.apiUrl}/etapa?id_urbanizacion=${id}`, { headers })
+      .pipe(
+        map((resp: any) => {
+          console.log(resp.respuesta);
+          return resp.respuesta;
+        })
+      );
+  }
+
   createEtapa(data) {
     this.loading = true;
     const headers = new HttpHeaders({
@@ -254,7 +287,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -277,7 +310,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -300,7 +333,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -337,7 +370,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -360,7 +393,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -383,7 +416,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -421,7 +454,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -445,7 +478,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -468,7 +501,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -483,6 +516,19 @@ export class AuthService {
     });
     return this.http
       .get(`${environment.apiUrl}/publicidades`, { headers })
+      .pipe(
+        map((resp: any) => {
+          console.log(resp.respuesta);
+          return resp.respuesta;
+        })
+      );
+  }
+  getPublicidadIdEtapa(id) {
+    const headers = new HttpHeaders({
+      token: this.userToken,
+    });
+    return this.http
+      .get(`${environment.apiUrl}/publicidades?id_etapa=${id}`, { headers })
       .pipe(
         map((resp: any) => {
           console.log(resp.respuesta);
@@ -507,7 +553,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -530,7 +576,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -553,7 +599,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -623,7 +669,7 @@ export class AuthService {
           },
           (error: any) => {
             this.loading = false;
-            this.showAlert(error.error.message, "error");
+            this.showAlert(error.error.respuesta, "error");
             resolve(false);
           }
         );
@@ -692,6 +738,7 @@ export class AuthService {
     tipo: any,
     confirmBtnText: string = "Intentar nuevamente"
   ) {
+    console.log("mensaje error: showalert: ", message);
     Swal.fire({
       title: "P&S",
       text: message,

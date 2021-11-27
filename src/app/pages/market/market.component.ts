@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 })
 export class MarketComponent implements OnInit {
   markets: UsuarioModelo[] = [];
-
+  imagenPerfil: any;
   id_market: 0;
   nombre: "";
   edit: false;
@@ -91,7 +91,7 @@ export class MarketComponent implements OnInit {
         imagen: this.imagen,
       };
       console.log("categoria editar: ", body);
-      // response = await this.auth.editMarket(this.id, body);
+      response = await this.auth.editMarket(this.id, body);
     } else {
       const body = {
         nombre: this.nombre,
@@ -99,7 +99,7 @@ export class MarketComponent implements OnInit {
       };
       console.log("categoria crear: ", body);
 
-      // response = await this.auth.createMarket(body);
+      response = await this.auth.createMarket(body);
     }
     if (response) {
       this.modalService.dismissAll();
@@ -129,4 +129,11 @@ export class MarketComponent implements OnInit {
       this.getMarket();
     }
   }
+
+  openImage(content, admin) {
+    this.imagenPerfil = admin;
+    console.log("imagen perfil: ", this.imagenPerfil);
+    this.modalService.open(content);
+  }
+
 }

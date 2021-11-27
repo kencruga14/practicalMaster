@@ -3,25 +3,27 @@
   <div class="card">
     <div class="card-body">
       <div class="form-group">
-        <label>Seleccione una urbanización</label>
+        <label>Urbanización</label>
         <select
-          name="id_urbanizacion"
           [(ngModel)]="idUrbanizacion"
+          name="idUrbanizacion"
           class="form-control custom-select"
+          id="companydropdown"
+          (change)="getUrbId($event.target.value)"
         >
-          <option *ngFor="let ur of urbanizaciones" [ngValue]="ur.ID">
+          <option *ngFor="let ur of urbanizaciones" value="{{ ur.ID }}">
             {{ ur.nombre }}
           </option>
         </select>
       </div>
+
       <div class="form-group" *ngIf="idUrbanizacion">
-        <label>Seleccione una etapa</label>
+        <label>Etapa</label>
         <select
-          name="id_urbanizacion"
-          [(ngModel)]="idEtapa"
+          [(ngModel)]="id_etapa"
           class="form-control custom-select"
         >
-          <option *ngFor="let ur of etapas" [ngValue]="ur.ID">
+          <option *ngFor="let ur of etapasid" [ngValue]="ur.ID">
             {{ ur.nombre }}
           </option>
         </select>
@@ -30,7 +32,7 @@
   </div>
 </div>
 
-<div *ngIf="idEtapa">
+<div *ngIf="id_etapa">
   <div class="container-fluid">
     <div class="card">
       <div class="card-body">
@@ -48,7 +50,7 @@
               <div class="card" style="width: 250px; height: 250px">
                 <img
                   class="card-img-top centrado"
-                  src="../assets/images/registro.jpg"
+                  src="../assets/images/miregistro.png"
                   alt="Error Horarios"
                 />
               </div>
@@ -59,7 +61,7 @@
               <div class="card" style="width: 250px; height: 250px">
                 <img
                   class="card-img-top centrado"
-                  src="../assets/images/alicuota.jpg"
+                  src="../assets/images/alicuotas.png"
                   alt="Error Horarios"
                 />
               </div>
@@ -70,7 +72,7 @@
               <div class="card" style="width: 250px; height: 250px">
                 <img
                   class="card-img-top centrado"
-                  src="../assets/images/emprendimiento.jpg"
+                  src="../assets/images/emprendimiento.png"
                   alt="Error Horarios"
                 />
               </div>
@@ -83,7 +85,7 @@
               <div class="card" style="width: 250px; height: 250px">
                 <img
                   class="card-img-top centrado"
-                  src="../assets/images/voto.jpg"
+                  src="../assets/images/mivoto.png"
                   alt="Error Horarios"
                 />
               </div>
@@ -94,7 +96,7 @@
               <div class="card" style="width: 250px; height: 250px">
                 <img
                   class="card-img-top centrado"
-                  src="../assets/images/area.jpg"
+                  src="../assets/images/areasocial.png"
                   alt="Error Horarios"
                 />
               </div>
@@ -105,7 +107,7 @@
               <div class="card" style="width: 250px; height: 250px">
                 <img
                   class="card-img-top centrado"
-                  src="../assets/images/camara.jpg"
+                  src="../assets/images/camaras.png"
                   alt="Error Horarios"
                 />
               </div>
@@ -113,12 +115,12 @@
             </div>
           </div>
 
-          <div class="container-fluid linea centrarcontenido">
+          <div class="container-fluid linea">
             <div>
               <div class="card" style="width: 250px; height: 250px">
                 <img
                   class="card-img-top centrado"
-                  src="../assets/images/camara.jpg"
+                  src="../assets/images/directiva.png"
                   alt="Error Horarios"
                 />
               </div>
@@ -129,7 +131,7 @@
               <div class="card" style="width: 250px; height: 250px">
                 <img
                   class="card-img-top centrado"
-                  src="../assets/images/galeria.jpg"
+                  src="../assets/images/galeria.png"
                   alt="Error Horarios"
                 />
               </div>
@@ -140,7 +142,7 @@
               <div class="card" style="width: 250px; height: 250px">
                 <img
                   class="card-img-top centrado"
-                  src="../assets/images/horario.jpg"
+                  src="../assets/images/horarios.png"
                   alt="Error Horarios"
                 />
               </div>

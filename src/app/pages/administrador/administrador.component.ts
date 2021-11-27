@@ -177,8 +177,29 @@ export class AdministradorComponent implements OnInit {
     }
     if (response) {
       this.modalService.dismissAll();
+      this.admin = {
+        correo: "",
+        nombres: "",
+        apellidos: "",
+        cedula: "",
+        edit: false,
+        contrasena: "",
+        usuario: "",
+        telefono: 0,
+        imagen: null,
+        apellido: "",
+      };
+      console.log("admin vacio: ", this.admin);
+      this.imagen = null;
+      this.imagenPerfil = null;
+      this.imagenPerfila = null;
+
       this.getAdmin();
     }
+
+    console.log("admin vacio fuer else: ", this.admin);
+    this.imagen = null;
+    this.imagenPerfil = null;
   }
 
   //Servicio sweatAlert

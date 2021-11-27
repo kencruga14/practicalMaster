@@ -135,7 +135,7 @@ export class EtapaComponent implements OnInit {
       this.nombre_banco = "";
       this.tipo_cuenta = "";
       this.numero_cuenta = "";
-      this.pagos_tarjeta = true;
+      // this.pagos_tarjeta = boolean;
       this.modulo_mi_registro = true;
       this.modulo_alicuota = true;
       this.modulo_emprendimiento = true;
@@ -175,6 +175,7 @@ export class EtapaComponent implements OnInit {
     let response: any;
     if (this.etapa.edit === "0") {
       console.log("entro a etapa edit:");
+      
       const body = {
         id_urbanizacion: this.id_urbanizacion,
         nombre: this.nombre,
@@ -200,7 +201,7 @@ export class EtapaComponent implements OnInit {
       console.log("modificar etapa: ", body);
       response = await this.auth.editEtapa(this.id_etapa, body);
     } else {
-      console.log("entro a crear:");
+
       const body = {
         id_urbanizacion: this.id_urbanizacion,
         nombre: this.nombre,

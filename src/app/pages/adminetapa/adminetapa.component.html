@@ -41,9 +41,9 @@
               <!-- <th class="col-sm-1">Nombres</th> -->
               <th>Nombres</th>
               <th>Apellidos</th>
-              <!-- <th>Usuario</th> -->
+              <th>Usuario</th>
               <th>Cédula</th>
-              <th>Etapa</th>
+              <!-- <th>Etapa</th> -->
               <th>Correo</th>
               <th>Teléfono</th>
               <!-- <th>Teléfono Convencional</th> -->
@@ -76,20 +76,20 @@
                 </figure>
               </td>
               <td>{{ admin.usuario.nombres }}</td>
-              <td>--</td>
-              <!-- <td>{{ admin.usuario.usuario }}</td> -->
+              <td>{{ admin.usuario.apellido }}</td>
+              <td>{{ admin.usuario.usuario }}</td>
               <td>{{ admin.cedula }}</td>
-              <td>SantaMaria de casagrande</td>
+              <!-- <td>{{ admin.etapa }}</td> -->
               <td>{{ admin.usuario.correo }}</td>
-              <td>{{ admin.usuario.celular }}</td>
+              <td>{{ admin.usuario.telefono }}</td>
               <td>
-                <a
+                <!-- <a
                   data-toggle="tooltip"
                   data-original-title="Editar"
                   (click)="openAdminEtapa(contentAdminEtapa, admin)"
                 >
                   <i class="fa fa-pencil text-inverse m-r-10"></i>
-                </a>
+                </a> -->
                 <a
                   data-toggle="tooltip"
                   data-original-title="Eliminar"
@@ -132,11 +132,13 @@
       <div class="form-group">
         <label>Urbanización</label>
         <select
-          name="idUrbanizacion"
           [(ngModel)]="idUrbanizacion"
+          name="idUrbanizacion"
           class="form-control custom-select"
+          id="companydropdown"
+          (change)="getUrbId($event.target.value)"
         >
-          <option *ngFor="let ur of etapas" [ngValue]="ur.ID">
+          <option *ngFor="let ur of urbs" value="{{ ur.ID }}">
             {{ ur.nombre }}
           </option>
         </select>
@@ -148,13 +150,33 @@
           name="id_etapa"
           [(ngModel)]="id_etapa"
           class="form-control custom-select"
+          
         >
-          <option *ngFor="let ur of urbs" [ngValue]="ur.ID">
+          <option *ngFor="let ur of etapasid" [ngValue]="ur.ID">
             {{ ur.nombre }}
           </option>
         </select>
       </div>
+
+      <!-- <div class="form-group" *ngIf="idUrbanizacion">
+        <label>Etapa</label>
+        <select
+          name="id_etapa"
+          [(ngModel)]="id_etapa"
+          id="companydropdown"
+          class="form-control custom-select"
+          (change)="getUrbEspecf($event.target.value)"
+        >
+          <option *ngFor="let urb of etapasid" value ="{{ urb.ID}}">
+            {{ urb.nombre }}
+          </option>
+        </select>
+      </div> -->
+
     </div>
+
+    <!-- <div class="modal-body"> -->
+
     <div class="modal-body" *ngIf="id_etapa">
       <div class="form-group">
         <div class="image-preview mb-3" *ngIf="imagenPerfila">
@@ -184,8 +206,8 @@
       </div>
       <div class="form-group">
         <input
-          [value]="apellidos"
-          [(ngModel)]="apellidos"
+          [value]="apellido"
+          [(ngModel)]="apellido"
           name="apellidos"
           class="form-control"
           type="text"
@@ -215,7 +237,7 @@
           placeholder="cédula"
         />
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <input
           [value]="correo"
           [(ngModel)]="correo"
@@ -225,12 +247,27 @@
           required
           placeholder="Correo"
         />
+      </div> -->
+
+      <div class="form-group">
+        <label>Correo</label>
+        <select
+          name="correo"
+          [(ngModel)]="correo"
+          class="form-control custom-select"
+        >
+          <option 
+          *ngFor="let ur of etapasid" [ngValue]="ur.correo">
+            {{ ur.correo }}
+          </option>
+        </select>
       </div>
+
       <div class="form-group">
         <input
-          [value]="celular"
-          [(ngModel)]="celular"
-          name="celular"
+          [value]="telefono"
+          [(ngModel)]="telefono"
+          name="telefono"
           class="form-control"
           type="text"
           required
@@ -248,7 +285,7 @@
         <span *ngIf="!admin.edit">Guardar</span>
         <span *ngIf="admin.edit">Editar</span>
       </button>
-      <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i>
+      <!-- <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i> -->
     </div>
   </form>
 </ng-template>

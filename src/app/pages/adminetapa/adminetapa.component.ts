@@ -15,13 +15,16 @@ export class AdminetapaComponent implements OnInit {
   searchableList: any;
   searchText: string = "";
   users: any;
-  apellidos: "";
+  id_seleccionado: any;
+  nombre_etapa: any;
+  etapasid: any;
   urbs: UsuarioModelo[] = [];
   idUrbanizacion: any;
   etapas: UsuarioModelo[] = [];
   admins: UsuarioModelo[] = [];
   id_adminetapa: 0;
   id_etapa: 0;
+  id_urbanizacionseleccionada: any;
   correo: "";
   nombres: "";
   edit: false;
@@ -31,6 +34,7 @@ export class AdminetapaComponent implements OnInit {
   celular: "";
   cedula: "";
   accesos: "";
+  apellido: any;
   imagenPerfila: any;
   imagenPerfil: any;
   nombre_banco: any;
@@ -39,6 +43,7 @@ export class AdminetapaComponent implements OnInit {
   numero_cuenta: any;
   modulo_alicuota: any;
   imagen = null;
+  id_etapaEspecif: any;
   id: 0;
   changeFoto = false;
   modulo_camaras: any;
@@ -53,7 +58,6 @@ export class AdminetapaComponent implements OnInit {
   // modulo_directiva: any;
   // modulo_galeria: any;
   // modulo_horarios: any;
-
 
   filterName = "";
   admin = {
@@ -83,8 +87,8 @@ export class AdminetapaComponent implements OnInit {
 
   ngOnInit() {
     this.getAdminEtapa();
-    this.getEtapa();
-    this.getUrb();
+    // this.getEtapa();
+    this.getUrbanizaciones();
   }
 
   openAcceso(content, acceso) {
@@ -121,19 +125,19 @@ export class AdminetapaComponent implements OnInit {
       this.cedula = admin.cedula;
       this.id_etapa = admin.id_etapa;
       this.imagen = null;
-      this.imagenPerfila = admin.usuario.imagen
+      this.imagenPerfila = admin.usuario.imagen;
     } else {
       this.id_adminetapa = 0;
       this.id_etapa = 0;
       this.cedula = "";
-      this.celular = "";
-      this.correo = "";
       this.nombres = "";
-      this.contrasena = "";
-      this.admin.edit = false;
-      this.telefono = "";
+      this.apellido = "";
       this.usuario = "";
+      this.correo = "";
+      this.telefono = "";
       this.imagen = null;
+
+      // this.admin.edit = false;
     }
     this.modalService.open(content);
   }
@@ -145,75 +149,55 @@ export class AdminetapaComponent implements OnInit {
     });
   }
 
-  getEtapa() {
-    this.auth.getEtapa().subscribe((resp: any) => {
-      console.log(resp);
-      this.etapas = resp;
-    });
-  }
+  // getEtapa() {
+  //   this.auth.getEtapa().subscribe((resp: any) => {
+  //     console.log(resp);
+  //     this.etapas = resp;
+  //   });
+  // }
 
   openImage(content, admin) {
-    console.log("content: ", content);
-    console.log("admin: ", admin);
+    // console.log("content: ", content);
+    // console.log("admin: ", admin);
     this.imagenPerfil = admin;
-    console.log("imagen perfil: ", this.imagenPerfil);
+    // console.log("imagen perfil: ", this.imagenPerfil);
     this.modalService.open(content);
   }
-  
+
   async gestionAdminEtapa() {
     let response: any;
     if (this.admin.edit) {
       const body = {
+        cedula: this.cedula,
+        id_etapa: this.id_etapa,
+        usuario: {
+          nombres: this.nombres,
+          apellido: this.apellido,
+          usuario: this.usuario,
+          correo: this.correo,
+          telefono: this.telefono,
+          imagen: this.imagen,
+        },
+      };
+      JSON.stringify(body);
+      console.log("cuerpo a editar: ", body);
+      response = await this.auth.editAdminEtapa(this.id, body);
+    } else {
+      const body = {
+        // etapa: this.nombre_etapa,
         id_etapa: this.id_etapa,
         cedula: this.cedula,
         usuario: {
           nombres: this.nombres,
-          imagen: this.imagen,
-          celular: this.celular,
+          apellido: this.apellido,
+          usuario: this.usuario,
           correo: this.correo,
           telefono: this.telefono,
-          usuario: this.usuario,
-          contrasena: this.contrasena,
+          imagen: this.imagen,
         },
       };
       JSON.stringify(body);
-      console.log("cuerpo a editar: ", body)
-      response = await this.auth.editAdminEtapa(this.id, body);
-    } else {
-      const body = {
-        id_etapa: this.id_etapa,
-        cedula: this.cedula,
-        usuario: {
-          imagen: this.imagen,
-          nombre: this.nombres,
-          correo: this.correo,
-          usuario: this.usuario,
-          telefono: this.telefono,
-          nombre_banco: this.nombre_banco,
-          tipo_cuenta: this.tipo_cuenta,
-          numero_cuenta: this.numero_cuenta,
-          pagos_tarjeta: this.pagos_tarjeta,
-          modulo_mi_registro: this.modulo_mi_registro,
-          modulo_alicuota: this.modulo_alicuota,
-          modulo_emprendimiento: this.modulo_emprendimiento
-          // modulo_votacion:
-          // modulo_area_social:
-          // modulo_camaras:
-          // modulo_directiva:
-          // modulo_galeria:
-          // modulo_horarios:
-
-    //       formulario_entrada
-    // formulario_salida
-
-
-
-    //                 modulo_area_social
-
-                },
-      };
-      JSON.stringify(body);
-      console.log(body);
+      console.log("crear administrador etapa: ", body);
       response = await this.auth.createAdminEtapa(body);
     }
     if (response) {
@@ -221,7 +205,35 @@ export class AdminetapaComponent implements OnInit {
       this.getAdminEtapa();
     }
   }
-  getUrb() {
+
+  getUrbId(id) {
+    console.log("id: ", id);
+    // console.log("id_etapa ", this.id_etapa);
+    this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
+      this.etapasid = resp;
+      console.log("etapas por id: ", this.etapasid);
+    });
+  }
+
+  getUrbEspecf(value) {
+    this.id_etapa = value;
+    // this.id_etapaEspecif = value;
+    // console.log("nombre: ", value);
+    // console.log("id_seleccionado: ", this.id_seleccionado)
+    this.getNombreEtapa(value);
+  }
+  // this.auth.getEtapa().subscribe((resp: any) => {
+  //   this.etapas = resp;
+  //   console.log("urbanizaciones por id: ", this.etapas);
+  // });
+  getNombreEtapa(id) {
+    this.auth.EtapaById(id).subscribe((resp: any) => {
+      this.nombre_etapa = resp.nombre;
+      console.log("this.nombre_etapa: ", this.nombre_etapa);
+    });
+  }
+
+  getUrbanizaciones() {
     this.auth.getUrb().subscribe((resp: any) => {
       console.log(resp);
       this.urbs = resp;
@@ -247,7 +259,7 @@ export class AdminetapaComponent implements OnInit {
   }
 
   async deleteAdminEtapa(id: number) {
-    const response = await this.auth.deleteAdmin(id);
+    const response = await this.auth.deleteAdminEtapa(id);
     if (response) {
       this.getAdminEtapa();
     }

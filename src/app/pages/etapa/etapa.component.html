@@ -38,7 +38,6 @@
               <th>No.</th>
               <th>Etapa</th>
               <th>Correo</th>
-              <th>Usuario</th>
               <th>Télefono</th>
               <th>Banco</th>
               <th>Tipo de cuenta</th>
@@ -50,12 +49,9 @@
           </thead>
           <tbody style="text-align: center">
             <tr *ngFor="let et of etapas | filter: filterName; let i = index">
-              <!-- <th scope="row ">{{ i + 1 }}</th> -->
-              <th scope="row ">{{et.ID}}</th>
-
+              <th scope="row ">{{ i + 1 }}</th>
               <td>{{ et.nombre }}</td>
               <td>{{ et.correo }}</td>
-              <td>---</td>
               <td>{{ et.telefono }}</td>
               <td>{{ et.nombre_banco }}</td>
               <td>{{ et.tipo_cuenta }}</td>
@@ -146,7 +142,7 @@
               placeholder="Correo"
             />
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <input
               [value]="usuario"
               [(ngModel)]="usuario"
@@ -156,8 +152,7 @@
               required
               placeholder="Usuario"
             />
-          </div>
-
+          </div> -->
           <div class="form-group">
             <input
               [value]="telefono"
@@ -180,7 +175,7 @@
               placeholder="Banco"
             />
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <input
               [value]="tipo_cuenta"
               [(ngModel)]="tipo_cuenta"
@@ -190,7 +185,20 @@
               required
               placeholder="Tipo cuenta"
             />
+          </div> -->
+
+          <div class="form-group">
+            <label>Tipo de Cuenta</label>
+            <select
+              name="tipo_cuenta"
+              [(ngModel)]="tipo_cuenta"
+              class="form-control custom-select"
+            >
+              <option value="Ahorro">Ahorro</option>
+              <option value="Corriente">Corriente</option>
+            </select>
           </div>
+
           <div class="form-group">
             <input
               [value]="numero_cuenta"
@@ -225,7 +233,7 @@
           <span *ngIf="!etapa.edit">Guardar</span>
           <span *ngIf="etapa.edit">Editar</span>
         </button>
-        <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i>
+        <!-- <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i> -->
       </div>
     </form>
   </ng-template>
