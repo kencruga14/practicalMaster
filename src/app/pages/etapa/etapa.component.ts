@@ -87,7 +87,7 @@ export class EtapaComponent implements OnInit {
   getUrb() {
     this.auth.getUrb().subscribe((resp: any) => {
       this.urbanizaciones = resp;
-      console.log("urbanizaciones: ", this.urbanizaciones);
+      // console.log("urbanizaciones: ", this.urbanizaciones);
     });
   }
 
@@ -102,7 +102,7 @@ export class EtapaComponent implements OnInit {
 
   openEtapa(content, etapa = null) {
     if (etapa) {
-      console.log("etapa admin: ", etapa);
+      // console.log("etapa admin: ", etapa);
       this.etapa.edit = "0";
       this.id_urbanizacion = etapa.id_urbanizacion;
       this.id_etapa = etapa.ID;
@@ -153,9 +153,9 @@ export class EtapaComponent implements OnInit {
 
   getEtapa() {
     this.auth.getEtapa().subscribe((resp: any) => {
-      console.log(resp);
+      // console.log(resp);
       this.etapas = resp;
-      console.log("etapas: ", this.etapas);
+      // console.log("etapas: ", this.etapas);
     });
   }
 
@@ -174,7 +174,7 @@ export class EtapaComponent implements OnInit {
   async gestionEtapa() {
     let response: any;
     if (this.etapa.edit === "0") {
-      console.log("entro a etapa edit:");
+      // console.log("entro a etapa edit:");
       
       const body = {
         id_urbanizacion: this.id_urbanizacion,

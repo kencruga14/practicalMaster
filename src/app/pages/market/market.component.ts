@@ -78,7 +78,7 @@ export class MarketComponent implements OnInit {
   }
   getMarket() {
     this.auth.getMarket().subscribe((resp: any) => {
-      console.log(resp);
+      // console.log(resp);
       this.markets = resp;
     });
   }
@@ -132,7 +132,7 @@ export class MarketComponent implements OnInit {
 
   openImage(content, admin) {
     this.imagenPerfil = admin;
-    console.log("imagen perfil: ", this.imagenPerfil);
+    // console.log("imagen perfil: ", this.imagenPerfil);
     this.modalService.open(content);
   }
 

@@ -51,13 +51,13 @@ export class ModulosComponent implements OnInit {
   }
   getUrb() {
     this.auth.getUrb().subscribe((resp: any) => {
-      console.log(resp);
+      // console.log(resp);
       this.urbanizaciones = resp;
     });
   }
 
   getUrbId(id) {
-    console.log("id: ", id);
+    // console.log("id: ", id);
     // console.log("id_etapa ", this.id_etapa);
     this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
       this.etapasid = resp;
@@ -67,9 +67,9 @@ export class ModulosComponent implements OnInit {
 
   getEtapa() {
     this.auth.getEtapa().subscribe((resp: any) => {
-      console.log(resp);
+      // console.log(resp);
       this.etapas = resp;
-      console.log("etapas");
+      // console.log("etapas");
     });
   }
 
@@ -116,9 +116,9 @@ export class ModulosComponent implements OnInit {
   }
   getPublicidad() {
     this.auth.getPublicidad().subscribe((resp: any) => {
-      console.log(resp);
+      // console.log(resp);
       this.publicidades = resp;
-      console.log("publicidad: ", this.publicidades);
+      // console.log("publicidad: ", this.publicidades);
     });
   }
 

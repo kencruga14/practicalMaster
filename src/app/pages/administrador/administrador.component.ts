@@ -27,6 +27,7 @@ export class AdministradorComponent implements OnInit {
   imagenPerfila: any;
   id: any;
   imagen = null;
+  imagenEdit = null;
   changeFoto = false;
   imagenPerfil: any;
   searchText = "";
@@ -58,13 +59,25 @@ export class AdministradorComponent implements OnInit {
 
   ngOnInit() {
     this.getAdmin();
-    console.log("admin: ", this.admin);
-    // console.log("telefono: ", this.admin.usuario.telefono);
-    // console.log("cedula: ", this.admin.usuario.cedula);
+  }
+
+  saveEditPicture(event: any) {
+    // console.log("entró preview:");
+    const fileData = event.target.files[0];
+    const mimeType = fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL(fileData);
+    reader.onload = (response) => {
+      this.imagenEdit = reader.result;
+    };
+    this.changeFoto = true;
   }
 
   preview(event: any) {
-    console.log("entró preview:");
+    // console.log("entró preview:");
     const fileData = event.target.files[0];
     const mimeType = fileData.type;
     if (mimeType.match(/image\/*/) == null) {
@@ -75,7 +88,7 @@ export class AdministradorComponent implements OnInit {
     reader.onload = (response) => {
       this.imagen = reader.result;
     };
-    console.log("imagen: ", this.imagen);
+    // console.log("imagen: ", this.imagen);
     this.changeFoto = true;
   }
   //Abre modales
@@ -89,7 +102,8 @@ export class AdministradorComponent implements OnInit {
   }
 
   //setea valores al modelo
-  openAdmin(content, admin = null) {
+  openAdmin(content, admin) {
+    console.log("edit valor: ", admin);
     if (admin) {
       // this.id_usuario = admin.id_usuario;
       this.id = admin.ID;
@@ -99,18 +113,13 @@ export class AdministradorComponent implements OnInit {
       this.telefono = admin.usuario.telefono;
       this.cedula = admin.usuario.cedula;
       this.correo = admin.usuario.correo;
-      this.imagenPerfila = admin.usuario.imagen;
-      this.imagen = this.imagen;
+      this.imagenEdit = admin.usuario.imagen;
       this.admin.edit = true;
-      // this.contrasena = admin.usuario.contrasena;
-      // console.log("admin: ", admin);
-      // console.log("imagen perfila: ", this.imagenPerfila);
+
       console.log("admin editar cuerpo:", admin);
     } else {
       //Inicializa variables
-
       this.nombres = "";
-      // this.id_usuario = 0;
       this.apellido = "";
       this.usuario = "";
       this.telefono = "";
@@ -125,13 +134,7 @@ export class AdministradorComponent implements OnInit {
   //Servicio que trae la información de los usuarios
   getAdmin() {
     this.auth.getAdmin().subscribe((resp: any) => {
-      // console.log(resp);
       this.admins = resp;
-      this.prueba = resp;
-      // this.prueba = resp;
-      console.log("autorizados: ", this.admins);
-      console.log("autorizados prueba: ", this.prueba);
-      // console.log("pruebas: ", this.admins);
     });
   }
 
@@ -149,15 +152,14 @@ export class AdministradorComponent implements OnInit {
           usuario: this.usuario,
           contrasena: this.contrasena,
           cedula: this.cedula,
-          imagen: this.imagen,
+          imagen: this.imagenEdit,
         },
       };
       console.log("body edit:", body);
-      console.log("id del Usuario a editar: ", this.id);
+      // console.log("id del Usuario a editar: ", this.id);
       JSON.stringify(body);
       response = await this.auth.editAdmin(this.id, body);
     } else {
-      // let fono = Number(this.telefono);
       const body = {
         usuario: {
           nombres: this.nombres,
@@ -166,12 +168,10 @@ export class AdministradorComponent implements OnInit {
           telefono: this.telefono,
           usuario: this.usuario,
           cedula: this.cedula,
-          // contrasena: this.contrasena,
           imagen: this.imagen,
         },
       };
       JSON.stringify(body);
-      // console.log(typeof(fono));
       console.log("usuario crear: ", body);
       response = await this.auth.createAdmin(body);
     }
@@ -189,17 +189,16 @@ export class AdministradorComponent implements OnInit {
         imagen: null,
         apellido: "",
       };
-      console.log("admin vacio: ", this.admin);
       this.imagen = null;
       this.imagenPerfil = null;
       this.imagenPerfila = null;
-
+      this.imagenEdit = null;
       this.getAdmin();
     }
-
-    console.log("admin vacio fuer else: ", this.admin);
     this.imagen = null;
     this.imagenPerfil = null;
+    this.imagenPerfila = null;
+    this.imagenEdit = null;
   }
 
   //Servicio sweatAlert

@@ -57,7 +57,7 @@ export class PublicidadComponent implements OnInit {
   }
   getUrb() {
     this.auth.getUrb().subscribe((resp: any) => {
-      console.log(resp);
+      // console.log(resp);
       this.urbanizaciones = resp;
     });
   }
@@ -75,7 +75,7 @@ export class PublicidadComponent implements OnInit {
     this.modalService.open(content);
   }
   preview(event: any) {
-    console.log("entró preview:");
+    // console.log("entró preview:");
     const fileData = event.target.files[0];
     const mimeType = fileData.type;
     if (mimeType.match(/image\/*/) == null) {
@@ -172,7 +172,7 @@ export class PublicidadComponent implements OnInit {
   }
 
   getPublicidadbIdEtapa(value) {
-    console.log("id_etapa: ", value);
+    // console.log("id_etapa: ", value);
     this.auth.getPublicidadIdEtapa(value).subscribe((resp: any) => {
       this.publicidades = resp;
     });

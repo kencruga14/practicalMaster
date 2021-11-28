@@ -31,6 +31,7 @@ import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-
 import { TransaccionComponent } from './pages/transaccion/transaccion.component';
 import { ListaetapaComponent } from './pages/listaetapa/listaetapa.component';
 import { ModulosComponent } from './pages/modulos/modulos.component';
+import { CambiarcontrasenaComponent } from './pages/cambiarcontrasena/cambiarcontrasena.component';
 
 
 
@@ -56,7 +57,8 @@ import { ModulosComponent } from './pages/modulos/modulos.component';
     ListabitacoraComponent,
     TransaccionComponent,
     ListaetapaComponent,
-    ModulosComponent
+    ModulosComponent,
+    CambiarcontrasenaComponent,
   ],
   imports: [
     BrowserModule,

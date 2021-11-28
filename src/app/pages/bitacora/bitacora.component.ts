@@ -55,7 +55,7 @@ export class BitacoraComponent implements OnInit {
     getEtapa() {
       this.auth.getEtapa()
       .subscribe( (resp: any) => {
-        console.log(resp);
+        // console.log(resp);
         this.etapas = resp;
       });
     }

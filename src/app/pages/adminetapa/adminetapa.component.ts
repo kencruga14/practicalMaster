@@ -143,9 +143,9 @@ export class AdminetapaComponent implements OnInit {
   }
   getAdminEtapa() {
     this.auth.getAdminEtapa().subscribe((resp: any) => {
-      console.log(resp);
+      // console.log(resp);
       this.admins = resp;
-      console.log("admin etapas: ", this.admins);
+      // console.log("admin etapas: ", this.admins);
     });
   }
 
@@ -229,15 +229,15 @@ export class AdminetapaComponent implements OnInit {
   getNombreEtapa(id) {
     this.auth.EtapaById(id).subscribe((resp: any) => {
       this.nombre_etapa = resp.nombre;
-      console.log("this.nombre_etapa: ", this.nombre_etapa);
+      // console.log("this.nombre_etapa: ", this.nombre_etapa);
     });
   }
 
   getUrbanizaciones() {
     this.auth.getUrb().subscribe((resp: any) => {
-      console.log(resp);
+      // console.log(resp);
       this.urbs = resp;
-      console.log("urbanizaciones: ", this.urbs);
+      // console.log("urbanizaciones: ", this.urbs);
     });
   }
 

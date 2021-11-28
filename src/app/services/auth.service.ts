@@ -6,6 +6,7 @@ import { environment } from "./../../environments/environment";
 import { UsuarioModelo } from "../models/usuario.model";
 import { AngularWaitBarrier } from "blocking-proxy/built/lib/angular_wait_barrier";
 import * as moment from "moment";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root",
@@ -17,7 +18,7 @@ export class AuthService {
   userToken: string;
   info: any;
   infoGuard: any;
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.leerToken();
     moment.locale("es");
   }
@@ -36,6 +37,41 @@ export class AuthService {
           // console.log("login: ", resp.respuesta.token);
           return resp;
         })
+      );
+  }
+
+  solicitudPassword(body) {
+    return this.http
+      .post(`https://api.practical.com.ec/auth/recover/admin-master`, body)
+      .pipe(
+        map(
+          (resp: any) => {
+            // console.log("usuario si existe: ");
+          },
+          (error: any) => {
+            // console.log("error: ", error.error.respuesta);
+            // Swal.fire(error.error.respuesta);
+          }
+        )
+      );
+  }
+
+  modificarContraseña(body) {
+    return this.http
+      .post(
+        `https://api.practical.com.ec/auth/recover/admin-master/cambio`,
+        body
+      )
+      .pipe(
+        map(
+          (resp: any) => {
+            // console.log("usuario si existe: ");
+          },
+          (error: any) => {
+            // console.log("error: ", error.error.respuesta);
+            // Swal.fire(error.error.respuesta);
+          }
+        )
       );
   }
 
@@ -71,6 +107,20 @@ export class AuthService {
         return resp.respuesta;
       })
     );
+  }
+
+  getAdminUser(user) {
+    const headers = new HttpHeaders({
+      token: this.userToken,
+    });
+    return this.http
+      .get(`${environment.apiUrl}/master/${user}`, { headers })
+      .pipe(
+        map((resp: any) => {
+          // console.log(resp.respuesta);
+          return resp.respuesta;
+        })
+      );
   }
 
   createAdmin(data) {
@@ -206,7 +256,7 @@ export class AuthService {
         .put(`${environment.apiUrl}/urbanizacion/${id}`, data, { headers })
         .subscribe(
           (response: any) => {
-            this.showAlert(response.message, 'success', 'Listo');
+            this.showAlert(response.message, "success", "Listo");
             resolve(true);
             this.loading = false;
           },

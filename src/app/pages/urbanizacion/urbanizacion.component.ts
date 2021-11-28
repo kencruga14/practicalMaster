@@ -95,9 +95,9 @@ export class UrbanizacionComponent implements OnInit {
   }
   getUrb() {
     this.auth.getUrb().subscribe((resp: any) => {
-      console.log(resp);
+      // console.log(resp);
       this.urbs = resp;
-      console.log("urbanizaciones: ", this.urbs);
+      // console.log("urbanizaciones: ", this.urbs);
     });
   }
 
