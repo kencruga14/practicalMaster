@@ -42,6 +42,7 @@ export class EtapaComponent implements OnInit {
 
   filterName = "";
   etapa = {
+    
     id_etapa: 0,
     edit: "",
 
@@ -82,7 +83,6 @@ export class EtapaComponent implements OnInit {
     this.getEtapa();
     this.getUrb();
     const id = Number(this.activatedRoute.snapshot.paramMap.get("ID"));
-    // this.getLastIdEtapa();
   }
   getUrb() {
     this.auth.getUrb().subscribe((resp: any) => {
@@ -108,7 +108,6 @@ export class EtapaComponent implements OnInit {
       this.id_etapa = etapa.ID;
       this.nombre = etapa.nombre;
       this.correo = etapa.correo;
-      // this.usuario = etapa.usuario;
       this.telefono = etapa.telefono;
       this.nombre_banco = etapa.nombre_banco;
       this.tipo_cuenta = etapa.tipo_cuenta;
@@ -130,7 +129,6 @@ export class EtapaComponent implements OnInit {
       this.id_etapa = 0;
       this.nombre = "";
       this.correo = "";
-      // this.usuario = "";
       this.telefono = "";
       this.nombre_banco = "";
       this.tipo_cuenta = "";
@@ -153,23 +151,10 @@ export class EtapaComponent implements OnInit {
 
   getEtapa() {
     this.auth.getEtapa().subscribe((resp: any) => {
-      // console.log(resp);
       this.etapas = resp;
       // console.log("etapas: ", this.etapas);
     });
   }
-
-  // getLastIdEtapa() {
-  //   var output = [];
-  //   var vals = [];
-  //   for (var item of this.base) {
-  //     vals.push(item.ID);
-  //   }
-  //   console.log("valor: ", vals);
-  //   // return output;
-  // }
-  // return suma;
-  // }
 
   async gestionEtapa() {
     let response: any;
@@ -226,39 +211,13 @@ export class EtapaComponent implements OnInit {
       };
       console.log("crear etapa: ", body);
       response = await this.auth.createEtapa(body);
-
-      // let lastId = this.getLastIdEtapa();
-      // console.log("last Id: ", lastId);
-      // let datosUsuarios = {
-      //   id_etapa: lastId,
-      //   cedula: null,
-      //   usuario: {
-      //     nombres: this.nombre,
-      //     usuario: this.usuario,
-      //     correo: this.correo,
-      //     telefono: this.telefono,
-      //   },
-      // };
-
-      // this.createUser(datosUsuarios);
     }
     if (response) {
-      // let usuario = {
-      //   nombre: this.nombre,
-      //   usuario: this.usuario,
-      //   correo: this.correo,
-      //   telefono: this.telefono,
-      // };
-
-      // this.createUser(usuario);
       this.modalService.dismissAll();
       this.getEtapa();
     }
   }
 
-  createUser(objeto: any) {
-    // console.log("Datos del usuario a crear: ", objeto);
-  }
 
   delete(id: number) {
     Swal.fire({

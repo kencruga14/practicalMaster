@@ -18,7 +18,7 @@ export class MarketComponent implements OnInit {
   imagen = null;
   id: 0;
   changeFoto = false;
-
+  imagenEdit = null;
   filterName = "";
   market = {
     id_market: 0,
@@ -56,7 +56,22 @@ export class MarketComponent implements OnInit {
     reader.readAsDataURL(fileData);
     reader.onload = (response) => {
       this.imagen = reader.result;
-      console.log(reader.result);
+      console.log("imagen funcion: ", reader.result);
+    };
+    this.changeFoto = true;
+  }
+
+  saveEditPicture(event: any) {
+    // console.log("entró preview:");
+    const fileData = event.target.files[0];
+    const mimeType = fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL(fileData);
+    reader.onload = (response) => {
+      this.imagenEdit = reader.result;
     };
     this.changeFoto = true;
   }
@@ -67,12 +82,13 @@ export class MarketComponent implements OnInit {
       this.id = market.ID;
       this.nombre = market.nombre;
       this.market.edit = true;
-      this.imagen = null;
+      this.imagenEdit = market.imagen;
     } else {
       this.id_market = 0;
       this.nombre = "";
       this.market.edit = false;
-      this.imagen = null;
+      this.imagen = this.imagen;
+      this.imagenEdit = null;
     }
     this.modalService.open(content);
   }
@@ -88,7 +104,7 @@ export class MarketComponent implements OnInit {
     if (this.market.edit) {
       const body = {
         nombre: this.nombre,
-        imagen: this.imagen,
+        imagen: this.imagenEdit,
       };
       console.log("categoria editar: ", body);
       response = await this.auth.editMarket(this.id, body);
@@ -104,8 +120,15 @@ export class MarketComponent implements OnInit {
     if (response) {
       this.modalService.dismissAll();
       this.getMarket();
+      this.imagen = null;
+      this.imagenEdit = null;
+      this.imagenPerfil = null;
     }
+    this.imagen = null;
+    this.imagenEdit = null;
+    this.imagenPerfil = null;
   }
+
   delete(id: number) {
     Swal.fire({
       title: "¿Seguro que desea eliminar este registro?",
@@ -135,5 +158,4 @@ export class MarketComponent implements OnInit {
     // console.log("imagen perfil: ", this.imagenPerfil);
     this.modalService.open(content);
   }
-
 }

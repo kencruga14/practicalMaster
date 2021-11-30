@@ -33,7 +33,6 @@ export class CambiarcontrasenaComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log("usuario: ", this.usuario);
   }
 
   login(form: NgForm) {

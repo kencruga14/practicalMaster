@@ -1,7 +1,4 @@
-<aside
-  class="left-sidebar"
-  style="background-image: url(./assets/images/Barra-de-menu-naranja.png)"
->
+<aside class="left-sidebar" style="background-image: url(./assets/images/Barra-de-menu-naranja.png)">
   <!-- Sidebar scroll-->
   <div class="scroll-sidebar">
     <!-- User profile -->
@@ -12,27 +9,19 @@
       <div class="profile-text">
         <div class="dropdown-menu animated flipInY">
           <!-- text-->
-          <a href="#" class="dropdown-item"
-            ><i class="ti-user"></i> My Profile</a
-          >
+          <a href="#" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
           <!-- text-->
-          <a href="#" class="dropdown-item"
-            ><i class="ti-wallet"></i> My Balance</a
-          >
+          <a href="#" class="dropdown-item"><i class="ti-wallet"></i> My Balance</a>
           <!-- text-->
           <a href="#" class="dropdown-item"><i class="ti-email"></i> Inbox</a>
           <!-- text-->
           <div class="dropdown-divider"></div>
           <!-- text-->
-          <a href="#" class="dropdown-item"
-            ><i class="ti-settings"></i> Account Setting</a
-          >
+          <a href="#" class="dropdown-item"><i class="ti-settings"></i> Account Setting</a>
           <!-- text-->
           <div class="dropdown-divider"></div>
           <!-- text-->
-          <a href="login.html" class="dropdown-item"
-            ><i class="fa fa-power-off"></i> Logout</a
-          >
+          <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
           <!-- text-->
         </div>
       </div>
@@ -46,122 +35,58 @@
         <li class="nav-small-cap">Principal</li>
 
         <li>
-          <a
-            class="waves-effect waves-dark"
-            [routerLink]="['administrador']"
-            routerLinkActive="active"
-            aria-expanded="false"
-            ><i class="fas fa-user-shield"></i
-            ><span class="hide-menu">Autorizados</span></a
-          >
+          <a class="waves-effect waves-dark" [routerLink]="['administrador']" routerLinkActive="active"
+            aria-expanded="false"><i class="fas fa-user-shield"></i><span class="hide-menu">Autorizados</span></a>
         </li>
         <li>
-          <a
-            class="waves-effect waves-dark"
-            [routerLink]="['urbanizacion']"
-            routerLinkActive="active"
-            aria-expanded="false"
-            ><i class="fas fa-place-of-worship"></i
-            ><span class="hide-menu">Urbanizaciones</span></a
-          >
+          <a class="waves-effect waves-dark" [routerLink]="['urbanizacion']" routerLinkActive="active"
+            aria-expanded="false"><i class="fas fa-place-of-worship"></i><span
+              class="hide-menu">Urbanizaciones</span></a>
         </li>
         <li>
-          <a
-            class="waves-effect waves-dark"
-            [routerLink]="['etapa']"
-            routerLinkActive="active"
-            aria-expanded="false"
-            ><i class="fas fa-home"></i><span class="hide-menu">Etapas</span></a
-          >
+          <a class="waves-effect waves-dark" [routerLink]="['etapa']" routerLinkActive="active" aria-expanded="false"><i
+              class="fas fa-home"></i><span class="hide-menu">Etapas</span></a>
         </li>
 
         <li>
-          <a
-            class="waves-effect waves-dark"
-            [routerLink]="['modulos']"
-            routerLinkActive="active"
-            aria-expanded="false"
-          >
+          <a class="waves-effect waves-dark" [routerLink]="['adminetapa']" routerLinkActive="active"
+            aria-expanded="false"><i class="fas fa-street-view"></i><span class="hide-menu">Administradores</span></a>
+        </li>
+
+        <li>
+          <a class="waves-effect waves-dark" [routerLink]="['modulos']" routerLinkActive="active" aria-expanded="false">
             <i class="fas fa-chart-line"></i>
-            <span class="hide-menu">Módulos</span></a
-          >
+            <span class="hide-menu">Módulos</span></a>
+        </li>
+        <li>
+          <a class="waves-effect waves-dark" [routerLink]="['market']" routerLinkActive="active"
+            aria-expanded="false"><i class="fas fa-store"></i><span class="hide-menu">Categorías</span></a>
         </li>
 
         <li>
-          <a
-            class="waves-effect waves-dark"
-            [routerLink]="['adminetapa']"
-            routerLinkActive="active"
-            aria-expanded="false"
-            ><i class="fas fa-street-view"></i
-            ><span class="hide-menu">Administradores</span></a
-          >
-        </li>
-        <!-- <li>
-          <a
-            class="waves-effect waves-dark"
-            [routerLink]="['adminetapa']"
-            routerLinkActive="active"
-            aria-expanded="false"
-            ><i class="fa fa-users"></i
-            ><span class="hide-menu">Directivos</span></a
-          >
-        </li> -->
-        <li>
-          <a
-            class="waves-effect waves-dark"
-            [routerLink]="['market']"
-            routerLinkActive="active"
-            aria-expanded="false"
-            ><i class="fas fa-store"></i
-            ><span class="hide-menu">Categorías</span></a
-          >
-        </li>
-
-        <li>
-          <a
-            class="waves-effect waves-dark"
-            [routerLink]="['publicidad']"
-            routerLinkActive="active"
-            aria-expanded="false"
-          >
+          <a class="waves-effect waves-dark" [routerLink]="['publicidad']" routerLinkActive="active"
+            aria-expanded="false">
             <i class="fas fa-funnel-dollar"></i>
-            <span class="hide-menu">Publicidad</span></a
-          >
+            <span class="hide-menu">Publicidad</span></a>
         </li>
 
         <li>
-          <a
-            class="waves-effect waves-dark"
-            [routerLink]="['transaccion']"
-            routerLinkActive="active"
-            aria-expanded="false"
-          >
+          <a class="waves-effect waves-dark" [routerLink]="['transaccion']" routerLinkActive="active"
+            aria-expanded="false">
             <i class="fas fa-cash-register"></i>
-            <span class="hide-menu">Facturación</span></a
-          >
+            <span class="hide-menu">Facturación</span></a>
         </li>
         <li>
-          <a
-            class="waves-effect waves-dark"
-            [routerLink]="['transaccion']"
-            routerLinkActive="active"
-            aria-expanded="false"
-          >
+          <a class="waves-effect waves-dark" [routerLink]="['residente']" routerLinkActive="active"
+            aria-expanded="false">
             <i class="fas fa-user-alt"></i>
-            <span class="hide-menu">Residentes</span></a
-          >
+            <span class="hide-menu">Residentes</span></a>
         </li>
         <li>
-          <a
-            class="waves-effect waves-dark"
-            [routerLink]="['transaccion']"
-            routerLinkActive="active"
-            aria-expanded="false"
-          >
+          <a class="waves-effect waves-dark" [routerLink]="['usuarios']" routerLinkActive="active"
+            aria-expanded="false">
             <i class="fas fa-user-check"></i>
-            <span class="hide-menu">Usuarios</span></a
-          >
+            <span class="hide-menu">Usuarios</span></a>
         </li>
         <!-- <li>
           <a

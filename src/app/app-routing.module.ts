@@ -16,6 +16,8 @@ import { ListabitacoraComponent } from "./pages/listabitacora/listabitacora.comp
 import { ListaetapaComponent } from "./pages/listaetapa/listaetapa.component";
 import { ModulosComponent } from "./pages/modulos/modulos.component";
 import { CambiarcontrasenaComponent } from "./pages/cambiarcontrasena/cambiarcontrasena.component";
+import { UsuariosComponent } from "./pages/usuarios/usuarios.component";
+import { ResidenteComponent } from "./pages/residente/residente.component";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -53,6 +55,8 @@ const routes: Routes = [
       { path: "listabitacora/:id/:name", component: ListabitacoraComponent },
       { path: "listaetapa/:id/:name", component: ListaetapaComponent },
       { path: "transaccion", component: TransaccionComponent },
+      { path: "usuarios", component: UsuariosComponent },
+      { path: "residente", component: ResidenteComponent },
       { path: "**", redirectTo: "administrador" },
     ],
   },

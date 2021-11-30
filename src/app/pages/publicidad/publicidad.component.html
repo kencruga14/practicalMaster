@@ -99,7 +99,7 @@
                   <a
                     data-toggle="tooltip"
                     data-original-title="Eliminar"
-                    (click)="delete(mat.ID)"
+                    (click)="delete(mat.ID,mat.etapa_id)"
                   >
                     <i class="fa fa-trash text-danger m-r-10"></i>
                   </a>
@@ -142,7 +142,7 @@
           <div class="image-preview mb-3" *ngIf="imagen">
             <img class="img-fluid" [src]="imagen" height="500" />
           </div>
-          <input type="file" name="image" (change)="preview($event)" />
+          <input type="file" name="image" (change)="preview($event)" accept="image/*"/>
           <small id="passwordHelpBlock" class="form-text text-muted">
             El peso de la imagen debe ser menor a y la resolucion debe ser 1078
             x 442.

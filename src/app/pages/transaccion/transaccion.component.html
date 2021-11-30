@@ -1,59 +1,88 @@
-<app-breadcrumb titulo="Transacciones" [menu]="menu"></app-breadcrumb>
+<app-breadcrumb titulo="Transacciones"></app-breadcrumb>
 <div class="container-fluid">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Lista de transacciones</h4>
-            <div class="form-group col-md-4 m-t-20" style="display: inline-flex;float:right">
-                <input type="text" class="form-control" name="filterName" placeholder="Buscar por nombres..."
-                 [(ngModel)]="filterName">
+
+            <div class="form-group">
+                <label>Urbanización</label>
+                <select [(ngModel)]="idUrbanizacion" name="idUrbanizacion" class="form-control custom-select"
+                    id="companydropdown" (change)="getUrbId($event.target.value)">
+                    <option *ngFor="let ur of urbanizaciones" value="{{ ur.ID }}">
+                        {{ ur.nombre }}
+                    </option>
+                </select>
             </div>
-            <h6 class="card-subtitle"></h6>
-            <div class="table-responsive m-t-40">
-                <table id="myTable" class="table color-bordered-table inverse-bordered-table">
-                    <thead>
-                        <tr style="text-align: center;">
-                            <th>No</th>
-                            <th>Tipo</th>
-                            <th>Fecha inicio</th>
-                            <th>Fecha fin</th>
-                            <th>Valor</th>
-                            <!-- <th>Estado de la devolución</th>
+
+            <div class="form-group" *ngIf="idUrbanizacion">
+                <label>Etapa</label>
+                <select [(ngModel)]="id_etapa" class="form-control custom-select">
+                    <option *ngFor="let ur of etapasid" [ngValue]="ur.ID">
+                        {{ ur.nombre }}
+                    </option>
+                </select>
+            </div>
+
+            <div *ngIf="id_etapa">
+                <h4 class="card-title">Lista de transacciones</h4>
+                <div class="form-group col-md-4 m-t-20" style="display: inline-flex;float:right">
+                    <input type="text" class="form-control" name="filterName" placeholder="Buscar por nombres..."
+                        [(ngModel)]="filterName">
+                </div>
+                <h6 class="card-subtitle"></h6>
+                <div class="table-responsive m-t-40">
+                    <table id="myTable" class="table color-bordered-table inverse-bordered-table">
+                        <thead>
+                            <tr style="text-align: center;">
+                                <th>No</th>
+                                <th>Tipo</th>
+                                <th>Fecha inicio</th>
+                                <th>Fecha fin</th>
+                                <th>Valor</th>
+                                <!-- <th>Estado de la devolución</th>
                             <th>Detalle de la devolución</th> -->
-                            <!-- <th>Estado del pago</th>
+                                <!-- <th>Estado del pago</th>
                             <th>Día del pago</th>
                             <th>Monto</th>
                             <th>Descripción</th>
                             <th>Estado de la devolución</th>
                             <th>Detalle de la devolución</th> -->
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody style="text-align: center;">
-                        <tr *ngFor="let tran of transacciones | filter:filterName; let i=index ">
-                            <th scope="row ">{{i+1}}</th>
-                            <td><button *ngIf="(tran.estado_pago === 'success')" class="btn waves-effect waves-light btn-xs btn-success">Exitoso</button>
-                                <button *ngIf="(tran.estado_pago !== 'success')" class="btn waves-effect waves-light btn-xs btn-danger">Fallido</button></td>
-                            <td>{{tran.dia_pago}}</td>
-                            <td>{{tran.dia_pago}}</td>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
+                            <tr *ngFor="let tran of transacciones | filter:filterName; let i=index ">
+                                <th scope="row ">{{i+1}}</th>
+                                <td><button *ngIf="(tran.estado_pago === 'success')"
+                                        class="btn waves-effect waves-light btn-xs btn-success">Exitoso</button>
+                                    <button *ngIf="(tran.estado_pago !== 'success')"
+                                        class="btn waves-effect waves-light btn-xs btn-danger">Fallido</button>
+                                </td>
+                                <td>{{tran.dia_pago}}</td>
+                                <td>{{tran.dia_pago}}</td>
 
-                            <td>${{tran.monto}}</td>
-                            <!-- <td>{{tran.descripcion}}</td>
+                                <td>${{tran.monto}}</td>
+                                <!-- <td>{{tran.descripcion}}</td>
                             <td>{{tran.estado_devolucion}}</td>
                             <td>{{tran.detalle_devolucion}}</td> -->
-                            <td>
-                                <button style="border-color: transparent;background-color: transparent !important" (click)="gestionTransaccion(tran.ID)" type="button" class="btn btn-primary btn-square">
-                                    <i style="color: darkorange" class="fas fa-undo"></i>
-                                </button></td>
-                        </tr>
-                        <tr *ngIf="(transacciones).length === 0">
-                            <td style="text-align: center !important;" colspan="10"><label class="text-primary">No existen datos</label></td>
-                            
-                        </tr>
+                                <td>
+                                    <button style="border-color: transparent;background-color: transparent !important"
+                                        (click)="gestionTransaccion(tran.ID)" type="button"
+                                        class="btn btn-primary btn-square">
+                                        <i style="color: darkorange" class="fas fa-undo"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="(transacciones).length === 0">
+                                <td style="text-align: center !important;" colspan="10"><label class="text-primary">No
+                                        existen datos</label></td>
+
+                            </tr>
 
 
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

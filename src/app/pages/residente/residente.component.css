@@ -1,0 +1,43 @@
+th,
+td {
+  padding: 10px;
+  width: 50%;
+  white-space: nowrap;
+}
+
+.linea {
+  display: flex;
+}
+.separador {
+  background-color: blueviolet;
+}
+
+.card {
+  margin-left: 30px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.centrado {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 200px;
+  height: 180px;
+}
+
+.centrartexto {
+  text-align: center;
+}
+
+.backcard {
+  background-color: black;
+}
+
+.centrarcontenido {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}

@@ -1,0 +1,159 @@
+<app-breadcrumb titulo="Usuarios"></app-breadcrumb>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <label>Urbanización</label>
+                <select [(ngModel)]="idUrbanizacion" name="idUrbanizacion" class="form-control custom-select"
+                    id="companydropdown" (change)="getUrbId($event.target.value)">
+                    <option *ngFor="let ur of urbanizaciones" value="{{ ur.ID }}">
+                        {{ ur.nombre }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group" *ngIf="idUrbanizacion">
+                <label>Etapa</label>
+                <select [(ngModel)]="id_etapa" class="form-control custom-select">
+                    <option *ngFor="let ur of etapasid" [ngValue]="ur.ID">
+                        {{ ur.nombre }}
+                    </option>
+                </select>
+            </div>
+
+
+            <div *ngIf="id_etapa">
+
+                <h4 class="card-title">Lista de Usuarios</h4>
+                <!-- <div *ngIf="!etapas">
+              <button class="btn btn-dark" (click)="openEtapa(contentEtapa)">
+                Crear etapa
+              </button>
+            </div>
+            <div *ngIf="etapas?.length > 0">
+              <button class="btn btn-dark" (click)="openEtapa(contentEtapa)">
+                Agregar etapa
+              </button>
+            </div> -->
+
+                <div class="form-group col-md-4 m-t-20" style="display: inline-flex; float: right">
+                    <input type="text" class="form-control" name="filterName" placeholder="Buscar"
+                        [(ngModel)]="filterName" />
+                </div>
+                <h6 class="card-subtitle"></h6>
+                <div class="table-responsive m-t-40">
+                    <table id="myTable" class="table color-bordered-table inverse-bordered-table">
+                        <thead>
+                            <tr style="text-align: center">
+                                <th>No.</th>
+                                <th>Etapa</th>
+                                <th>Correo</th>
+                                <th>Télefono</th>
+                                <th>Banco</th>
+                                <th>Tipo de cuenta</th>
+                                <th>Número de cuenta</th>
+                                <th>Botón de Pago</th>
+                                <th>Urbanización</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center">
+                            <tr *ngFor="let et of etapas | filter: filterName; let i = index">
+                                <th scope="row ">{{ i + 1 }}</th>
+                                <td>{{ et.nombre }}</td>
+                                <td>{{ et.correo }}</td>
+                                <td>{{ et.telefono }}</td>
+                                <td>{{ et.nombre_banco }}</td>
+                                <td>{{ et.tipo_cuenta }}</td>
+                                <td>{{ et.numero_cuenta }}</td>
+                                <td *ngIf="et.pagos_tarjeta === true">Sí</td>
+                                <td *ngIf="et.pagos_tarjeta === false">No</td>
+                                <td>{{ et.nombre_urbanizacion }}</td>
+                                <td>
+                                    <!-- <a data-toggle="tooltip" data-original-title="Editar" (click)="openEtapa(contentEtapa, et)">
+                        <i class="fa fa-pencil text-inverse m-r-10"></i>
+                      </a>
+                      <a data-toggle="tooltip" data-original-title="Eliminar" (click)="delete(et.ID)">
+                        <i class="fa fa-trash text-danger m-r-10"></i>
+                      </a> -->
+                                </td>
+                            </tr>
+                            <tr *ngIf="etapas.length === 0">
+                                <td style="text-align: center !important" colspan="10">
+                                    <label class="text-primary">No existen datos</label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <ng-template #contentPublicidad let-modal>
+            <div class="modal-header">
+                <h4 *ngIf="!publicidad.edit" class="modal-title" id="modal-basic-title">
+                    Crear módulo
+                </h4>
+                <h4 *ngIf="publicidad.edit" class="modal-title" id="modal-basic-title">
+                    Editar módulo
+                </h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form (ngSubmit)="gestionPublicidad()" #form="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="image-preview mb-3" *ngIf="imagen">
+                            <img class="img-fluid" [src]="imagen" height="500" />
+                        </div>
+                        <input type="file" name="image" (change)="preview($event)" />
+                    </div>
+                    <div class="form-group">
+                        <input [value]="nombre" [(ngModel)]="nombre" name="nombre" class="form-control" type="text"
+                            required placeholder="Nombre" />
+                    </div>
+                    <!-- <div class="form-group">
+            <input
+              [value]="nombre"
+              [(ngModel)]="nombre"
+              name="nombre"
+              class="form-control"
+              type="text"
+              required
+              placeholder="Empresa"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              [value]="nombre"
+              [(ngModel)]="nombre"
+              name="nombre"
+              class="form-control"
+              type="number"
+              required
+              placeholder="Documento"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              [value]="nombre"
+              [(ngModel)]="nombre"
+              name="nombre"
+              class="form-control"
+              type="number"
+              required
+              placeholder="Teléfono"
+            />
+          </div> -->
+                </div>
+                <div class="modal-footer">
+                    <button *ngIf="!auth.loading" [disabled]="!form.valid" type="submit" class="btn btn-outline-dark">
+                        <span *ngIf="!publicidad.edit">Guardar</span>
+                        <span *ngIf="publicidad.edit">Editar</span>
+                    </button>
+                    <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i>
+                </div>
+            </form>
+        </ng-template>
+    </div>
+</div>

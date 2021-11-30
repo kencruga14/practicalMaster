@@ -32,6 +32,8 @@ import { TransaccionComponent } from './pages/transaccion/transaccion.component'
 import { ListaetapaComponent } from './pages/listaetapa/listaetapa.component';
 import { ModulosComponent } from './pages/modulos/modulos.component';
 import { CambiarcontrasenaComponent } from './pages/cambiarcontrasena/cambiarcontrasena.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { ResidenteComponent } from './pages/residente/residente.component';
 
 
 
@@ -59,6 +61,8 @@ import { CambiarcontrasenaComponent } from './pages/cambiarcontrasena/cambiarcon
     ListaetapaComponent,
     ModulosComponent,
     CambiarcontrasenaComponent,
+    UsuariosComponent,
+    ResidenteComponent,
   ],
   imports: [
     BrowserModule,

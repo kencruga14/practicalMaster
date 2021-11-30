@@ -71,11 +71,6 @@ export class LoginComponent implements OnInit {
           });
         }
       );
-
-      // this.router.navigate(["/cambiarcontrasena"], {
-      //   skipLocationChange: true,
-      // });
-      // this.router.navigateByUrl('/cambiarcontrasena');
     } else {
       Swal.fire("Por favor ingrese su usuario");
     }
