@@ -40,8 +40,8 @@
               <!-- <tr *ngFor="let admin of admins; let i = index"> -->
               <th scope="row">{{ i + 1 }}</th>
               <td>
-                <figure class="avatar avatar-sm">
-                  <img [src]="admin.usuario.imagen" class="rounded-circle" alt="image" width="60px"
+                <figure>
+                  <img class="avatar" [src]="admin.usuario.imagen" alt="image" width="60px"
                     (click)="openImage(contentImage, admin)" />
                 </figure>
               </td>
