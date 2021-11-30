@@ -26,6 +26,7 @@ export class PublicidadComponent implements OnInit {
   etapa_id: 0;
   empresa: any;
   documento: any;
+  imagenPerfila: null;
   telefono: any;
   id: 0;
   changeFoto = false;
@@ -112,7 +113,7 @@ export class PublicidadComponent implements OnInit {
       this.id = publicidad.ID;
       // this.prioridad = publicidad.nombre;
       this.publicidad.edit = true;
-      this.imagen = null;
+      this.imagenEdit = publicidad.imagen;
       this.etapa_id = publicidad.etapa_id;
       this.empresa = publicidad.empresa;
       this.documento = publicidad.documento;
@@ -140,7 +141,7 @@ export class PublicidadComponent implements OnInit {
     if (this.publicidad.edit) {
       const body = {
         etapa_id: Number(this.id_etapa),
-        imagen: this.imagen,
+        imagen: this.imagenEdit,
         empresa: this.empresa,
         documento: this.documento,
         telefono: this.telefono,
@@ -156,13 +157,17 @@ export class PublicidadComponent implements OnInit {
         documento: this.documento,
         telefono: this.telefono,
       };
-      console.log("body crear publicidad: ", body);
+      // console.log("body crear publicidad: ", body);
       response = await this.auth.createPublicidad(body);
     }
     if (response) {
       this.modalService.dismissAll();
       this.getPublicidadbIdEtapa(ids);
     }
+    this.imagen = null;
+    this.imagenEdit = null;
+    this.imagenPerfila = null;
+    this.imagenPerfil = null;
   }
   delete(id: number, id_etapa: number) {
     Swal.fire({

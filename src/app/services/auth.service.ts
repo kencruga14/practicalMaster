@@ -77,7 +77,7 @@ export class AuthService {
 
   private guardarToken(idToken: any) {
     this.userToken = idToken.token;
-    console.log(this.userToken);
+    // console.log(this.userToken);
     this.info = JSON.stringify(idToken);
     this.infoGuard = 1;
     localStorage.setItem("token", idToken.token);
@@ -97,13 +97,13 @@ export class AuthService {
 
   // ADMINISTRADOR
   getAdmin() {
-    console.log("hola");
+    // console.log("hola");
     const headers = new HttpHeaders({
       token: this.userToken,
     });
     return this.http.get(`${environment.apiUrl}/master`, { headers }).pipe(
       map((resp: any) => {
-        console.log(resp.respuesta);
+        // console.log(resp.respuesta);
         return resp.respuesta;
       })
     );
@@ -152,8 +152,8 @@ export class AuthService {
     const headers = new HttpHeaders({
       token: this.userToken,
     });
-    console.log("editar id usuario servicio: ", id);
-    console.log("informacion a editar: ", data);
+    // console.log("editar id usuario servicio: ", id);
+    // console.log("informacion a editar: ", data);
     return new Promise((resolve) => {
       this.http
         .put(`${environment.apiUrl}/master/${id}`, data, { headers })
@@ -197,7 +197,7 @@ export class AuthService {
 
   // URBANIZACION
   getUrb() {
-    console.log("hola");
+    // console.log("hola");
     const headers = new HttpHeaders({
       token: this.userToken,
     });
@@ -205,7 +205,7 @@ export class AuthService {
       .get(`${environment.apiUrl}/urbanizacion`, { headers })
       .pipe(
         map((resp: any) => {
-          console.log(resp.respuesta);
+          // console.log(resp.respuesta);
           return resp.respuesta;
         })
       );
@@ -217,7 +217,7 @@ export class AuthService {
     });
     return this.http.get(`${environment.apiUrl}/etapa/${id}`, { headers }).pipe(
       map((resp: any) => {
-        console.log(resp.respuesta);
+        // console.log(resp.respuesta);
         return resp.respuesta;
       })
     );
@@ -294,20 +294,20 @@ export class AuthService {
 
   // ETAPAS
   getEtapa() {
-    console.log("hola");
+    // console.log("hola");
     const headers = new HttpHeaders({
       token: this.userToken,
     });
     return this.http.get(`${environment.apiUrl}/etapa`, { headers }).pipe(
       map((resp: any) => {
-        console.log(resp.respuesta);
+        // console.log(resp.respuesta);
         return resp.respuesta;
       })
     );
   }
 
   getEtapaByIdUrbanizacion(id) {
-    console.log("getEtapaId: ", id);
+    // console.log("getEtapaId: ", id);
     const headers = new HttpHeaders({
       token: this.userToken,
     });
@@ -315,7 +315,7 @@ export class AuthService {
       .get(`${environment.apiUrl}/etapa?id_urbanizacion=${id}`, { headers })
       .pipe(
         map((resp: any) => {
-          console.log(resp.respuesta);
+          // console.log(resp.respuesta);
           return resp.respuesta;
         })
       );
@@ -392,13 +392,13 @@ export class AuthService {
 
   // MARKET
   getMarket() {
-    console.log("hola");
+    // console.log("hola");
     const headers = new HttpHeaders({
       token: this.userToken,
     });
     return this.http.get(`${environment.apiUrl}/categoria`, { headers }).pipe(
       map((resp: any) => {
-        console.log(resp.respuesta);
+        // console.log(resp.respuesta);
         return resp.respuesta;
       })
     );
@@ -475,20 +475,20 @@ export class AuthService {
 
   // ADMINISTRADOR ETAPA
   getAdminEtapa() {
-    console.log("hola");
+    // console.log("hola");
     const headers = new HttpHeaders({
       token: this.userToken,
     });
     return this.http.get(`${environment.apiUrl}/admin-etapa`, { headers }).pipe(
       map((resp: any) => {
-        console.log(resp.respuesta);
+        // console.log(resp.respuesta);
         return resp.respuesta;
       })
     );
   }
 
   createAdminEtapa(data) {
-    console.log(data);
+    // console.log(data);
     this.loading = true;
     const headers = new HttpHeaders({
       token: this.userToken,
@@ -524,7 +524,7 @@ export class AuthService {
             this.showAlert(response.message, "success", "Listo");
             resolve(true);
             this.loading = false;
-            console.log("entro editar");
+            // console.log("entro editar");
           },
           (error: any) => {
             this.loading = false;
@@ -560,7 +560,7 @@ export class AuthService {
 
   // ADMINISTRADOR ETAPA
   getPublicidad() {
-    console.log("hola");
+    // console.log("hola");
     const headers = new HttpHeaders({
       token: this.userToken,
     });
@@ -568,7 +568,7 @@ export class AuthService {
       .get(`${environment.apiUrl}/publicidades`, { headers })
       .pipe(
         map((resp: any) => {
-          console.log(resp.respuesta);
+          // console.log(resp.respuesta);
           return resp.respuesta;
         })
       );
@@ -581,7 +581,7 @@ export class AuthService {
       .get(`${environment.apiUrl}/publicidades?id_etapa=${id}`, { headers })
       .pipe(
         map((resp: any) => {
-          console.log(resp.respuesta);
+          // console.log(resp.respuesta);
           return resp.respuesta;
         })
       );
@@ -666,7 +666,7 @@ export class AuthService {
       .get(`${environment.apiUrl}/bitacoras/etapa/${id}`, { headers })
       .pipe(
         map((resp: any) => {
-          console.log(resp.respuesta);
+          // console.log(resp.respuesta);
           return resp.respuesta;
         })
       );
@@ -680,7 +680,7 @@ export class AuthService {
     });
     return this.http.get(`${environment.apiUrl}/etapa/${id}`, { headers }).pipe(
       map((resp: any) => {
-        console.log(resp.respuesta);
+        // console.log(resp.respuesta);
         return resp.respuesta;
       })
     );
@@ -695,7 +695,7 @@ export class AuthService {
       .get(`${environment.apiUrl}/transacciones`, { headers })
       .pipe(
         map((resp: any) => {
-          console.log(resp.respuesta);
+          // console.log(resp.respuesta);
           return resp.respuesta;
         })
       );
@@ -788,7 +788,7 @@ export class AuthService {
     tipo: any,
     confirmBtnText: string = "Intentar nuevamente"
   ) {
-    console.log("mensaje error: showalert: ", message);
+    // console.log("mensaje error: showalert: ", message);
     Swal.fire({
       title: "P&S",
       text: message,

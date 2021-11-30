@@ -56,9 +56,9 @@ export class ListaetapaComponent implements OnInit {
 
   ngOnInit() {
     const id = Number(this.activatedRoute.snapshot.paramMap.get("id"));
-    console.log(id);
+    // console.log(id);
     const nombre = this.activatedRoute.snapshot.paramMap.get("name");
-    console.log(nombre);
+    // console.log(nombre);
     this.getEtapa(id);
     this.getName(nombre);
   }
@@ -69,9 +69,9 @@ export class ListaetapaComponent implements OnInit {
 
   getEtapa(id: number) {
     this.auth.getEtapaById(id).subscribe((resp: any) => {
-      console.log(resp);
+      // console.log(resp);
       this.etapas = resp;
-      console.log("detalles etapas: ", this.etapas);
+      // console.log("detalles etapas: ", this.etapas);
     });
   }
 }

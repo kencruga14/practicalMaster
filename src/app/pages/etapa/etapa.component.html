@@ -31,6 +31,8 @@
               <th>Tipo de cuenta</th>
               <th>Número de cuenta</th>
               <th>Botón de Pago</th>
+              <th>Formulario Ingreso</th>
+              <th>Formulario Salida</th>
               <th>Urbanización</th>
               <th>Acciones</th>
             </tr>
@@ -46,6 +48,10 @@
               <td>{{ et.numero_cuenta }}</td>
               <td *ngIf="et.pagos_tarjeta === true">Sí</td>
               <td *ngIf="et.pagos_tarjeta === false">No</td>
+              <td *ngIf="et.formulario_entrada === true">Sí</td>
+              <td *ngIf="et.formulario_entrada === false">No</td>
+              <td *ngIf="et.formulario_salida === true">Sí</td>
+              <td *ngIf="et.formulario_salida === false">No</td>
               <td>{{ et.nombre_urbanizacion }}</td>
               <td>
                 <a data-toggle="tooltip" data-original-title="Editar" (click)="openEtapa(contentEtapa, et)">
@@ -124,6 +130,22 @@
           <div class="form-group">
             <label>Botón de pago</label>
             <select name="pagos_tarjeta" [(ngModel)]="pagos_tarjeta" class="form-control custom-select">
+              <option [ngValue]="true">Si</option>
+              <option [ngValue]="false">No</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Solicitud de ingreso</label>
+            <select name="formulario_entrada" [(ngModel)]="formulario_entrada" class="form-control custom-select">
+              <option [ngValue]="true">Si</option>
+              <option [ngValue]="false">No</option>
+            </select>
+          </div>
+
+          <div class="form-group" *ngIf="formulario_entrada">
+            <label>Solicitud de salida</label>
+            <select name="formulario_salida" [(ngModel)]="formulario_salida" class="form-control custom-select">
               <option [ngValue]="true">Si</option>
               <option [ngValue]="false">No</option>
             </select>

@@ -161,7 +161,7 @@ export class AdminetapaComponent implements OnInit {
         },
       };
       JSON.stringify(body);
-      console.log("cuerpo a editar: ", body);
+      // console.log("cuerpo a editar: ", body);
       response = await this.auth.editAdminEtapa(this.id, body);
     } else {
       const body = {
@@ -188,7 +188,7 @@ export class AdminetapaComponent implements OnInit {
   }
 
   getUrbId(id) {
-    console.log("id: ", id);
+    // console.log("id: ", id);
     this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
       this.etapasid = resp;
       // console.log("etapas por id: ", this.etapasid);

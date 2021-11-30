@@ -113,7 +113,7 @@ export class UrbanizacionComponent implements OnInit {
         direccion: this.direccion,
       };
       JSON.stringify(body);
-      console.log("datos urb editar: ", body);
+      // console.log("datos urb editar: ", body);
       response = await this.auth.editUrb(this.id, body);
     } else {
       const body = {
@@ -130,7 +130,7 @@ export class UrbanizacionComponent implements OnInit {
         direccion: this.direccion,
       };
       JSON.stringify(body);
-      console.log("datos urb crear: ", body);
+      // console.log("datos urb crear: ", body);
 
       response = await this.auth.createUrb(body);
     }

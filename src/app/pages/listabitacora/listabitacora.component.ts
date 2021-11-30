@@ -44,9 +44,9 @@ export class ListabitacoraComponent implements OnInit {
 
     ngOnInit() {
       const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-      console.log(id)
+      // console.log(id)
       const nombre = this.activatedRoute.snapshot.paramMap.get('name');
-      console.log(nombre)
+      // console.log(nombre)
       this.getBitacora(id);
       this.getName(nombre);
 
@@ -60,7 +60,7 @@ export class ListabitacoraComponent implements OnInit {
     getBitacora(id: number) {
       this.auth.getBitacoraById(id)
       .subscribe( (resp: any) => {
-        console.log(resp);
+        // console.log(resp);
         this.bitacoras = resp;
       });
     }

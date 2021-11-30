@@ -59,13 +59,13 @@ export class TransaccionComponent implements OnInit {
     // console.log("id_etapa ", this.id_etapa);
     this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
       this.etapasid = resp;
-      console.log("etapas por id: ", this.etapasid);
+      // console.log("etapas por id: ", this.etapasid);
     });
   }
 
   getTransaccion() {
     this.auth.getTransaccion().subscribe((resp: any) => {
-      console.log(resp);
+      // console.log(resp);
       this.transacciones = resp;
     });
   }
@@ -78,7 +78,7 @@ export class TransaccionComponent implements OnInit {
 
   getUrb() {
     this.auth.getUrb().subscribe((resp: any) => {
-      console.log("urbanizaciones: ", resp);
+      // console.log("urbanizaciones: ", resp);
       this.urbanizaciones = resp;
     });
   }

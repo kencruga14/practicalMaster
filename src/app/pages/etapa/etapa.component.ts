@@ -42,10 +42,8 @@ export class EtapaComponent implements OnInit {
 
   filterName = "";
   etapa = {
-    
     id_etapa: 0,
     edit: "",
-
     nombre: "",
     correo: "",
     usuario: "",
@@ -53,7 +51,6 @@ export class EtapaComponent implements OnInit {
     nombre_banco: "",
     tipo_cuenta: "",
     numero_cuenta: "",
-    pagos_tarjeta: true,
     modulo_mi_registro: true,
     modulo_alicuota: true,
     modulo_emprendimiento: true,
@@ -63,8 +60,8 @@ export class EtapaComponent implements OnInit {
     modulo_directiva: true,
     modulo_galeria: true,
     modulo_horarios: true,
-    formulario_entrada: true,
-    formulario_salida: true,
+    // formulario_entrada: true,
+    // formulario_salida: true,
   };
   acceso = {
     accesos: "",
@@ -143,8 +140,8 @@ export class EtapaComponent implements OnInit {
       this.modulo_directiva = true;
       this.modulo_galeria = true;
       this.modulo_horarios = true;
-      this.formulario_entrada = true;
-      this.formulario_salida = true;
+      // this.formulario_entrada = true;
+      // this.formulario_salida = true;
     }
     this.modalService.open(content);
   }
@@ -158,9 +155,16 @@ export class EtapaComponent implements OnInit {
 
   async gestionEtapa() {
     let response: any;
+
+    if (!this.formulario_entrada) {
+      // console.log("entro validacion entrada false: ", this.formulario_entrada);
+      this.formulario_salida = false;
+    }
+    // console.log("formulario salida final: ", this.formulario_salida);
+    // console.log("formulario_entrada final: ", this.formulario_entrada);
     if (this.etapa.edit === "0") {
       // console.log("entro a etapa edit:");
-      
+
       const body = {
         id_urbanizacion: this.id_urbanizacion,
         nombre: this.nombre,
@@ -183,10 +187,9 @@ export class EtapaComponent implements OnInit {
         formulario_entrada: this.formulario_entrada,
         formulario_salida: this.formulario_salida,
       };
-      console.log("modificar etapa: ", body);
+      // console.log("modificar etapa: ", body);
       response = await this.auth.editEtapa(this.id_etapa, body);
     } else {
-
       const body = {
         id_urbanizacion: this.id_urbanizacion,
         nombre: this.nombre,
@@ -206,10 +209,10 @@ export class EtapaComponent implements OnInit {
         modulo_directiva: true,
         modulo_galeria: true,
         modulo_horarios: true,
-        formulario_entrada: true,
-        formulario_salida: true,
+        formulario_entrada: this.formulario_entrada,
+        formulario_salida: this.formulario_salida,
       };
-      console.log("crear etapa: ", body);
+      // console.log("crear etapa: ", body);
       response = await this.auth.createEtapa(body);
     }
     if (response) {
@@ -217,7 +220,6 @@ export class EtapaComponent implements OnInit {
       this.getEtapa();
     }
   }
-
 
   delete(id: number) {
     Swal.fire({

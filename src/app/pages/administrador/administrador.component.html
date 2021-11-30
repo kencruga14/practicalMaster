@@ -23,8 +23,8 @@
             <tr style="text-align: center">
               <th>No.</th>
               <th>Imagen</th>
-              <th>Apellidos</th>
               <th>Nombres</th>
+              <th>Apellidos</th>
               <th>Cédula</th>
               <th>Usuario</th>
               <th>Correo</th>
@@ -50,8 +50,8 @@
                     (click)="openImage(contentImage, admin)" />
                 </figure>
               </td>
-              <td>{{ admin.usuario.apellido }}</td>
               <td>{{ admin.usuario.nombres }}</td>
+              <td>{{ admin.usuario.apellido }}</td>
               <td>{{ admin.usuario.cedula }}</td>
               <td>{{ admin.usuario.usuario }}</td>
               <td>{{ admin.usuario.correo }}</td>
@@ -143,6 +143,7 @@
             <input [value]="telefono" [(ngModel)]="telefono" name="telefono" class="form-control" type="text" required
               placeholder="Teléfono" />
           </div>
+
           <div class="modal-footer">
             <button *ngIf="!auth.loading" [disabled]="!form.valid" type="submit" class="btn btn-outline-dark">
               <span *ngIf="!admin.edit">Guardar</span>

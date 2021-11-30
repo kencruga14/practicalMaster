@@ -4,13 +4,8 @@
     <div class="card-body">
       <div class="form-group">
         <label>Urbanización</label>
-        <select
-          [(ngModel)]="idUrbanizacion"
-          name="idUrbanizacion"
-          class="form-control custom-select"
-          id="companydropdown"
-          (change)="getUrbId($event.target.value)"
-        >
+        <select [(ngModel)]="idUrbanizacion" name="idUrbanizacion" class="form-control custom-select"
+          id="companydropdown" (change)="getUrbId($event.target.value)">
           <option *ngFor="let ur of urbanizaciones" value="{{ ur.ID }}">
             {{ ur.nombre }}
           </option>
@@ -19,12 +14,8 @@
 
       <div class="form-group" *ngIf="idUrbanizacion">
         <label>Etapa</label>
-        <select
-          name="id_etapa"
-          [(ngModel)]="id_etapa"
-          class="form-control custom-select"
-          (change)="getPublicidadbIdEtapa($event.target.value)"
-        >
+        <select name="id_etapa" [(ngModel)]="id_etapa" class="form-control custom-select"
+          (change)="getPublicidadbIdEtapa($event.target.value)">
           <option *ngFor="let ur of etapasid" value="{{ ur.ID }}">
             {{ ur.nombre }}
           </option>
@@ -33,28 +24,19 @@
       <div *ngIf="id_etapa">
         <h4 class="card-title">Lista de publicidades</h4>
         <div *ngIf="publicidades.length === 0">
-          <button
-            class="btn btn-dark"
-            (click)="openPublicidad(contentPublicidad)"
-          >
+          <button class="btn btn-dark" (click)="openPublicidad(contentPublicidad)">
             Crear publicidad
           </button>
         </div>
         <div *ngIf="publicidades?.length > 0">
-          <button
-            class="btn btn-dark"
-            (click)="openPublicidad(contentPublicidad)"
-          >
+          <button class="btn btn-dark" (click)="openPublicidad(contentPublicidad)">
             Agregar publicidad
           </button>
         </div>
         <h6 class="card-subtitle"></h6>
 
         <div class="table-responsive m-t-40">
-          <table
-            id="myTable"
-            class="table color-bordered-table inverse-bordered-table"
-          >
+          <table id="myTable" class="table color-bordered-table inverse-bordered-table">
             <thead>
               <tr style="text-align: left">
                 <th>No</th>
@@ -66,41 +48,26 @@
               </tr>
             </thead>
             <tbody style="text-align: left">
-              <tr
-                *ngFor="
+              <tr *ngFor="
                   let mat of publicidades | filter: filterName;
                   let i = index
-                "
-              >
+                ">
                 <th scope="row ">{{ i + 1 }}</th>
                 <td>
                   <figure class="avatar avatar-sm">
-                    <img
-                      [src]="mat.imagen"
-                      class=""
-                      alt="image"
-                      width="150px"
-                      height="100px"
-                      (click)="openImage(contentImage, mat)"
-                    />
+                    <img [src]="mat.imagen" class="" alt="image" width="150px" height="100px"
+                      (click)="openImage(contentImage, mat)" />
                   </figure>
                 </td>
                 <td>{{ mat.empresa }}</td>
                 <td>{{ mat.documento }}</td>
                 <td>{{ mat.telefono }}</td>
                 <td>
-                  <a
-                    data-toggle="tooltip"
-                    data-original-title="Editar"
-                    (click)="openPublicidad(contentPublicidad, mat)"
-                  >
+                  <a data-toggle="tooltip" data-original-title="Editar"
+                    (click)="openPublicidad(contentPublicidad, mat)">
                     <i class="fa fa-pencil text-inverse m-r-10"></i>
                   </a>
-                  <a
-                    data-toggle="tooltip"
-                    data-original-title="Eliminar"
-                    (click)="delete(mat.ID,mat.etapa_id)"
-                  >
+                  <a data-toggle="tooltip" data-original-title="Eliminar" (click)="delete(mat.ID,mat.etapa_id)">
                     <i class="fa fa-trash text-danger m-r-10"></i>
                   </a>
                 </td>
@@ -127,72 +94,68 @@
       <h4 *ngIf="publicidad.edit" class="modal-title" id="modal-basic-title">
         Editar publicidad
       </h4>
-      <button
-        type="button"
-        class="close"
-        aria-label="Close"
-        (click)="modal.dismiss('Cross click')"
-      >
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <form (ngSubmit)="gestionPublicidad()" #form="ngForm">
       <div class="modal-body">
-        <div class="form-group">
+
+
+        <!-- <div class="form-group">
           <div class="image-preview mb-3" *ngIf="imagen">
             <img class="img-fluid" [src]="imagen" height="500" />
           </div>
-          <input type="file" name="image" (change)="preview($event)" accept="image/*"/>
+          <input type="file" name="image" (change)="preview($event)" accept="image/*" />
           <small id="passwordHelpBlock" class="form-text text-muted">
             El peso de la imagen debe ser menor a y la resolucion debe ser 1078
             x 442.
           </small>
+        </div> -->
+
+
+        <div class="form-group" *ngIf="imagenEdit">
+          <!-- editar imagen -->
+          <div class="image-preview mb-3" *ngIf="imagenEdit">
+            <img class="img-fluid" [src]="imagenEdit" height="500" width="100" />
+          </div>
+          <label for="imagen">Imagen de Perfil</label>
+          <input type="file" name="image" (change)="saveEditPicture($event)" accept="image/*" />
+          <small id="passwordHelpBlock" class="form-text text-muted">
+            El peso de la imagen debe ser menor 2Mb a y la resolucion debe ser
+            359 x 316.
+          </small>
         </div>
-        <div class="form-group">
-          <input
-            [value]="empresa"
-            id="empresa"
-            [(ngModel)]="empresa"
-            name="empresa"
-            class="form-control"
-            type="text"
-            required
-            placeholder="Empresa"
-          />
-        </div>
-        <div class="form-group">
-          <input
-            [value]="documento"
-            id="documento"
-            [(ngModel)]="documento"
-            name="documento"
-            class="form-control"
-            type="text"
-            required
-            placeholder="Documento"
-          />
+
+        <div class="form-group" *ngIf="!imagenEdit">
+          <!-- ImagenCrear -->
+          <div class="image-preview mb-3" *ngIf="imagenPerfila">
+            <img class="img-fluid" [src]="imagenPerfila" height="500" width="100" />
+          </div>
+          <label for="imagen">Imagen de Perfil</label>
+          <input type="file" name="image" (change)="preview($event)" accept="image/*" />
+          <small id="passwordHelpBlock" class="form-text text-muted">
+            El peso de la imagen debe ser menor 2Mb a y la resolucion debe ser
+            359 x 316.
+          </small>
         </div>
 
         <div class="form-group">
-          <input
-            [value]="telefono"
-            [(ngModel)]="telefono"
-            id="telefono"
-            name="telefono"
-            class="form-control"
-            type="text"
-            required
-            placeholder="Teléfono"
-          />
+          <input [value]="empresa" id="empresa" [(ngModel)]="empresa" name="empresa" class="form-control" type="text"
+            required placeholder="Empresa" />
+        </div>
+        <div class="form-group">
+          <input [value]="documento" id="documento" [(ngModel)]="documento" name="documento" class="form-control"
+            type="text" required placeholder="Documento" />
+        </div>
+
+        <div class="form-group">
+          <input [value]="telefono" [(ngModel)]="telefono" id="telefono" name="telefono" class="form-control"
+            type="text" required placeholder="Teléfono" />
         </div>
       </div>
       <div class="modal-footer">
-        <button
-          *ngIf="!auth.loading"
-          [disabled]="!form.valid"
-          type="submit"
-          class="btn btn-outline-dark"
-        >
+        <button *ngIf="!auth.loading" [disabled]="!form.valid" type="submit" class="btn btn-outline-dark">
           <span *ngIf="!publicidad.edit">Guardar</span>
           <span *ngIf="publicidad.edit">Editar</span>
         </button>
@@ -206,12 +169,7 @@
       <h4 class="modal-title" id="modal-basic-title">
         Imagen de Emprendimiento
       </h4>
-      <button
-        type="button"
-        class="close"
-        aria-label="Close"
-        (click)="modal.dismiss('Cross click')"
-      >
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>

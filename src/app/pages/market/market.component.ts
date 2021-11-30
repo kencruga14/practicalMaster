@@ -56,7 +56,7 @@ export class MarketComponent implements OnInit {
     reader.readAsDataURL(fileData);
     reader.onload = (response) => {
       this.imagen = reader.result;
-      console.log("imagen funcion: ", reader.result);
+      // console.log("imagen funcion: ", reader.result);
     };
     this.changeFoto = true;
   }

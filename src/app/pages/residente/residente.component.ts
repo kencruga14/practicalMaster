@@ -60,7 +60,7 @@ export class ResidenteComponent implements OnInit {
     // console.log("id_etapa ", this.id_etapa);
     this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
       this.etapasid = resp;
-      console.log("etapas por id: ", this.etapasid);
+      // console.log("etapas por id: ", this.etapasid);
     });
   }
 

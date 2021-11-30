@@ -102,8 +102,8 @@ export class AdministradorComponent implements OnInit {
   }
 
   //setea valores al modelo
-  openAdmin(content, admin) {
-    console.log("edit valor: ", admin);
+  openAdmin(content, admin = null) {
+    // console.log("edit valor: ", admin);
     if (admin) {
       // this.id_usuario = admin.id_usuario;
       this.id = admin.ID;
@@ -116,7 +116,7 @@ export class AdministradorComponent implements OnInit {
       this.imagenEdit = admin.usuario.imagen;
       this.admin.edit = true;
 
-      console.log("admin editar cuerpo:", admin);
+      // console.log("admin editar cuerpo:", admin);
     } else {
       //Inicializa variables
       this.nombres = "";
@@ -155,7 +155,7 @@ export class AdministradorComponent implements OnInit {
           imagen: this.imagenEdit,
         },
       };
-      console.log("body edit:", body);
+      // console.log("body edit:", body);
       // console.log("id del Usuario a editar: ", this.id);
       JSON.stringify(body);
       response = await this.auth.editAdmin(this.id, body);
@@ -172,7 +172,7 @@ export class AdministradorComponent implements OnInit {
         },
       };
       JSON.stringify(body);
-      console.log("usuario crear: ", body);
+      // console.log("usuario crear: ", body);
       response = await this.auth.createAdmin(body);
     }
     if (response) {
