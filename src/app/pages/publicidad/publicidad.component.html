@@ -54,8 +54,8 @@
                 ">
                 <th scope="row ">{{ i + 1 }}</th>
                 <td>
-                  <figure class="avatar avatar-sm">
-                    <img [src]="mat.imagen" class="" alt="image" width="150px" height="100px"
+                  <figure>
+                    <img [src]="mat.imagen" class="avatar" alt="image" data-holder-rendered="true"
                       (click)="openImage(contentImage, mat)" />
                   </figure>
                 </td>
@@ -167,16 +167,23 @@
   <ng-template #contentImage let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">
-        Imagen de Emprendimiento
+        Imagen de Publicidad
       </h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="modal-body" *ngIf="imagenPerfil">
+    <!-- <div class="modal-body" *ngIf="imagenPerfil">
       <figure class="avatar avatar-sm">
         <img class="centrado" [src]="imagenPerfil.imagen" alt="image" />
       </figure>
+    </div> -->
+
+    <div class="modal-body" *ngIf="imagenPerfil">
+      <figure class="box">
+        <img  [src]="imagenPerfil.imagen" alt="image"/>
+      </figure>
     </div>
+
   </ng-template>
 </div>
