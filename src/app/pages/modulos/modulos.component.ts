@@ -19,12 +19,24 @@ export class ModulosComponent implements OnInit {
   id_publicidad: 0;
   nombre: any;
   prioridad: 0;
+  imagenseleccionada: any;
+  estadoseleccionado: any;
+  nombreseleccionado: any;
+  etapaseleccionada: any;
   edit: false;
   imagen = null;
   id: 0;
   changeFoto = false;
   etapas: UsuarioModelo[] = [];
-
+  miregistro: boolean;
+  alicuotas: boolean;
+  emprendimientos: boolean;
+  votacion: boolean;
+  areasocial: boolean;
+  camaras: boolean;
+  directiva: boolean;
+  galeria: boolean;
+  horarios: boolean;
   filterName = "";
   publicidad = {
     id_publicidad: 0,
@@ -46,125 +58,128 @@ export class ModulosComponent implements OnInit {
 
   ngOnInit() {
     this.getUrb();
-    this.getPublicidad();
-    this.getEtapa();
   }
+
   getUrb() {
     this.auth.getUrb().subscribe((resp: any) => {
-      // console.log(resp);
       this.urbanizaciones = resp;
     });
   }
 
   getUrbId(id) {
-    // console.log("id: ", id);
-    // console.log("id_etapa ", this.id_etapa);
     this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
       this.etapasid = resp;
-      // console.log("etapas por id: ", this.etapasid);
     });
   }
 
-  getEtapa() {
-    this.auth.getEtapa().subscribe((resp: any) => {
-      // console.log(resp);
-      this.etapas = resp;
-      // console.log("etapas");
+  getEtapaSeleccionada(value) {
+    console.log("etapa selecionada: ", value);
+    this.auth.getEtapaSelect(value).subscribe((resp: any) => {
+      this.etapaseleccionada = resp;
+      this.id = resp.ID;
+      console.log("etapa sellecionada datos: ", this.etapaseleccionada);
+      this.miregistro = resp.modulo_mi_registro;
+
+      this.alicuotas = resp.modulo_alicuota;
+
+      this.emprendimientos = resp.modulo_emprendimiento;
+
+      this.votacion = resp.modulo_votacion;
+
+      this.areasocial = resp.modulo_area_social;
+
+      this.camaras = resp.modulo_camaras;
+
+      this.directiva = resp.modulo_directiva;
+
+      this.galeria = resp.modulo_galeria;
+      this.horarios = resp.modulo_horarios;
+      console.log("miregistro: ", this.miregistro);
+      console.log("alicuotas: ", this.alicuotas);
+      console.log("emprendimientos: ", this.emprendimientos);
+      console.log("votacion: ", this.votacion);
+      console.log("areasocial: ", this.areasocial);
+      console.log("camaras: ", this.camaras);
+      console.log("directiva: ", this.directiva);
+      console.log("galeria: ", this.galeria);
+      console.log("horarios: ", this.horarios);
     });
+  }
+
+  openModulo(imagen, estado, nombre, content) {
+    // console.log("Estado: ", estado), console.log("Imagen: ", imagen);
+    // console.log("content: ", content);
+    // console.log("nombre: ", nombre);
+    this.estadoseleccionado = estado;
+    this.imagenseleccionada = imagen;
+    this.nombreseleccionado = nombre;
+    this.modalService.open(content);
   }
 
   openAcceso(content, acceso) {
     this.acceso.id_publicidad = acceso.id_publicidad;
     this.modalService.open(content);
   }
-  preview(event: any) {
-    const fileData = event.target.files[0];
-    const mimeType = fileData.type;
-    if (mimeType.match(/image\/*/) == null) {
-      return;
-    }
-    const reader = new FileReader();
-    reader.readAsDataURL(fileData);
-    reader.onload = (response) => {
-      this.imagen = reader.result;
-    };
-    this.changeFoto = true;
-  }
 
-  getModulo(id) {
-    // console.log("id: ", id);
-    // this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
-    //   this.etapas = resp;
-    //   console.log("urbanizaciones por id: ", this.etapas);
-    // });
-  }
-
-  openPublicidad(content, publicidad = null) {
-    if (publicidad) {
-      this.id_publicidad = publicidad.ID;
-      this.id = publicidad.ID;
-      this.prioridad = publicidad.nombre;
-      this.publicidad.edit = true;
-      this.imagen = null;
-    } else {
-      this.id_publicidad = 0;
-      this.prioridad = 0;
-      this.publicidad.edit = false;
-      this.imagen = null;
-    }
-    this.modalService.open(content);
-  }
-  getPublicidad() {
-    this.auth.getPublicidad().subscribe((resp: any) => {
-      // console.log(resp);
-      this.publicidades = resp;
-      // console.log("publicidad: ", this.publicidades);
-    });
-  }
-
-  async gestionPublicidad() {
+  async update(value, nombre) {
     let response: any;
-    if (this.publicidad.edit) {
-      const body = {
-        prioridad: this.prioridad,
-        imagen: this.imagen,
-      };
+    let valor = JSON.parse(value);
+    console.log("nombre: ", nombre);
+    console.log("valor: ", valor);
+    console.log("Id_etapa: ", this.id);
+    let campo = "";
+    if (nombre === "Mi Registro") {
+      this.miregistro = valor;
+    } else if (nombre === "Alícuotas") {
+      this.alicuotas = valor;
+    } else if (nombre === "Emprendimiento") {
+      this.emprendimientos = valor;
+    } else if (nombre === "Mi voto") {
+      this.votacion = valor;
+    } else if (nombre === "Area Social") {
+      console.log("entro area asocial");
+      this.areasocial = valor;
+    } else if (nombre === "Camaras") {
+      console.log("entro Cámaras");
 
-      response = await this.auth.editPublicidad(this.id, body);
-    } else {
-      const body = {
-        prioridad: this.prioridad,
-        imagen: this.imagen,
-      };
+      this.camaras = valor;
+    } else if (nombre === "Directiva") {
+      console.log("entro Directiva");
 
-      response = await this.auth.createPublicidad(body);
+      this.directiva = valor;
+    } else if (nombre === "Galeria") {
+      console.log("entro Galería");
+
+      this.galeria = valor;
+    } else if (nombre === "Horarios") {
+      console.log("entro Horarios");
+
+      this.horarios = valor;
     }
+
+    let body = {
+      modulo_votacion: this.votacion,
+      modulo_area_social: this.areasocial,
+      modulo_alicuota: this.alicuotas,
+      modulo_emprendimiento: this.emprendimientos,
+      modulo_camaras: this.emprendimientos,
+      modulo_directiva: this.directiva,
+      modulo_galeria: this.galeria,
+      modulo_horarios: this.horarios,
+      modulo_mi_registro: this.miregistro,
+    };
+    console.log("body editar modulo: ", body);
+    response = await this.auth.editEtapa(this.id, body);
     if (response) {
       this.modalService.dismissAll();
-      this.getPublicidad();
-    }
-  }
-  delete(id: number) {
-    Swal.fire({
-      title: "¿Seguro que desea eliminar este registro?",
-      text: "Esta acción no se puede reversar",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#343A40",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí",
-      cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if (result.value) {
-        this.deletePublicidad(id);
-      }
-    });
-  }
-
-  async deletePublicidad(id: number) {
-    const response = await this.auth.deletePublicidad(id);
-    if (response) {
-      this.getPublicidad();
+      this.getUrb();
+      this.imagenseleccionada = null;
+      this.estadoseleccionado = null;
+      this.nombreseleccionado = null;
+      this.etapaseleccionada = null;
+      this.idUrbanizacion = null;
+      this.id_etapa = null;
+      valor = null;
     }
   }
 }

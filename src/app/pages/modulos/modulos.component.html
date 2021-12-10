@@ -4,13 +4,8 @@
     <div class="card-body">
       <div class="form-group">
         <label>Urbanización</label>
-        <select
-          [(ngModel)]="idUrbanizacion"
-          name="idUrbanizacion"
-          class="form-control custom-select"
-          id="companydropdown"
-          (change)="getUrbId($event.target.value)"
-        >
+        <select [(ngModel)]="idUrbanizacion" name="idUrbanizacion" class="form-control custom-select"
+          id="companydropdown" (change)="getUrbId($event.target.value)">
           <option *ngFor="let ur of urbanizaciones" value="{{ ur.ID }}">
             {{ ur.nombre }}
           </option>
@@ -19,11 +14,9 @@
 
       <div class="form-group" *ngIf="idUrbanizacion">
         <label>Etapa</label>
-        <select
-          [(ngModel)]="id_etapa"
-          class="form-control custom-select"
-        >
-          <option *ngFor="let ur of etapasid" [ngValue]="ur.ID">
+        <select [(ngModel)]="id_etapa" class="form-control custom-select"
+          (change)="getEtapaSeleccionada($event.target.value)">
+          <option *ngFor="let ur of etapasid" value="{{ ur.ID }}">
             {{ ur.nombre }}
           </option>
         </select>
@@ -37,256 +30,204 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Lista de módulos</h4>
-        <button
-          class="btn btn-dark"
-          (click)="openPublicidad(contentPublicidad)"
-        >
-          Crear módulo
-        </button>
         <h6 class="card-subtitle"></h6>
         <div class="table-responsive m-t-40">
-          <div class="container-fluid linea">
-            <div>
-              <div class="card" style="width: 250px; height: 250px">
-                <img
-                  class="card-img-top centrado"
-                  src="../assets/images/miregistro.png"
-                  alt="Error Horarios"
-                />
+          <div class="row">
+            <div class="container-fluid linea">
+              <!-- <div class="cold-col-md-14"> -->
+
+              <div class="cold-md-4">
+                <div class="card" style="width: 400px; height: 250px">
+                  <img class="card-img-top centrado"
+                    (click)="openModulo('../assets/images/miregistro.png',etapaseleccionada.modulo_mi_registro,'Mi Registro',contentModulo)"
+                    src="../assets/images/miregistro.png" alt="Error Horarios" />
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_mi_registro === true">
+                  <p class="card-text centrartexto">Mi Registro: <span
+                      class="badge badge-pill badge-success">Activo</span></p>
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_mi_registro === false">
+                  <p class="card-text centrartexto">Mi Registro: <span
+                      class="badge badge-pill badge-danger">Inactivo</span>
+                  </p>
+                </div>
               </div>
-              <p class="card-text centrartexto">Mi Registro</p>
+
+              <div class="cold-md-4">
+                <div class="card" style="width: 400px; height: 250px">
+                  <img class="card-img-top centrado"
+                    (click)="openModulo('../assets/images/alicuotas.png',etapaseleccionada.modulo_alicuota,'Alicuotas',contentModulo)"
+                    src="../assets/images/alicuotas.png" alt="Error Horarios" />
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_alicuota === true">
+                  <p class="card-text centrartexto">Alicuotas: <span
+                      class="badge badge-pill badge-success">Activo</span></p>
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_alicuota === false">
+                  <p class="card-text centrartexto">Alicuotas: <span
+                      class="badge badge-pill badge-danger">Inactivo</span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="cold-md-4">
+                <div class="card" style="width: 400px; height: 250px">
+                  <img class="card-img-top centrado"
+                    (click)="openModulo('../assets/images/emprendimiento.png',etapaseleccionada.modulo_emprendimiento,'Emprendimiento',contentModulo)"
+                    src="../assets/images/emprendimiento.png" alt="Error Horarios" />
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_emprendimiento === true">
+                  <p class="card-text centrartexto">Emprendimiento: <span
+                      class="badge badge-pill badge-success">Activo</span></p>
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_emprendimiento === false">
+                  <p class="card-text centrartexto">Emprendimiento: <span
+                      class="badge badge-pill badge-danger">Inactivo</span>
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div>
-              <div class="card" style="width: 250px; height: 250px">
-                <img
-                  class="card-img-top centrado"
-                  src="../assets/images/alicuotas.png"
-                  alt="Error Horarios"
-                />
+            <div class="container-fluid linea">
+              <div>
+                <div class="card" style="width: 400px; height: 250px">
+                  <img class="card-img-top centrado"
+                    (click)="openModulo('../assets/images/mivoto.png',etapaseleccionada.modulo_votacion,'Mi voto',contentModulo)"
+                    src="../assets/images/mivoto.png" alt="Error Horarios" />
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_votacion === true">
+                  <p class="card-text centrartexto">Votación: <span class="badge badge-pill badge-success">Activo</span>
+                  </p>
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_votacion === false">
+                  <p class="card-text centrartexto">Votación: <span
+                      class="badge badge-pill badge-danger">Inactivo</span>
+                  </p>
+                </div>
               </div>
-              <p class="card-text centrartexto">Alícuotas</p>
+
+              <div>
+                <div class="card" style="width: 400px; height: 250px">
+                  <img class="card-img-top centrado"
+                    (click)="openModulo('../assets/images/areasocial.png',etapaseleccionada.modulo_area_social,'Area Social',contentModulo)"
+                    src="../assets/images/areasocial.png" alt="Error Horarios" />
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_area_social === true">
+                  <p class="card-text centrartexto">Área Social: <span
+                      class="badge badge-pill badge-success">Activo</span></p>
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_area_social === false">
+                  <p class="card-text centrartexto">Área Social: <span
+                      class="badge badge-pill badge-danger">Inactivo</span>
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <div class="card" style="width: 400px; height: 250px">
+                  <img class="card-img-top centrado"
+                    (click)="openModulo('../assets/images/camaras.png',etapaseleccionada.modulo_camaras,'Camaras',contentModulo)"
+                    src="../assets/images/camaras.png" alt="Error Horarios" />
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_camaras === true">
+                  <p class="card-text centrartexto">Cámaras: <span class="badge badge-pill badge-success">Activo</span>
+                  </p>
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_camaras === false">
+                  <p class="card-text centrartexto">Cámaras: <span class="badge badge-pill badge-danger">Inactivo</span>
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div>
-              <div class="card" style="width: 250px; height: 250px">
-                <img
-                  class="card-img-top centrado"
-                  src="../assets/images/emprendimiento.png"
-                  alt="Error Horarios"
-                />
+            <div class="container-fluid linea">
+              <div>
+                <div class="card" style="width: 400px; height: 250px">
+                  <img class="card-img-top centrado"
+                    (click)="openModulo('../assets/images/directiva.png',etapaseleccionada.modulo_directiva,'Directiva',contentModulo)"
+                    src="../assets/images/directiva.png" alt="Error Horarios" />
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_directiva === true">
+                  <p class="card-text centrartexto">Directiva: <span
+                      class="badge badge-pill badge-success">Activo</span></p>
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_directiva === false">
+                  <p class="card-text centrartexto">Directiva: <span
+                      class="badge badge-pill badge-danger">Inactivo</span>
+                  </p>
+                </div>
               </div>
-              <p class="card-text centrartexto">Emprendimiento</p>
+
+              <div>
+                <div class="card" style="width: 400px; height: 250px">
+                  <img class="card-img-top centrado"
+                    (click)="openModulo('../assets/images/galeria.png',etapaseleccionada.modulo_galeria,'Galeria',contentModulo)"
+                    src="../assets/images/galeria.png" alt="Error Horarios" />
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_galeria === true">
+                  <p class="card-text centrartexto">Galería: <span class="badge badge-pill badge-success">Activo</span>
+                  </p>
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_galeria === false">
+                  <p class="card-text centrartexto">Galería: <span class="badge badge-pill badge-danger">Inactivo</span>
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <div class="card" style="width: 400px; height: 250px">
+                  <img class="card-img-top centrado"
+                    (click)="openModulo('../assets/images/horarios.png',etapaseleccionada.modulo_horarios,'Horarios',contentModulo)"
+                    src="../assets/images/horarios.png" alt="Error Horarios" />
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_horarios === true">
+                  <p class="card-text centrartexto">Horarios: <span class="badge badge-pill badge-success">Activo</span>
+                  </p>
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_horarios === false">
+                  <p class="card-text centrartexto">Horarios: <span
+                      class="badge badge-pill badge-danger">Inactivo</span>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-
-          <div class="container-fluid linea">
-            <div>
-              <div class="card" style="width: 250px; height: 250px">
-                <img
-                  class="card-img-top centrado"
-                  src="../assets/images/mivoto.png"
-                  alt="Error Horarios"
-                />
-              </div>
-              <p class="card-text centrartexto">Mi voto</p>
-            </div>
-
-            <div>
-              <div class="card" style="width: 250px; height: 250px">
-                <img
-                  class="card-img-top centrado"
-                  src="../assets/images/areasocial.png"
-                  alt="Error Horarios"
-                />
-              </div>
-              <p class="card-text centrartexto">Área Social</p>
-            </div>
-
-            <div>
-              <div class="card" style="width: 250px; height: 250px">
-                <img
-                  class="card-img-top centrado"
-                  src="../assets/images/camaras.png"
-                  alt="Error Horarios"
-                />
-              </div>
-              <p class="card-text centrartexto">Cámaras</p>
-            </div>
-          </div>
-
-          <div class="container-fluid linea">
-            <div>
-              <div class="card" style="width: 250px; height: 250px">
-                <img
-                  class="card-img-top centrado"
-                  src="../assets/images/directiva.png"
-                  alt="Error Horarios"
-                />
-              </div>
-              <p class="card-text centrartexto">Directiva</p>
-            </div>
-
-            <div>
-              <div class="card" style="width: 250px; height: 250px">
-                <img
-                  class="card-img-top centrado"
-                  src="../assets/images/galeria.png"
-                  alt="Error Horarios"
-                />
-              </div>
-              <p class="card-text centrartexto">Galería</p>
-            </div>
-
-            <div>
-              <div class="card" style="width: 250px; height: 250px">
-                <img
-                  class="card-img-top centrado"
-                  src="../assets/images/horarios.png"
-                  alt="Error Horarios"
-                />
-              </div>
-              <p class="card-text centrartexto">Horarios</p>
-            </div>
-          </div>
-          <!-- <table
-            id="myTable"
-            class="table color-bordered-table inverse-bordered-table"
-          >
-            <thead>
-              <tr style="text-align: center">
-                <th>No.</th>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Empresa</th>
-                <th>Documento</th>
-                <th>Teléfono</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody style="text-align: center">
-              <tr
-                *ngFor="
-                  let mat of publicidades | filter: filterName;
-                  let i = index
-                "
-              >
-                <th scope="row ">{{ i + 1 }}</th>
-                <td>--</td>
-                <td>--</td>
-                <td>--</td>
-                <td>--</td>
-                <td>--</td>
-                <td>
-                  <a
-                    data-toggle="tooltip"
-                    data-original-title="Editar"
-                    (click)="openPublicidad(contentPublicidad, mat)"
-                  >
-                    <i class="fa fa-pencil text-inverse m-r-10"></i>
-                  </a>
-                  <a
-                    data-toggle="tooltip"
-                    data-original-title="Eliminar"
-                    (click)="delete(mat.ID)"
-                  >
-                    <i class="fa fa-trash text-danger m-r-10"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr *ngIf="publicidades.length === 0">
-                <td style="text-align: center !important" colspan="10">
-                  <label class="text-primary">No existen datos</label>
-                </td>
-              </tr>
-            </tbody>
-          </table> -->
         </div>
       </div>
     </div>
-    <ng-template #contentPublicidad let-modal>
-      <div class="modal-header">
-        <h4 *ngIf="!publicidad.edit" class="modal-title" id="modal-basic-title">
-          Crear módulo
-        </h4>
-        <h4 *ngIf="publicidad.edit" class="modal-title" id="modal-basic-title">
-          Editar módulo
-        </h4>
-        <button
-          type="button"
-          class="close"
-          aria-label="Close"
-          (click)="modal.dismiss('Cross click')"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form (ngSubmit)="gestionPublicidad()" #form="ngForm">
-        <div class="modal-body">
-          <div class="form-group">
-            <div class="image-preview mb-3" *ngIf="imagen">
-              <img class="img-fluid" [src]="imagen" height="500" />
-            </div>
-            <input type="file" name="image" (change)="preview($event)" />
-          </div>
-          <div class="form-group">
-            <input
-              [value]="nombre"
-              [(ngModel)]="nombre"
-              name="nombre"
-              class="form-control"
-              type="text"
-              required
-              placeholder="Nombre"
-            />
-          </div>
-          <!-- <div class="form-group">
-            <input
-              [value]="nombre"
-              [(ngModel)]="nombre"
-              name="nombre"
-              class="form-control"
-              type="text"
-              required
-              placeholder="Empresa"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              [value]="nombre"
-              [(ngModel)]="nombre"
-              name="nombre"
-              class="form-control"
-              type="number"
-              required
-              placeholder="Documento"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              [value]="nombre"
-              [(ngModel)]="nombre"
-              name="nombre"
-              class="form-control"
-              type="number"
-              required
-              placeholder="Teléfono"
-            />
-          </div> -->
-        </div>
-        <div class="modal-footer">
-          <button
-            *ngIf="!auth.loading"
-            [disabled]="!form.valid"
-            type="submit"
-            class="btn btn-outline-dark"
-          >
-            <span *ngIf="!publicidad.edit">Guardar</span>
-            <span *ngIf="publicidad.edit">Editar</span>
-          </button>
-          <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i>
-        </div>
-      </form>
-    </ng-template>
   </div>
 </div>
+
+<ng-template #contentModulo let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      {{nombreseleccionado}} </h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <figure class="centrado">
+        <img [src]="imagenseleccionada" alt="image" />
+      </figure>
+      <br>
+      <div *ngIf="estadoseleccionado === true">
+        <span class="badge badge-pill badge-success bad">Estado:</span>
+        Activado
+      </div>
+      <div *ngIf="estadoseleccionado === false">
+        <span class="badge badge-pill badge-danger">Estado: </span>
+        Inactivado
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div *ngIf="estadoseleccionado">
+      <button type="button" class="btn btn-danger" (click)="update('false',nombreseleccionado)">Inactivar</button>
+    </div>
+    <div *ngIf="!estadoseleccionado">
+      <button type="button" class="btn btn-success" (click)="update('true',nombreseleccionado)">Activar</button>
+    </div>
+  </div>
+</ng-template>

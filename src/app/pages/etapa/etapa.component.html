@@ -97,9 +97,13 @@
           </select>
         </div>
         <div *ngIf="id_urbanizacion">
-          <div class="form-group">
+          <div class="form-group" *ngIf="!etapa.edit">
             <input [value]="nombre" [(ngModel)]="nombre" name="nombre" class="form-control" type="text" required
               placeholder="Nombre" />
+          </div>
+          <div class="form-group" *ngIf="etapa.edit">
+            <input [value]="nombre" [(ngModel)]="nombre" name="nombre" class="form-control" type="text" required
+              placeholder="Nombre" readonly/>
           </div>
           <div class="form-group">
             <input [value]="correo" [(ngModel)]="correo" name="correo" class="form-control" type="email" required

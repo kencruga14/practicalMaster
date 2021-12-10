@@ -306,6 +306,20 @@ export class AuthService {
     );
   }
 
+  getEtapaSelect(id){
+    const headers = new HttpHeaders({
+      token: this.userToken,
+    });
+    return this.http
+      .get(`${environment.apiUrl}/etapa/${id}`, { headers })
+      .pipe(
+        map((resp: any) => {
+          // console.log(resp.respuesta);
+          return resp.respuesta;
+        })
+      );
+  }
+
   getEtapaByIdUrbanizacion(id) {
     // console.log("getEtapaId: ", id);
     const headers = new HttpHeaders({

@@ -3,6 +3,7 @@ export class UsuarioModelo {
   telefono: string;
   contrasena: string;
   nombres: string;
+  imagen: any;
   nombre: string;
   apellido: string;
   cedula: string;

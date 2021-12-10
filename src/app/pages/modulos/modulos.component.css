@@ -27,17 +27,21 @@ td {
   height: 180px;
 }
 
-.centrartexto{
+.centrartexto {
   text-align: center;
 }
 
-.backcard{
+.backcard {
   background-color: black;
 }
 
-.centrarcontenido{
+.centrarcontenido {
   margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
   display: block;
 }
+.bad {
+  font-size: 15px;
+}
+

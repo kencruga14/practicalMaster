@@ -64,10 +64,13 @@
                     <div class="dropdown-menu dropdown-menu-right scale-up">
                         <ul class="dropdown-user">
                             <li>
-                                <div class="dw-user-box">
-                                    <div class="u-img"><img src="../assets/images/Logo-Admin-Naranja-60.png" alt="user">
+                                <div class="dw-user-box" *ngFor="let m of masters">
+                                    <div>
+                                        <img class="avatar" data-holder-rendered="true"
+                                            src="https://api.practical.com.ec/public/img/usuarios/2021-11-27T08-44-23-05-00160.jpeg"
+                                            alt="user">
                                     </div>
-                                    <div class="u-text" *ngFor="let m of masters">
+                                    <div class="u-text">
                                         <h4>{{m.usuario}}</h4>
                                         <p class="text-muted">{{m.correo}}</p>
                                         <p class="text-muted">{{m.telefono}}</p>
