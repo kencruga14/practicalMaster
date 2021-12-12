@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
   styleUrls: ["./administrador.component.css"],
 })
 export class AdministradorComponent implements OnInit {
+  filterName = ''
   admins: UsuarioModelo[] = [];
   prueba: any;
   id_usuario: 0;
@@ -50,12 +51,14 @@ export class AdministradorComponent implements OnInit {
     id_usuario: "",
   };
 
+  permisos: any = {}
+
   menu = ["Administradores"];
   constructor(
     public auth: AuthService,
     private router: Router,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getAdmin();

@@ -2,19 +2,25 @@
 <div class="container-fluid">
   <div class="card">
     <div class="card-body">
-      <h4 class="card-title">Lista de autorizados</h4>
-      <div *ngIf="!admins">
-        <button class="btn btn-dark" (click)="openAdmin(contentAdmin)">
-          Crear autorización
-        </button>
-      </div>
-      <div *ngIf="admins?.length > 0">
-        <button class="btn btn-dark" (click)="openAdmin(contentAdmin)">
-          Agregar autorización
-        </button>
-      </div>
-      <div class="form-group col-md-4 m-t-20" style="display: inline-flex; float: right">
-        <input type="text" [(ngModel)]="searchText" class="form-control" name="searchText" placeholder="Buscar" />
+      <div class="row">
+        <div class="col-3">
+          <h4 class="card-title">Lista de autorizados</h4>
+          <div *ngIf="!admins">
+            <button class="btn btn-dark" (click)="openAdmin(contentAdmin)">
+              Crear autorización
+            </button>
+          </div>
+          <div *ngIf="admins?.length > 0">
+            <button class="btn btn-dark" (click)="openAdmin(contentAdmin)">
+              Agregar autorización
+            </button>
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="form-group col-md-4 m-t-20" style="display: inline-flex; float: right">
+            <input type="text" [(ngModel)]="searchText" class="form-control" name="searchText" placeholder="Buscar" />
+          </div>
+        </div>
       </div>
       <h6 class="card-subtitle"></h6>
       <div class="table-responsive m-t-40">
@@ -35,18 +41,14 @@
           <tbody style="text-align: center">
             <tr *ngFor="
                 let admin of admins
-                  | multifilter
-                    : {
-                        cedula: searchText,
-                        apellido: searchText
-                      };
+                  | multifilter: {nombres: searchText,apellido: searchText,usuario: searchText,correo: searchText,cedula: searchText,telefono: searchText};
                 let i = index
               ">
               <!-- <tr *ngFor="let admin of admins; let i = index"> -->
               <th scope="row ">{{ i+1 }}</th>
               <td>
                 <figure>
-                  <img class="avatar" [src]="admin.usuario.imagen"  data-holder-rendered="true" alt="image"
+                  <img class="avatar" [src]="admin.usuario.imagen" data-holder-rendered="true" alt="image"
                     (click)="openImage(contentImage, admin)" />
                 </figure>
               </td>
@@ -63,6 +65,8 @@
                 <a data-toggle="tooltip" data-original-title="Eliminar" (click)="delete(admin.ID)">
                   <i class="fa fa-trash text-danger m-r-10"></i>
                 </a>
+                <a data-toggle="tooltip" data-original-title="Info">
+                  <i class="fa fa-info-circle text-inverse m-r-10"></i> </a>
               </td>
             </tr>
             <tr *ngIf="admins.length === 0">
@@ -143,6 +147,41 @@
             <input [value]="telefono" [(ngModel)]="telefono" name="telefono" class="form-control" type="text" required
               placeholder="Teléfono" />
           </div>
+          <div class="row">
+            <label style="padding-left: 17px; font-size: 18px; padding-bottom: 5px; font-weight: bold;">
+              Permisos</label>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <input type="checkbox" id="cbox1" [(ngModel)]="permisos.urbanizacion" name="urbanizacion">
+              <label for="cbox1">Urbanizacion</label>
+
+              <input type="checkbox" id="cbox2" [(ngModel)]="permisos.modulo" name="modulo">
+              <label for="cbox2">Modulo</label>
+
+              <input type="checkbox" id="cbox3" name="facturacion" [(ngModel)]="permisos.facturacion">
+              <label for="cbox3">Facturacion</label>
+
+            </div>
+            <div class="col-4">
+              <input type="checkbox" id="cbox6" [(ngModel)]="permisos.etapa" name="etapa">
+              <label for="cbox6">Etapa</label>
+              <input type="checkbox" id="cbox7" [(ngModel)]="permisos.categoria" name="categoria">
+              <label for="cbox7">Categoria</label>
+              <input type="checkbox" id="cbox8" name="residente" [(ngModel)]="permisos.residente"> <label
+                for="cbox8">Residente</label>
+
+            </div>
+            <div class="col-4">
+              <input type="checkbox" id="cbox11" [(ngModel)]="permisos.administrador" name="administrador">
+              <label for="cbox11">Administrador</label>
+              <input type="checkbox" id="cbox12" [(ngModel)]="permisos.publicidad" name="publicidad">
+              <label for="cbox12">Publicidad</label>
+              <input type="checkbox" id="cbox13" name="usuario" [(ngModel)]="permisos.usuario"> <label
+                for="cbox13">Usuario</label>
+
+            </div>
+          </div>
 
           <div class="modal-footer">
             <button *ngIf="!auth.loading" [disabled]="!form.valid" type="submit" class="btn btn-outline-dark">
@@ -164,7 +203,7 @@
     </div>
     <div class="modal-body" *ngIf="imagenPerfil">
       <figure class="box">
-        <img  [src]="imagenPerfil.usuario.imagen" alt="image"/>
+        <img [src]="imagenPerfil.usuario.imagen" alt="image" />
       </figure>
     </div>
   </ng-template>
