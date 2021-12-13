@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
   styleUrls: ["./administrador.component.css"],
 })
 export class AdministradorComponent implements OnInit {
-  filterName = ''
+  permisos: any = {}
   admins: UsuarioModelo[] = [];
   prueba: any;
   id_usuario: 0;
@@ -50,8 +50,6 @@ export class AdministradorComponent implements OnInit {
     accesos: "",
     id_usuario: "",
   };
-
-  permisos: any = {}
 
   menu = ["Administradores"];
   constructor(
