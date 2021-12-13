@@ -18,6 +18,7 @@ export class AuthService {
   userToken: string;
   info: any;
   infoGuard: any;
+  permisos: any;
   constructor(private http: HttpClient, private router: Router) {
     this.leerToken();
     moment.locale("es");
@@ -26,6 +27,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("info");
+    localStorage.removeItem("permisos")
   }
 
   login(body) {
@@ -79,15 +81,19 @@ export class AuthService {
     this.userToken = idToken.token;
     // console.log(this.userToken);
     this.info = JSON.stringify(idToken);
+
     this.infoGuard = 1;
     localStorage.setItem("token", idToken.token);
     localStorage.setItem("info", JSON.stringify(idToken.usuario));
+    localStorage.setItem("permisos", JSON.stringify(idToken.permisos));
+
   }
 
   leerToken() {
     if (localStorage.getItem("token")) {
       this.userToken = localStorage.getItem("token");
       this.info = JSON.parse(localStorage.getItem("info"));
+      this.permisos = JSON.parse(localStorage.getItem("permisos"))
       this.infoGuard = 1;
     } else {
       this.userToken = "";
@@ -306,7 +312,7 @@ export class AuthService {
     );
   }
 
-  getEtapaSelect(id){
+  getEtapaSelect(id) {
     const headers = new HttpHeaders({
       token: this.userToken,
     });
