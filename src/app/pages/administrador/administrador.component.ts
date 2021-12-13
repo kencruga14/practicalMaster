@@ -167,6 +167,7 @@ export class AdministradorComponent implements OnInit {
           contrasena: this.contrasena,
           cedula: this.cedula,
           imagen: this.imagenEdit,
+          permisos: this.admin.permisos
         },
       };
       // console.log("body edit:", body);
@@ -174,7 +175,12 @@ export class AdministradorComponent implements OnInit {
       JSON.stringify(body);
       response = await this.auth.editAdmin(this.id, body);
     } else {
-
+      delete this.permisos.CreatedAt
+      delete this.permisos.DeletedAt
+      delete this.permisos.ID
+      delete this.permisos.UpdatedAt
+      delete this.permisos.admin_master
+      this.admin.permisos = this.permisos
       const body = {
         usuario: {
           nombres: this.nombres,
@@ -184,16 +190,12 @@ export class AdministradorComponent implements OnInit {
           usuario: this.usuario,
           cedula: this.cedula,
           imagen: this.imagen,
+          permisos: this.admin.permisos
         },
       };
       JSON.stringify(body);
       // console.log("usuario crear: ", body);
-      delete this.permisos.CreatedAt
-      delete this.permisos.DeletedAt
-      delete this.permisos.ID
-      delete this.permisos.UpdatedAt
-      delete this.permisos.admin_master
-      this.admin.permisos = this.permisos
+
       response = await this.auth.createAdmin(body);
     }
     if (response) {
