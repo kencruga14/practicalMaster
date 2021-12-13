@@ -34,7 +34,7 @@
 
         <li class="nav-small-cap">Principal</li>
 
-        <li *ngIf="permisos.autorizado">
+        <li *ngIf="is_master">
           <a class="waves-effect waves-dark" [routerLink]="['administrador']" routerLinkActive="active"
             aria-expanded="false"><i class="fas fa-user-shield"></i><span class="hide-menu">Autorizados</span></a>
         </li>

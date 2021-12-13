@@ -86,6 +86,8 @@ export class AuthService {
     localStorage.setItem("token", idToken.token);
     localStorage.setItem("info", JSON.stringify(idToken.usuario));
     localStorage.setItem("permisos", JSON.stringify(idToken.permisos));
+    localStorage.setItem("is_master", JSON.stringify(idToken.is_master));
+
 
   }
 
