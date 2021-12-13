@@ -167,8 +167,8 @@ export class AdministradorComponent implements OnInit {
           contrasena: this.contrasena,
           cedula: this.cedula,
           imagen: this.imagenEdit,
-          permisos: this.admin.permisos
         },
+        permisos: this.admin.permisos
       };
       // console.log("body edit:", body);
       // console.log("id del Usuario a editar: ", this.id);
@@ -190,8 +190,8 @@ export class AdministradorComponent implements OnInit {
           usuario: this.usuario,
           cedula: this.cedula,
           imagen: this.imagen,
-          permisos: this.admin.permisos
         },
+        permisos: this.admin.permisos
       };
       JSON.stringify(body);
       // console.log("usuario crear: ", body);
