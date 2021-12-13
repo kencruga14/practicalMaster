@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 })
 export class AdministradorComponent implements OnInit {
   permisos: any = {}
+  infoPermisos: any = {}
   admins: UsuarioModelo[] = [];
   prueba: any;
   id_usuario: 0;
@@ -45,6 +46,7 @@ export class AdministradorComponent implements OnInit {
     telefono: 0,
     imagen: null,
     apellido: "",
+    permisos: {}
   };
   acceso = {
     accesos: "",
@@ -60,6 +62,7 @@ export class AdministradorComponent implements OnInit {
 
   ngOnInit() {
     this.getAdmin();
+
   }
 
   saveEditPicture(event: any) {
@@ -116,6 +119,8 @@ export class AdministradorComponent implements OnInit {
       this.correo = admin.usuario.correo;
       this.imagenEdit = admin.usuario.imagen;
       this.admin.edit = true;
+      this.permisos = admin.permisos
+
 
       // console.log("admin editar cuerpo:", admin);
     } else {
@@ -129,6 +134,7 @@ export class AdministradorComponent implements OnInit {
       this.correo = "";
       this.admin.edit = false;
       this.imagen = this.imagen;
+      this.permisos = {}
     }
     this.modalService.open(content);
   }
@@ -136,6 +142,7 @@ export class AdministradorComponent implements OnInit {
   getAdmin() {
     this.auth.getAdmin().subscribe((resp: any) => {
       this.admins = resp;
+      console.log(resp)
     });
   }
 
@@ -143,6 +150,12 @@ export class AdministradorComponent implements OnInit {
   async gestionAdmin() {
     let response: any;
     if (this.admin.edit) {
+      delete this.permisos.CreatedAt
+      delete this.permisos.DeletedAt
+      delete this.permisos.ID
+      delete this.permisos.UpdatedAt
+      delete this.permisos.admin_master
+      this.admin.permisos = this.permisos
       const body = {
         usuario: {
           // ID: this.id,
@@ -161,6 +174,7 @@ export class AdministradorComponent implements OnInit {
       JSON.stringify(body);
       response = await this.auth.editAdmin(this.id, body);
     } else {
+
       const body = {
         usuario: {
           nombres: this.nombres,
@@ -174,6 +188,12 @@ export class AdministradorComponent implements OnInit {
       };
       JSON.stringify(body);
       // console.log("usuario crear: ", body);
+      delete this.permisos.CreatedAt
+      delete this.permisos.DeletedAt
+      delete this.permisos.ID
+      delete this.permisos.UpdatedAt
+      delete this.permisos.admin_master
+      this.admin.permisos = this.permisos
       response = await this.auth.createAdmin(body);
     }
     if (response) {
@@ -189,6 +209,7 @@ export class AdministradorComponent implements OnInit {
         telefono: 0,
         imagen: null,
         apellido: "",
+        permisos: {}
       };
       this.imagen = null;
       this.imagenPerfil = null;
@@ -226,5 +247,15 @@ export class AdministradorComponent implements OnInit {
     if (response) {
       this.getAdmin();
     }
+  }
+  mostrarPermisos(content, admin) {
+    delete this.permisos.CreatedAt
+    this.infoPermisos = admin.permisos
+
+    for (const property in this.infoPermisos) {
+      console.log(`${property}: ${this.infoPermisos[property]}`);
+    }
+    this.modalService.open(content);
+
   }
 }

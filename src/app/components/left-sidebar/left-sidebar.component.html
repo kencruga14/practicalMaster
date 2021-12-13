@@ -34,55 +34,55 @@
 
         <li class="nav-small-cap">Principal</li>
 
-        <li>
+        <li *ngIf="permisos.autorizado">
           <a class="waves-effect waves-dark" [routerLink]="['administrador']" routerLinkActive="active"
             aria-expanded="false"><i class="fas fa-user-shield"></i><span class="hide-menu">Autorizados</span></a>
         </li>
-        <li>
+        <li *ngIf="permisos.urbanizacion">
           <a class="waves-effect waves-dark" [routerLink]="['urbanizacion']" routerLinkActive="active"
             aria-expanded="false"><i class="fas fa-place-of-worship"></i><span
               class="hide-menu">Urbanizaciones</span></a>
         </li>
-        <li>
+        <li *ngIf="permisos.etapa">
           <a class="waves-effect waves-dark" [routerLink]="['etapa']" routerLinkActive="active" aria-expanded="false"><i
               class="fas fa-home"></i><span class="hide-menu">Etapas</span></a>
         </li>
 
-        <li>
+        <li *ngIf="permisos.administrador">
           <a class="waves-effect waves-dark" [routerLink]="['adminetapa']" routerLinkActive="active"
             aria-expanded="false"><i class="fas fa-street-view"></i><span class="hide-menu">Administradores</span></a>
         </li>
 
-        <li>
+        <li *ngIf="permisos.modulo">
           <a class="waves-effect waves-dark" [routerLink]="['modulos']" routerLinkActive="active" aria-expanded="false">
             <i class="fas fa-chart-line"></i>
             <span class="hide-menu">Módulos</span></a>
         </li>
-        <li>
+        <li *ngIf="permisos.categoria">
           <a class="waves-effect waves-dark" [routerLink]="['market']" routerLinkActive="active"
             aria-expanded="false"><i class="fas fa-store"></i><span class="hide-menu">Categorías</span></a>
         </li>
 
-        <li>
+        <li *ngIf="permisos.publicidad">
           <a class="waves-effect waves-dark" [routerLink]="['publicidad']" routerLinkActive="active"
             aria-expanded="false">
             <i class="fas fa-funnel-dollar"></i>
             <span class="hide-menu">Publicidad</span></a>
         </li>
 
-        <li>
+        <li *ngIf="permisos.facturacion">
           <a class="waves-effect waves-dark" [routerLink]="['transaccion']" routerLinkActive="active"
             aria-expanded="false">
             <i class="fas fa-cash-register"></i>
             <span class="hide-menu">Facturación</span></a>
         </li>
-        <li>
+        <li *ngIf="permisos.residente">
           <a class="waves-effect waves-dark" [routerLink]="['residente']" routerLinkActive="active"
             aria-expanded="false">
             <i class="fas fa-user-alt"></i>
             <span class="hide-menu">Residentes</span></a>
         </li>
-        <li>
+        <li *ngIf="permisos.usuario">
           <a class="waves-effect waves-dark" [routerLink]="['usuarios']" routerLinkActive="active"
             aria-expanded="false">
             <i class="fas fa-user-check"></i>

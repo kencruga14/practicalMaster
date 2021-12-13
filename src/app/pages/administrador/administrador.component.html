@@ -65,7 +65,7 @@
                 <a data-toggle="tooltip" data-original-title="Eliminar" (click)="delete(admin.ID)">
                   <i class="fa fa-trash text-danger m-r-10"></i>
                 </a>
-                <a data-toggle="tooltip" data-original-title="Info">
+                <a data-toggle="tooltip" data-original-title="Info" (click)="mostrarPermisos(contentPermisos, admin)">
                   <i class="fa fa-info-circle text-inverse m-r-10"></i> </a>
               </td>
             </tr>
@@ -155,14 +155,14 @@
             <div class="col-4">
               <input type="checkbox" id="cbox1" [(ngModel)]="permisos.urbanizacion" name="urbanizacion">
               <label for="cbox1">Urbanizacion</label>
-
               <input type="checkbox" id="cbox2" [(ngModel)]="permisos.modulo" name="modulo">
               <label for="cbox2">Modulo</label>
-
               <input type="checkbox" id="cbox3" name="facturacion" [(ngModel)]="permisos.facturacion">
               <label for="cbox3">Facturacion</label>
-
+              <input type="checkbox" id="cbox4" name="autorizado" [(ngModel)]="permisos.autorizado">
+              <label for="cbox4">Autorizado</label>
             </div>
+
             <div class="col-4">
               <input type="checkbox" id="cbox6" [(ngModel)]="permisos.etapa" name="etapa">
               <label for="cbox6">Etapa</label>
@@ -170,16 +170,15 @@
               <label for="cbox7">Categoria</label>
               <input type="checkbox" id="cbox8" name="residente" [(ngModel)]="permisos.residente"> <label
                 for="cbox8">Residente</label>
-
-            </div>
-            <div class="col-4">
               <input type="checkbox" id="cbox11" [(ngModel)]="permisos.administrador" name="administrador">
               <label for="cbox11">Administrador</label>
+            </div>
+
+            <div class="col-4">
               <input type="checkbox" id="cbox12" [(ngModel)]="permisos.publicidad" name="publicidad">
               <label for="cbox12">Publicidad</label>
               <input type="checkbox" id="cbox13" name="usuario" [(ngModel)]="permisos.usuario"> <label
                 for="cbox13">Usuario</label>
-
             </div>
           </div>
 
@@ -192,6 +191,62 @@
         </div>
       </div>
     </form>
+  </ng-template>
+
+  <ng-template #contentPermisos let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title encabezado" id="modal-basic-title">Módulos permitidos</h4>
+    </div>
+
+    <div class="modal-body">
+      <strong class="pregunta"></strong>
+      <div class="table-responsive">
+        <table id="myTable" class=" permisos table color-bordered-table inverse-bordered-table">
+          <thead>
+            <tr style="text-align: center;">
+              <th>Módulos</th>
+            </tr>
+          </thead>
+          <tbody style="text-align: center;" *ngIf="infoPermisos">
+            <tr>
+              <td *ngIf="infoPermisos.urbanizacion">Urbanización</td>
+            </tr>
+            <tr>
+              <td *ngIf="infoPermisos.etapa">Etapa</td>
+            </tr>
+            <tr>
+              <td *ngIf="infoPermisos.administrador">Administrador</td>
+            </tr>
+            <tr>
+              <td *ngIf="infoPermisos.modulo">Módulo</td>
+            </tr>
+            <tr>
+              <td *ngIf="infoPermisos.categoria">Categoría</td>
+            </tr>
+            <tr>
+              <td *ngIf="infoPermisos.emprendimiento">Emprendimiento</td>
+            </tr>
+            <tr>
+              <td *ngIf="infoPermisos.publicidad">Publicidad</td>
+            </tr>
+            <tr>
+              <td *ngIf="infoPermisos.facturacion">Facturación</td>
+            </tr>
+            <tr>
+              <td *ngIf="infoPermisos.residente">Residentes</td>
+            </tr>
+            <tr>
+              <td *ngIf="infoPermisos.usuario">Usuarios</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="!infoPermisos">
+            <tr>
+              <td>Permisos no asignados</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </ng-template>
 
   <ng-template #contentImage let-modal>

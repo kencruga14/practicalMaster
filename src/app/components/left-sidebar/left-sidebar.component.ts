@@ -10,8 +10,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class LeftSidebarComponent implements OnInit {
 
-  masters: UsuarioModelo[] =[];
+  masters: UsuarioModelo[] = [];
   tipo_usuario: '';
+  permisos: any = {}
   constructor(private auth: AuthService,
     private router: Router,
     private modalService: NgbModal,) { }
@@ -19,7 +20,8 @@ export class LeftSidebarComponent implements OnInit {
   ngOnInit() {
     const infomaster = localStorage.getItem("info");
     this.masters = JSON.parse(infomaster);
-   // this.tipo_usuario = this.masters["rol"]["nombres"];
+    this.permisos = JSON.parse(localStorage.getItem("permisos"))
+    // this.tipo_usuario = this.masters["rol"]["nombres"];
   }
 
 }
