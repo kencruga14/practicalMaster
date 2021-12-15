@@ -14,9 +14,9 @@ export class LoginComponent implements OnInit {
   usuario: string;
   validacionUsuario: any;
   contrasena: string;
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
   login(form: NgForm) {
     if (form.invalid) {
       return;

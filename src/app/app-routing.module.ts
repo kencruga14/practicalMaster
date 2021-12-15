@@ -18,16 +18,21 @@ import { ModulosComponent } from "./pages/modulos/modulos.component";
 import { CambiarcontrasenaComponent } from "./pages/cambiarcontrasena/cambiarcontrasena.component";
 import { UsuariosComponent } from "./pages/usuarios/usuarios.component";
 import { ResidenteComponent } from "./pages/residente/residente.component";
+import { InicioComponent } from "./pages/inicio/inicio.component";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "cambiarcontrasena/:usuario", component: CambiarcontrasenaComponent },
-
   {
     path: "home",
     component: HomeComponent,
     canActivate: [AuthGuard],
     children: [
+      {
+        path: "inicio",
+        component: InicioComponent,
+        canActivate: [RolGuard],
+      },
       {
         path: "administrador",
         component: AdministradorComponent,
@@ -57,7 +62,7 @@ const routes: Routes = [
       { path: "transaccion", component: TransaccionComponent },
       { path: "usuarios", component: UsuariosComponent },
       { path: "residente", component: ResidenteComponent },
-      { path: "**", redirectTo: "administrador" },
+      { path: "**", redirectTo: "inicio" },
     ],
   },
   { path: "**", redirectTo: "login" },
@@ -67,4 +72,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -1,18 +1,18 @@
-<app-breadcrumb titulo="Autorizados"></app-breadcrumb>
+<app-breadcrumb titulo="Permisos"></app-breadcrumb>
 <div class="container-fluid">
   <div class="card">
     <div class="card-body">
       <div class="row">
         <div class="col-3">
-          <h4 class="card-title">Lista de autorizados</h4>
+          <h4 class="card-title">Lista de Permitidos</h4>
           <div *ngIf="!admins">
             <button class="btn btn-dark" (click)="openAdmin(contentAdmin)">
-              Crear autorización
+              Crear Permiso
             </button>
           </div>
           <div *ngIf="admins?.length > 0">
             <button class="btn btn-dark" (click)="openAdmin(contentAdmin)">
-              Agregar autorización
+              Agregar Permiso
             </button>
           </div>
         </div>
@@ -83,10 +83,10 @@
   <ng-template #contentAdmin let-modal>
     <div class="modal-header">
       <h4 *ngIf="!admin.edit" class="modal-title" id="modal-basic-title">
-        Crear autorización
+        Crear Permiso
       </h4>
       <h4 *ngIf="admin.edit" class="modal-title" id="modal-basic-title">
-        Editar autorización
+        Editar Permiso
       </h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
@@ -124,27 +124,27 @@
 
           <div class="form-group">
             <input [value]="nombres" id="nombres" [(ngModel)]="nombres" name="nombres" class="form-control" type="text"
-              required placeholder="Nombres" />
+              pattern="[A-Za-z]{1,15}" required placeholder="Nombres" />
           </div>
           <div class="form-group">
             <input [value]="apellidos" id="apellidos" [(ngModel)]="apellido" name="apellidos" class="form-control"
-              type="text" required placeholder="Apellidos" />
+              type="text" pattern="[A-Za-z]{1,15}" required placeholder="Apellidos" />
           </div>
 
           <div class="form-group">
-            <input [value]="cedula" [(ngModel)]="cedula" id="cedula" name="cedula" class="form-control" type="text"
+            <input [value]="cedula" [(ngModel)]="cedula" id="cedula" name="cedula" class="form-control" type="number"
               required placeholder="Cédula" />
           </div>
           <div class="form-group" *ngIf="!admin.edit">
-            <input [value]="usuario" [(ngModel)]="usuario" name="usuario" class="form-control" type="text" required
-              placeholder="Usuario" />
+            <input [value]="usuario" [(ngModel)]="usuario" name="usuario" class="form-control" type="text"
+              pattern="[A-Za-z0-9_-]{1,15}" required placeholder="Usuario" />
           </div>
           <div class="form-group">
             <input [value]="correo" [(ngModel)]="correo" name="correo" class="form-control" type="email" required
               placeholder="Correo" />
           </div>
           <div class="form-group">
-            <input [value]="telefono" [(ngModel)]="telefono" name="telefono" class="form-control" type="text" required
+            <input [value]="telefono" [(ngModel)]="telefono" name="telefono" class="form-control" type="number" required
               placeholder="Teléfono" />
           </div>
           <div class="row">
@@ -154,30 +154,30 @@
           <div class="row">
             <div class="col-4">
               <input type="checkbox" id="cbox1" [(ngModel)]="permisos.urbanizacion" name="urbanizacion">
-              <label for="cbox1">Urbanizacion</label>
+              <label class="permisos" for="cbox1">Urbanizacion</label>
               <input type="checkbox" id="cbox2" [(ngModel)]="permisos.modulo" name="modulo">
-              <label for="cbox2">Modulo</label>
+              <label class="permisos" for="cbox2">Modulo</label>
               <input type="checkbox" id="cbox3" name="facturacion" [(ngModel)]="permisos.facturacion">
-              <label for="cbox3">Facturacion</label>
+              <label class="permisos" for="cbox3">Facturacion</label>
               <input type="checkbox" id="cbox4" name="autorizado" [(ngModel)]="permisos.autorizado">
-              <label for="cbox4">Autorizado</label>
+              <label class="permisos" for="cbox4">Autorizado</label>
             </div>
 
             <div class="col-4">
               <input type="checkbox" id="cbox6" [(ngModel)]="permisos.etapa" name="etapa">
-              <label for="cbox6">Etapa</label>
+              <label class="permisos" for="cbox6">Etapa</label>
               <input type="checkbox" id="cbox7" [(ngModel)]="permisos.categoria" name="categoria">
-              <label for="cbox7">Categoria</label>
-              <input type="checkbox" id="cbox8" name="residente" [(ngModel)]="permisos.residente"> <label
-                for="cbox8">Residente</label>
+              <label class="permisos" for="cbox7">Categoria</label>
+              <input type="checkbox" id="cbox8" name="residente" [(ngModel)]="permisos.residente">
+              <label class="permisos" for="cbox8">Residente</label>
               <input type="checkbox" id="cbox11" [(ngModel)]="permisos.administrador" name="administrador">
-              <label for="cbox11">Administrador</label>
+              <label class="permisos" for="cbox11">Administrador</label>
             </div>
 
             <div class="col-4">
               <input type="checkbox" id="cbox12" [(ngModel)]="permisos.publicidad" name="publicidad">
-              <label for="cbox12">Publicidad</label>
-              <input type="checkbox" id="cbox13" name="usuario" [(ngModel)]="permisos.usuario"> <label
+              <label class="permisos" for="cbox12">Publicidad</label>
+              <input type="checkbox" id="cbox13" name="usuario" [(ngModel)]="permisos.usuario"> <label class="permisos"
                 for="cbox13">Usuario</label>
             </div>
           </div>

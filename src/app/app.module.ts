@@ -34,6 +34,7 @@ import { ModulosComponent } from './pages/modulos/modulos.component';
 import { CambiarcontrasenaComponent } from './pages/cambiarcontrasena/cambiarcontrasena.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { ResidenteComponent } from './pages/residente/residente.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
 
 
 
@@ -63,6 +64,7 @@ import { ResidenteComponent } from './pages/residente/residente.component';
     CambiarcontrasenaComponent,
     UsuariosComponent,
     ResidenteComponent,
+    InicioComponent,
   ],
   imports: [
     BrowserModule,
