@@ -203,6 +203,30 @@ export class AuthService {
     });
   }
 
+
+  deletePub(id: number) {
+    this.loading = true;
+    const headers = new HttpHeaders({
+      token: this.userToken,
+    });
+    return new Promise((resolve) => {
+      this.http
+        .delete(`${environment.apiUrl}/publicidades/${id}`, { headers })
+        .subscribe(
+          (response: any) => {
+            this.showAlert(response.message, "success", "Listo");
+            resolve(true);
+            this.loading = false;
+          },
+          (error: any) => {
+            this.loading = false;
+            this.showAlert(error.error.respuesta, "error");
+            resolve(false);
+          }
+        );
+    });
+  }
+
   // URBANIZACION
   getUrb() {
     // console.log("hola");
@@ -394,7 +418,7 @@ export class AuthService {
         .put(`${environment.apiUrl}/etapa/${id}`, data, { headers })
         .subscribe(
           (response: any) => {
-            this.showAlert(response.message, "success", "Listo");
+            // this.showAlert(response.message, "success", "Listo");
             resolve(true);
             this.loading = false;
           },
@@ -498,6 +522,29 @@ export class AuthService {
     return new Promise((resolve) => {
       this.http
         .delete(`${environment.apiUrl}/categoria/${id}`, { headers })
+        .subscribe(
+          (response: any) => {
+            this.showAlert(response.message, "success", "Listo");
+            resolve(true);
+            this.loading = false;
+          },
+          (error: any) => {
+            this.loading = false;
+            this.showAlert(error.error.respuesta, "error");
+            resolve(false);
+          }
+        );
+    });
+  }
+
+  deletePublicidadN(id: number) {
+    this.loading = true;
+    const headers = new HttpHeaders({
+      token: this.userToken,
+    });
+    return new Promise((resolve) => {
+      this.http
+        .delete(`${environment.apiUrl}/publicidades/${id}`, { headers })
         .subscribe(
           (response: any) => {
             this.showAlert(response.message, "success", "Listo");

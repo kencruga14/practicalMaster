@@ -169,10 +169,11 @@ export class PublicidadComponent implements OnInit {
     this.imagenPerfila = null;
     this.imagenPerfil = null;
   }
+
   delete(id: number, id_etapa: number) {
     Swal.fire({
       title: "¿Seguro que desea eliminar este registro?",
-      text: "Esta acción no se puede reversar",
+      text: "Esta acción no se puede revertir",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#343A40",
@@ -187,11 +188,40 @@ export class PublicidadComponent implements OnInit {
   }
 
   async deletePublicidad(id: number, id_etapa: number) {
-    const response = await this.auth.deletePublicidad(id);
+    const response = await this.auth.deletePub(id);
     if (response) {
       this.getPublicidadbIdEtapa(id_etapa);
     }
   }
+
+  deleteN(id: number, otro :number) {
+    Swal.fire({
+      title: "¿Seguro que desea eliminar este registro?",
+      text: "Esta acción no se puede reversar",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#343A40",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.value) {
+        this.deleteMarketN(id, otro);
+      }
+    });
+  }
+
+  async deleteMarketN(id: number,otro:number) {
+    const response = await this.auth.deletePublicidadN(id);
+    if (response) {
+      this.getPublicidadbIdEtapa(otro);
+    }
+  }
+
+
+
+
+
 
   getPublicidadbIdEtapa(value) {
     // console.log("id_etapa: ", value);

@@ -67,6 +67,7 @@ export class ModulosComponent implements OnInit {
   }
 
   getUrbId(id) {
+    this.id_etapa=""
     this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
       this.etapasid = resp;
     });
@@ -79,19 +80,12 @@ export class ModulosComponent implements OnInit {
       this.id = resp.ID;
       console.log("etapa sellecionada datos: ", this.etapaseleccionada);
       this.miregistro = resp.modulo_mi_registro;
-
       this.alicuotas = resp.modulo_alicuota;
-
       this.emprendimientos = resp.modulo_emprendimiento;
-
       this.votacion = resp.modulo_votacion;
-
       this.areasocial = resp.modulo_area_social;
-
       this.camaras = resp.modulo_camaras;
-
       this.directiva = resp.modulo_directiva;
-
       this.galeria = resp.modulo_galeria;
       this.horarios = resp.modulo_horarios;
       console.log("miregistro: ", this.miregistro);
@@ -130,7 +124,7 @@ export class ModulosComponent implements OnInit {
     let campo = "";
     if (nombre === "Mi Registro") {
       this.miregistro = valor;
-    } else if (nombre === "Alícuotas") {
+    } else if (nombre === "Alicuotas") {
       this.alicuotas = valor;
     } else if (nombre === "Emprendimiento") {
       this.emprendimientos = valor;
@@ -141,7 +135,6 @@ export class ModulosComponent implements OnInit {
       this.areasocial = valor;
     } else if (nombre === "Camaras") {
       console.log("entro Cámaras");
-
       this.camaras = valor;
     } else if (nombre === "Directiva") {
       console.log("entro Directiva");
@@ -149,20 +142,17 @@ export class ModulosComponent implements OnInit {
       this.directiva = valor;
     } else if (nombre === "Galeria") {
       console.log("entro Galería");
-
       this.galeria = valor;
     } else if (nombre === "Horarios") {
       console.log("entro Horarios");
-
       this.horarios = valor;
     }
-
     let body = {
       modulo_votacion: this.votacion,
       modulo_area_social: this.areasocial,
       modulo_alicuota: this.alicuotas,
       modulo_emprendimiento: this.emprendimientos,
-      modulo_camaras: this.emprendimientos,
+      modulo_camaras: this.camaras,
       modulo_directiva: this.directiva,
       modulo_galeria: this.galeria,
       modulo_horarios: this.horarios,
@@ -172,14 +162,14 @@ export class ModulosComponent implements OnInit {
     response = await this.auth.editEtapa(this.id, body);
     if (response) {
       this.modalService.dismissAll();
-      this.getUrb();
-      this.imagenseleccionada = null;
-      this.estadoseleccionado = null;
-      this.nombreseleccionado = null;
-      this.etapaseleccionada = null;
-      this.idUrbanizacion = null;
-      this.id_etapa = null;
-      valor = null;
+      this.getEtapaSeleccionada(this.id_etapa)
+      // this.imagenseleccionada = null;
+      // this.estadoseleccionado = null;
+      // this.nombreseleccionado = null;
+      // this.etapaseleccionada = null;
+      // this.idUrbanizacion = null;
+      // this.id_etapa = null;
+      // valor = null;
     }
   }
 }
