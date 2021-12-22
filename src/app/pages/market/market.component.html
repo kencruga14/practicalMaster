@@ -20,16 +20,16 @@
       <div class="table-responsive m-t-40">
         <table id="myTable" class="table color-bordered-table inverse-bordered-table">
           <thead>
-            <tr style="text-align: left">
+            <tr style="text-align: center">
               <th>No.</th>
               <th>Imagen</th>
               <th>Nombre</th>
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody style="text-align: left">
+          <tbody style="text-align: center">
             <tr *ngFor="let mat of markets | filter: filterName; let i = index">
-              <th scope="row ">{{ i + 1 }}</th>
+              <td>{{ i + 1 }}</td>
               <td>
                 <figure class="avatar avatar-sm">
                   <img [src]="mat.imagen" class="rounded-circle" alt="image" width="60px"

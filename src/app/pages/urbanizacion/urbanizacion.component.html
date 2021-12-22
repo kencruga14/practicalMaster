@@ -28,7 +28,7 @@
       </div>
       <h6 class="card-subtitle"></h6>
       <div class="table-responsive m-t-40">
-        <table
+        <table style="text-align: center"
           id="myTable"
           class="table color-bordered-table inverse-bordered-table"
         >
@@ -41,7 +41,7 @@
           </thead>
           <tbody style="text-align: center">
             <tr *ngFor="let urb of urbs | filter: filterName; let i = index">
-              <th scope="row ">{{ i + 1 }}</th>
+              <td>{{ i + 1 }}</td>
               <!-- <th scope="row ">{{ urb.ID}}</th> -->
 
               <td>{{ urb.nombre }}</td>
