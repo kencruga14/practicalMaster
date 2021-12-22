@@ -59,7 +59,7 @@
                         </thead>
                         <tbody style="text-align: center">
                             <tr *ngFor="let et of etapas | filter: filterName; let i = index">
-                                <th scope="row ">{{ i + 1 }}</th>
+                                <td>{{ i + 1 }}</td>
                                 <td>{{ et.nombre }}</td>
                                 <td>{{ et.correo }}</td>
                                 <td>{{ et.telefono }}</td>
