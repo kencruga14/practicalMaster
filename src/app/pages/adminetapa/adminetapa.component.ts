@@ -11,10 +11,12 @@ import Swal from "sweetalert2";
   styleUrls: ["./adminetapa.component.css"],
 })
 export class AdminetapaComponent implements OnInit {
+  imagenEdit :any;
   title = "testJobNestedArray";
   searchableList: any;
   searchText: string = "";
   users: any;
+  imagenAlt: any;
   id_seleccionado: any;
   nombre_etapa: any;
   etapasid: any;
@@ -100,6 +102,7 @@ export class AdminetapaComponent implements OnInit {
     reader.readAsDataURL(fileData);
     reader.onload = (response) => {
       this.imagen = reader.result;
+      this.imagenPerfil = reader.result
     };
     this.changeFoto = true;
   }
@@ -107,10 +110,12 @@ export class AdminetapaComponent implements OnInit {
   openAdminEtapa(content, admin = null) {
     if (admin) {
       this.id_adminetapa = admin.usuario.id_adminetapa;
+      this.idUrbanizacion = admin.etapa.id_urbanizacion;
       this.id = admin.ID;
-      this.correo = admin.correo;
+      this.correo = admin.etapa.correo;
       this.contrasena = admin.clave;
       this.nombres = admin.usuario.nombres;
+      this.apellido = admin.usuario.apellido;
       this.admin.edit = true;
       this.usuario = admin.usuario.usuario;
       this.telefono = admin.usuario.telefono;
@@ -118,15 +123,21 @@ export class AdminetapaComponent implements OnInit {
       this.celular = admin.usuario.celular;
       this.cedula = admin.cedula;
       this.id_etapa = admin.id_etapa;
-      this.imagen = null;
-      this.imagenPerfila = admin.usuario.imagen;
+    
+      // this.imagenPerfila = admin.usuario.imagen;
+      this.imagenEdit =  admin.usuario.imagen;
+      this.imagen =  admin.usuario.imagen;
     } else {
-      this.id_adminetapa = 0;
+      this.admin.edit = false
+      this.idUrbanizacion =""
       this.id_etapa = 0;
-      this.cedula = "";
+      this.id_adminetapa = 0;
+      this.imagenPerfil =""
+      this.imagenEdit=""
       this.nombres = "";
       this.apellido = "";
       this.usuario = "";
+      this.cedula = "";
       this.correo = "";
       this.telefono = "";
       this.imagen = null;
@@ -174,7 +185,7 @@ export class AdminetapaComponent implements OnInit {
           usuario: this.usuario,
           correo: this.correo,
           telefono: this.telefono,
-          imagen: this.imagen,
+          imagen: this.imagenAlt
         },
       };
       JSON.stringify(body);
@@ -237,4 +248,36 @@ export class AdminetapaComponent implements OnInit {
       this.getAdminEtapa();
     }
   }
+
+  editImagen(event: any) {
+    const fileData = event.target.files[0];
+    const mimeType = fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL(fileData);
+    reader.onload = (response) => {
+      this.imagenEdit = reader.result;
+    };
+    this.changeFoto = true;
+  }
+
+  
+  saveEditPicture(event: any) {
+    console.log("entró preview:");
+    const fileData = event.target.files[0];
+    const mimeType = fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL(fileData);
+    reader.onload = (response) => {
+      this.imagenEdit = reader.result;
+      this.imagenAlt = reader.result;
+    };
+    this.changeFoto = true;
+  }
+
 }
