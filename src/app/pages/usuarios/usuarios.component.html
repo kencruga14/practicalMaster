@@ -14,7 +14,7 @@
 
             <div class="form-group" *ngIf="idUrbanizacion">
                 <label>Etapa</label>
-                <select [(ngModel)]="id_etapa" class="form-control custom-select">
+                <select [(ngModel)]="id_etapa" class="form-control custom-select" (change)="getTabla($event.target.value)">
                     <option *ngFor="let ur of etapasid" [ngValue]="ur.ID">
                         {{ ur.nombre }}
                     </option>
@@ -23,128 +23,308 @@
 
 
             <div *ngIf="id_etapa">
-
-                <h4 class="card-title">Lista de Usuarios</h4>
-      
-
-                <div class="form-group col-md-4 m-t-20" style="display: inline-flex; float: right">
-                    <input type="text" class="form-control" name="filterName" placeholder="Buscar"
-                        [(ngModel)]="filterName" />
-                </div>
-                <h6 class="card-subtitle"></h6>
+               
                 <div class="table-responsive m-t-40">
-                    <table id="myTable" class="table color-bordered-table inverse-bordered-table">
+                    <table style="zoom: 0.80;" id="myTable" class="table color-bordered-table inverse-bordered-table">
                         <thead>
-                            <tr style="text-align: center">
-                                <th>No.</th>
-                                <th>Etapa</th>
+                            <tr style="text-align: center;">
+                                <th>No</th>
+                                <th>Imagen</th>
+                                <th>Manzana</th>
+                                <th>Villa</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Cédula</th>
+                                <th>Usuario</th>
                                 <th>Correo</th>
-                                <th>Télefono</th>
-                                <th>Banco</th>
-                                <th>Tipo de cuenta</th>
-                                <th>Número de cuenta</th>
-                                <th>Botón de Pago</th>
-                                <th>Urbanización</th>
-                                <th>Acciones</th>
+                                <th>Celular</th>
+                                <th>Convencional </th>
+                                <th>Votación</th>
+                                <th>Fecha de nacimiento</th>
+                                <th>Pdf</th>
+                                <th>Autorizaciones</th>
+                                <!-- <th>Fijo</th> -->
+                                <!-- <th>Acciones</th> -->
                             </tr>
                         </thead>
-                        <tbody style="text-align: center">
-                            <tr *ngFor="let et of etapas | filter: filterName; let i = index">
-                                <td>{{ i + 1 }}</td>
-                                <td>{{ et.nombre }}</td>
-                                <td>{{ et.correo }}</td>
-                                <td>{{ et.telefono }}</td>
-                                <td>{{ et.nombre_banco }}</td>
-                                <td>{{ et.tipo_cuenta }}</td>
-                                <td>{{ et.numero_cuenta }}</td>
-                                <td *ngIf="et.pagos_tarjeta === true">Sí</td>
-                                <td *ngIf="et.pagos_tarjeta === false">No</td>
-                                <td>{{ et.nombre_urbanizacion }}</td>
+                        <tbody style="text-align: center;">
+                            <tr *ngFor="let et of tablaEtapa | filter:filterName; let i=index ">
+                                <td>{{i+1}}</td>
+    
                                 <td>
-                                    <!-- <a data-toggle="tooltip" data-original-title="Editar" (click)="openEtapa(contentEtapa, et)">
-                        <i class="fa fa-pencil text-inverse m-r-10"></i>
-                      </a>
-                      <a data-toggle="tooltip" data-original-title="Eliminar" (click)="delete(et.ID)">
-                        <i class="fa fa-trash text-danger m-r-10"></i>
-                      </a> -->
+                                    <figure>
+                                        <img class="avatar" [src]="et.usuario.imagen" data-holder-rendered="true"
+                                            alt="image" (click)="openImage(contentImage, et)" />
+                                    </figure>
                                 </td>
+    
+                                <td>{{et.casa.manzana}}</td>
+                                <td>{{et.casa.villa}}</td>
+                                <td>{{et.usuario.nombres}}</td>
+                                <td>{{et.usuario.apellido}}</td>
+                                <td>{{et.cedula}}</td>
+                                <td>{{et.usuario.usuario}}</td>
+                                <td>{{et.usuario.correo}}</td>
+                                <td>{{et.usuario.celular}}</td>
+                                <td>{{et.usuario.telefono}}</td>
+                                <td *ngIf="et.is_principal == true">Si</td>
+                                <td *ngIf="et.is_principal == false">No</td>
+                                <td *ngIf="et.fecha_nacimiento ==='Fecha inválida'">F inválida</td>
+                                <td *ngIf="et.fecha_nacimiento !=='Fecha inválida' ">{{et.fecha_nacimiento | date:
+                                    'dd-MM-yyyy'}}</td>
+                                <!-- <td>{{et.fecha_nacimiento}}</td> -->
+                                <td>
+                                    <a *ngIf="et.documento" (click)="goToLink(et.documento)"
+                                        href="javascript:void(0)">Visualizar</a>
+                                    <figure *ngIf="!et.documento">
+                                        <img class="adjunto" src="../../../assets/images/adjunto.png" data-holder-rendered="true"
+                                            alt="image" />
+                                    </figure>
+                                </td>
+                                <td *ngIf="et.autorizacion == true">Si</td>
+                                <td *ngIf="et.autorizacion == false">No</td> <!-- <td></td> -->
+                                <!-- <td>
+                                 
+                                    <a data-toggle="tooltip" data-original-title="Editar"
+                                        (click)="openResidente(contentResidente, et)"> <i
+                                            class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                    <a data-toggle="tooltip" data-original-title="Eliminar" (click)="delete(et.ID)"> <i
+                                            class="fa fa-trash text-danger m-r-10"></i> </a>
+                                </td> -->
                             </tr>
-                            <tr *ngIf="etapas.length === 0">
-                                <td style="text-align: center !important" colspan="10">
-                                    <label class="text-primary">No existen datos</label>
-                                </td>
+                            <tr *ngIf="(tablaEtapa).length === 0">
+                                <td style="text-align: center !important;" colspan="20"><label class="text-primary">No
+                                        existen datos</label></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+            
             </div>
+
+
+
         </div>
-        <ng-template #contentPublicidad let-modal>
+
+       
+
+
+        <ng-template #contentResidente let-modal>
             <div class="modal-header">
-                <h4 *ngIf="!publicidad.edit" class="modal-title" id="modal-basic-title">
-                    Crear módulo
-                </h4>
-                <h4 *ngIf="publicidad.edit" class="modal-title" id="modal-basic-title">
-                    Editar módulo
-                </h4>
+                <h4 *ngIf="!residente.edit" class="modal-title" id="modal-basic-title">Crear Usuario</h4>
+                <h4 *ngIf="residente.edit" class="modal-title" id="modal-basic-title">Editar Usuario</h4>
                 <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form (ngSubmit)="gestionPublicidad()" #form="ngForm">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <div class="image-preview mb-3" *ngIf="imagen">
-                            <img class="img-fluid" [src]="imagen" height="500" />
+    
+    
+    
+            <form (ngSubmit)="gestionResidente()" #form="ngForm">
+                <div class="modal-body" style="height: 600px; overflow-y: scroll;">
+                    <div *ngIf=" !residente.edit">
+                        <div class="form-group">
+                            <input [value]="nombres" [(ngModel)]="nombres" name="nombres" class="form-control" type="text"
+                                required placeholder="Nombre">
                         </div>
-                        <input type="file" name="image" (change)="preview($event)" />
+                        <div class="form-group">
+                            <input [value]="apellido" [(ngModel)]="apellido" name="apellido" class="form-control"
+                                type="text" required placeholder="Apellido">
+                        </div>
+                        <div class="form-group">
+                            <input [value]="cedula" [(ngModel)]="cedula" name="cedula" class="form-control" type="text"
+                                required placeholder="Cédula">
+                        </div>
+                        <div class="form-group">
+                            <input [value]="usuario" [(ngModel)]="usuario" name="usuario" class="form-control" type="text"
+                                required placeholder="Usuario">
+                        </div>
+    
+                        <div class="form-group">
+                            <input [value]="correo" [(ngModel)]="correo" name="correo" class="form-control" type="text"
+                                required placeholder="Correo">
+                        </div>
+                        <div class="form-group">
+                            <input [value]="celular" [(ngModel)]="celular" name="celular" class="form-control" type="text"
+                                required placeholder="Celular">
+                        </div>
+                        <div class="form-group">
+                            <input [value]="telefono" [(ngModel)]="telefono" name="telefono" class="form-control"
+                                type="text" required placeholder="Convencional">
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Manzana</label>
+                            <select name="manzana" [(ngModel)]="manzana" class="form-control custom-select"
+                                (change)="getVillas($event.target.value)">
+                                <option *ngFor="let ur of manzanaselector" value="{{ur.manzana}}">{{ur.manzana}}</option>
+                            </select>
+                        </div>
+    
+                        <div class="form-group">
+                            <!-- idcasa: {{villa}} -->
+                            <label>Villa</label>
+                            <select name="id_villa" [(ngModel)]="villa" class="form-control custom-select">
+                                <option *ngFor="let ur of casasselector" [ngValue]="ur.ID">{{ur.villa}}</option>
+                                <option value="0" hidden></option>
+                            </select>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Votación</label>
+                            <select name="is_principal" [(ngModel)]="is_principal" class="form-control custom-select">
+                                <option [ngValue]="true">Si</option>
+                                <option [ngValue]="false">No</option>
+                            </select>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Crear Autorizaciones</label>
+                            <select name="autorizacion" [(ngModel)]="autorizacion" class="form-control custom-select">
+                                <option [ngValue]="true">Si</option>
+                                <option [ngValue]="false">No</option>
+                            </select>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Fecha de nacimiento</label>
+                            <br>
+                            <!-- <p-calendar  required [(ngModel)]="fechanacimiento" dateFormat="dd-mm-yy" [showIcon]="true"
+                                [maxDate]="fechaMaxima" [locale]="es" [monthNavigator]="true" [yearNavigator]="true"
+                                yearRange="1940:2021" [ngModelOptions]="{standalone: true}"></p-calendar> -->
+                        </div>
+    
+                        <div  class="form-group">
+                            <label>Pdf</label>
+                            <input [value]="documento" (change)="PDF($event)" [(ngModel)]="documento" name="documento"
+                                class="form-control" type="file" accept="application/pdf" required>
+                        </div>
+    
                     </div>
-                    <div class="form-group">
-                        <input [value]="nombre" [(ngModel)]="nombre" name="nombre" class="form-control" type="text"
-                            required placeholder="Nombre" />
+    
+                    <div *ngIf="residente.edit">
+    
+                        <div class="form-group">
+                            <input [value]="nombres" [(ngModel)]="nombres" name="nombres" class="form-control" type="text"
+                                required placeholder="Nombre" readonly>
+                        </div>
+                        <div class="form-group">
+                            <input [value]="apellido" [(ngModel)]="apellido" name="apellido" class="form-control"
+                                type="text" required placeholder="Apellido" readonly>
+                        </div>
+                        <div class="form-group">
+                            <input [value]="cedula" [(ngModel)]="cedula" name="cedula" class="form-control" type="text"
+                                required placeholder="Cédula" readonly>
+                        </div>
+                        <div class="form-group">
+                            <input [value]="usuario" [(ngModel)]="usuario" name="usuario" class="form-control" type="text"
+                                required placeholder="Usuario" readonly>
+                        </div>
+    
+                      
+    
+                        <div class="form-group">
+                            <input [value]="correo" [(ngModel)]="correo" name="correo" class="form-control" type="text"
+                                required placeholder="Correo">
+                        </div>
+                        <div class="form-group">
+                            <input [value]="celular" [(ngModel)]="celular" name="celular" class="form-control" type="text"
+                                required placeholder="Celular">
+                        </div>
+                        <div class="form-group">
+                            <input [value]="telefono" [(ngModel)]="telefono" name="telefono" class="form-control"
+                                type="text" required placeholder="Convencional">
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Manzana</label>
+                            <input [value]=" manzana" [(ngModel)]="manzana" name="manzana" class="form-control" type="text"
+                                required readonly>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Villa</label>
+                            <input [value]=" villa" [(ngModel)]="villa" name="villa" class="form-control" type="text"
+                                required readonly>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Fecha de nacimiento</label>
+                            <input [value]="fechanacimiento" [(ngModel)]="fechanacimiento" name="otra" class="form-control" type="date"
+                            required  >
+                            <br>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Votación</label>
+                            <select name="is_principal" [(ngModel)]="is_principal" class="form-control custom-select">
+                                <option [ngValue]="true">Si</option>
+                                <option [ngValue]="false">No</option>
+                            </select>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Crear Autorizaciones</label>
+                            <select name="autorizacion" [(ngModel)]="autorizacion" class="form-control custom-select">
+                                <option [ngValue]="true">Si</option>
+                                <option [ngValue]="false">No</option>
+                            </select>
+                        </div>
+    
+                        <!-- <div class="form-group">
+                            <label>Fecha de nacimiento</label>
+                            <input [value]=" fechanacimiento" [ngModel]="fechanacimiento | date: 'dd-MM-yyyy'"
+                                name="fechanacimientos" class="form-control" type="text" readonly >
+                        </div> -->
+    
+                     
+                        
+                        <!-- <div class="form-group">
+                            <label>Pdf</label>
+                            <input [value]="documento" (change)="PDF($event)" [(ngModel)]="documento" name="pdf"
+                                class="form-control" type="file" accept="application/pdf" required>
+                        </div> -->
+    
                     </div>
-                    <!-- <div class="form-group">
-            <input
-              [value]="nombre"
-              [(ngModel)]="nombre"
-              name="nombre"
-              class="form-control"
-              type="text"
-              required
-              placeholder="Empresa"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              [value]="nombre"
-              [(ngModel)]="nombre"
-              name="nombre"
-              class="form-control"
-              type="number"
-              required
-              placeholder="Documento"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              [value]="nombre"
-              [(ngModel)]="nombre"
-              name="nombre"
-              class="form-control"
-              type="number"
-              required
-              placeholder="Teléfono"
-            />
-          </div> -->
+    
                 </div>
                 <div class="modal-footer">
                     <button *ngIf="!auth.loading" [disabled]="!form.valid" type="submit" class="btn btn-outline-dark">
-                        <span *ngIf="!publicidad.edit">Guardar</span>
-                        <span *ngIf="publicidad.edit">Editar</span>
+                        <span *ngIf="!residente.edit">Guardar</span>
+                        <span *ngIf="residente.edit">Editar</span>
                     </button>
                     <i *ngIf="auth.loading" class="fa fa-spinner fa-spin fa-2x"></i>
                 </div>
             </form>
+    
         </ng-template>
+    
+
+
+        <ng-template #contentImage let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Imagen de Perfil</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="imagenPerfil">
+                <figure class="box">
+                    <img [src]="imagenPerfil.usuario.imagen" alt="image" />
+                </figure>
+            </div>
+        </ng-template>
+    
     </div>
-</div>
+    <script type="text/javascript">
+        function showContent() {
+            element = document.getElementById("content");
+            check = document.getElementById("check");
+            if (check.checked) {
+                element.style.display = 'block';
+            }
+            else {
+                element.style.display = 'none';
+            }
+        }
+    </script>

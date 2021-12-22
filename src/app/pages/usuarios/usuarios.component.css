@@ -36,3 +36,31 @@
   margin-right: auto;
   display: block;
 }
+
+
+
+.box img {
+  width: 100%;
+  height: auto;
+}
+@supports (object-fit: cover) {
+  .box img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 20.5px;
+  height: 20.5px;
+  border-radius: 100%;
+}
+
+.adjunto {
+  vertical-align: middle;
+  width: 20.5px;
+  height: 20.5px;
+  border-radius: 25%;
+}

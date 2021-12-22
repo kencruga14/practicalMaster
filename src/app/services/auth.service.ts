@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import Swal from "sweetalert2";
 import { environment } from "./../../environments/environment";
 import { UsuarioModelo } from "../models/usuario.model";
@@ -342,6 +342,24 @@ export class AuthService {
         })
       );
   }
+
+  getEtapaByIdUrbanizacionTabla(id) {
+    let params = new HttpParams();
+    params = params.append("id_etapa", id);
+    const headers = new HttpHeaders({
+      token: this.userToken,
+    });
+    return this.http
+      .get(`${environment.apiUrl}/residentes`, { headers , params })
+      .pipe(
+        map((resp: any) => {
+          // console.log(resp.respuesta);
+          return resp.respuesta;
+        })
+      );
+  }
+
+
 
   createEtapa(data) {
     this.loading = true;
