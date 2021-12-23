@@ -29,6 +29,7 @@ export class ModulosComponent implements OnInit {
   changeFoto = false;
   etapas: UsuarioModelo[] = [];
   miregistro: boolean;
+  autorizacion: boolean;
   alicuotas: boolean;
   emprendimientos: boolean;
   votacion: boolean;
@@ -78,8 +79,8 @@ export class ModulosComponent implements OnInit {
     this.auth.getEtapaSelect(value).subscribe((resp: any) => {
       this.etapaseleccionada = resp;
       this.id = resp.ID;
-      console.log("etapa sellecionada datos: ", this.etapaseleccionada);
       this.miregistro = resp.modulo_mi_registro;
+      this.autorizacion = resp.modulo_autorizacion;
       this.alicuotas = resp.modulo_alicuota;
       this.emprendimientos = resp.modulo_emprendimiento;
       this.votacion = resp.modulo_votacion;
@@ -89,6 +90,7 @@ export class ModulosComponent implements OnInit {
       this.galeria = resp.modulo_galeria;
       this.horarios = resp.modulo_horarios;
       console.log("miregistro: ", this.miregistro);
+      console.log("autorizacion: ", this.autorizacion);
       console.log("alicuotas: ", this.alicuotas);
       console.log("emprendimientos: ", this.emprendimientos);
       console.log("votacion: ", this.votacion);
@@ -101,9 +103,6 @@ export class ModulosComponent implements OnInit {
   }
 
   openModulo(imagen, estado, nombre, content) {
-    // console.log("Estado: ", estado), console.log("Imagen: ", imagen);
-    // console.log("content: ", content);
-    // console.log("nombre: ", nombre);
     this.estadoseleccionado = estado;
     this.imagenseleccionada = imagen;
     this.nombreseleccionado = nombre;
@@ -118,12 +117,10 @@ export class ModulosComponent implements OnInit {
   async update(value, nombre) {
     let response: any;
     let valor = JSON.parse(value);
-    console.log("nombre: ", nombre);
-    console.log("valor: ", valor);
-    console.log("Id_etapa: ", this.id);
     let campo = "";
     if (nombre === "Mi Registro") {
       this.miregistro = valor;
+      this.autorizacion = valor;
     } else if (nombre === "Alicuotas") {
       this.alicuotas = valor;
     } else if (nombre === "Emprendimiento") {
@@ -138,7 +135,6 @@ export class ModulosComponent implements OnInit {
       this.camaras = valor;
     } else if (nombre === "Directiva") {
       console.log("entro Directiva");
-
       this.directiva = valor;
     } else if (nombre === "Galeria") {
       console.log("entro Galería");
@@ -148,6 +144,7 @@ export class ModulosComponent implements OnInit {
       this.horarios = valor;
     }
     let body = {
+      modulo_autorizacion : this.autorizacion,
       modulo_votacion: this.votacion,
       modulo_area_social: this.areasocial,
       modulo_alicuota: this.alicuotas,

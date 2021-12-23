@@ -86,9 +86,9 @@ export class TransaccionComponent implements OnInit {
   restablecer(){
     this.filtroTipo=""
   }
+  
   cargarTabla( filtro: string){
     console.log(filtro)
-
   }
 
 }
