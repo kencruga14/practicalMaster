@@ -91,6 +91,7 @@ export class AdministradorComponent implements OnInit {
     reader.readAsDataURL(fileData);
     reader.onload = (response) => {
       this.imagen = reader.result;
+      this.imagenPerfila = reader.result
     };
     // console.log("imagen: ", this.imagen);
     this.changeFoto = true;
@@ -125,6 +126,8 @@ export class AdministradorComponent implements OnInit {
       // console.log("admin editar cuerpo:", admin);
     } else {
       //Inicializa variables
+      this.imagenPerfil=""
+      this.imagenEdit=false
       this.nombres = "";
       this.apellido = "";
       this.usuario = "";

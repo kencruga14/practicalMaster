@@ -127,6 +127,7 @@ export class AdminetapaComponent implements OnInit {
       // this.imagenPerfila = admin.usuario.imagen;
       this.imagenEdit =  admin.usuario.imagen;
       this.imagen =  admin.usuario.imagen;
+      
     } else {
       this.admin.edit = false
       this.idUrbanizacion =""
@@ -168,7 +169,7 @@ export class AdminetapaComponent implements OnInit {
           usuario: this.usuario,
           correo: this.correo,
           telefono: this.telefono,
-          imagen: this.imagen,
+          imagen: this.imagenAlt,
         },
       };
       JSON.stringify(body);
@@ -185,11 +186,10 @@ export class AdminetapaComponent implements OnInit {
           usuario: this.usuario,
           correo: this.correo,
           telefono: this.telefono,
-          imagen: this.imagenAlt
+          imagen: this.imagenPerfil
         },
       };
       JSON.stringify(body);
-      // console.log("crear administrador etapa: ", body);
       response = await this.auth.createAdminEtapa(body);
     }
     if (response) {

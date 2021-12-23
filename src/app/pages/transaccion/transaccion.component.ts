@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 export class TransaccionComponent implements OnInit {
   transacciones: UsuarioModelo[] = [];
   etapas: UsuarioModelo[] = [];
-
+  filtroTipo :any =""
   estado_pago: "";
   dia_pago: "";
   monto: "";
@@ -55,39 +55,40 @@ export class TransaccionComponent implements OnInit {
   }
 
   getUrbId(id) {
-    // console.log("id: ", id);
-    // console.log("id_etapa ", this.id_etapa);
     this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
       this.etapasid = resp;
-      // console.log("etapas por id: ", this.etapasid);
     });
   }
 
   getTransaccion() {
     this.auth.getTransaccion().subscribe((resp: any) => {
-      // console.log(resp);
       this.transacciones = resp;
     });
   }
 
   async gestionTransaccion(id_transaccion: number) {
     let response: any;
-
     response = await this.auth.sendTransaccion(id_transaccion);
   }
 
   getUrb() {
     this.auth.getUrb().subscribe((resp: any) => {
-      // console.log("urbanizaciones: ", resp);
       this.urbanizaciones = resp;
     });
   }
 
   getEtapa() {
     this.auth.getEtapa().subscribe((resp: any) => {
-      // console.log(resp);
       this.etapas = resp;
-      // console.log("etapas");
     });
   }
+
+  restablecer(){
+    this.filtroTipo=""
+  }
+  cargarTabla( filtro: string){
+    console.log(filtro)
+
+  }
+
 }

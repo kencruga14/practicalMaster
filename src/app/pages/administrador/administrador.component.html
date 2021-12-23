@@ -99,7 +99,8 @@
           <div class="form-group" *ngIf="imagenEdit">
             <!-- editar imagen -->
             <div class="image-preview mb-3" *ngIf="imagenEdit">
-              <img class="img-fluid" [src]="imagenEdit" height="500" width="100" />
+          
+              <img class="avatar" [src]="imagenEdit" height="60px" width="60px" />
             </div>
             <label for="imagen">Imagen de Perfil</label>
             <input type="file" name="image" (change)="saveEditPicture($event)" accept="image/*" />
@@ -112,7 +113,7 @@
           <div class="form-group" *ngIf="!imagenEdit">
             <!-- ImagenCrear -->
             <div class="image-preview mb-3" *ngIf="imagenPerfila">
-              <img class="img-fluid" [src]="imagenPerfila" height="500" width="100" />
+              <img class="avatar" [src]="imagenPerfila" height="60px" width="60px" />
             </div>
             <label for="imagen">Imagen de Perfil</label>
             <input type="file" name="image" (change)="preview($event)" accept="image/*" />
@@ -124,27 +125,27 @@
 
           <div class="form-group">
             <input [value]="nombres" id="nombres" [(ngModel)]="nombres" name="nombres" class="form-control" type="text"
-              pattern="[A-Za-z]{1,15}" required placeholder="Nombres" />
+              required placeholder="Nombres" />
           </div>
           <div class="form-group">
             <input [value]="apellidos" id="apellidos" [(ngModel)]="apellido" name="apellidos" class="form-control"
-              type="text" pattern="[A-Za-z]{1,15}" required placeholder="Apellidos" />
+              type="text" required placeholder="Apellidos" />
           </div>
 
           <div class="form-group">
-            <input [value]="cedula" [(ngModel)]="cedula" id="cedula" name="cedula" class="form-control" type="number"
+            <input [value]="cedula" [(ngModel)]="cedula" id="cedula" name="cedula" class="form-control" type="text"
               required placeholder="Cédula" />
           </div>
           <div class="form-group" *ngIf="!admin.edit">
             <input [value]="usuario" [(ngModel)]="usuario" name="usuario" class="form-control" type="text"
-              pattern="[A-Za-z0-9_-]{1,15}" required placeholder="Usuario" />
+               required placeholder="Usuario" />
           </div>
           <div class="form-group">
             <input [value]="correo" [(ngModel)]="correo" name="correo" class="form-control" type="email" required
               placeholder="Correo" />
           </div>
           <div class="form-group">
-            <input [value]="telefono" [(ngModel)]="telefono" name="telefono" class="form-control" type="number" required
+            <input [value]="telefono" [(ngModel)]="telefono" name="telefono" class="form-control" type="text" required
               placeholder="Teléfono" />
           </div>
           <div class="row">
@@ -158,7 +159,7 @@
               <input type="checkbox" id="cbox2" [(ngModel)]="permisos.modulo" name="modulo">
               <label class="permisos" for="cbox2">Modulo</label>
               <input type="checkbox" id="cbox3" name="facturacion" [(ngModel)]="permisos.facturacion">
-              <label class="permisos" for="cbox3">Facturacion</label>
+              <label class="permisos" for="cbox3">Recaudaciones</label>
               <input type="checkbox" id="cbox4" name="autorizado" [(ngModel)]="permisos.autorizado">
               <label class="permisos" for="cbox4">Autorizado</label>
             </div>

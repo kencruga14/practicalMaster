@@ -87,7 +87,7 @@
         <div class="form-group" *ngIf="!imagenEdit">
           <!-- ImagenCrear -->
           <div class="image-preview mb-3" *ngIf="imagenPerfil">
-            <img class="img-fluid" [src]="imagenPerfil" height="500" width="100" />
+            <img  class="avatar" [src]="imagenPerfil" height="60px" width="60px" />
           </div>
           <label for="imagen">Imagen de categoría</label>
           <input type="file" name="image" (change)="preview($event)" accept="image/*" />
