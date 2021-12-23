@@ -31,10 +31,10 @@
             <tr *ngFor="let mat of markets | filter: filterName; let i = index">
               <td>{{ i + 1 }}</td>
               <td>
-                <figure class="avatar avatar-sm">
-                  <img [src]="mat.imagen" class="rounded-circle" alt="image" width="60px"
+      
+                  <img [src]="mat.imagen" class="avatar" alt="image" width="60px"
                     (click)="openImage(contentImage, mat)" />
-                </figure>
+                
               </td>
               <td>{{ mat.nombre }}</td>
               <td>
