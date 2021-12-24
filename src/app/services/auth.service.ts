@@ -891,4 +891,21 @@ export class AuthService {
     }
     return true;
   }
+
+
+  getTransaccionTipo(id: number, tipo: number, fechaI : string, fechaF:string) {
+    const headers = new HttpHeaders({
+      token: this.userToken,
+    });
+    return this.http
+      .get(`${environment.apiUrl}/recaudacion?id_etapa=${id}&tipo=${tipo}&fecha_inicio=${fechaI}&fecha_fin=${fechaF}`, {
+        headers,
+      })
+      .pipe(
+        map((resp: any) => {
+          return resp.respuesta;
+        })
+      );
+  }
+
 }

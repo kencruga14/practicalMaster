@@ -25,13 +25,39 @@
             <div class="form-group" *ngIf="id_etapa">
                 <label>Tipo</label>
                 <select [(ngModel)]="filtroTipo" class="form-control custom-select" (change)="cargarTabla($event.target.value)">
-                    <option value="TODAS"> Todas </option>
-                    <option value="ALICUOTAS"> Alicuotas </option>
+                    <option value=""> Todas </option>
+                    <option value="ALI"> Alicuotas </option>
                 </select>
             </div>
 
+            <h4 *ngIf="id_etapa"> Recaudaciones </h4>
 
-            <div *ngIf="filtroTipo">
+            <div class="row mb-3"  *ngIf="id_etapa">
+                <div class="col-md-4 col-12">
+                  <div class="input-group">
+                    <label for="" class="mt-2 mr-2"> Fecha Inicio </label>
+                    <input  type="date" class="form-control" [(ngModel)]="fechaRecaudacionInicio" id="filterFechaBefore" />
+                  </div>
+                </div>
+                <div class="col-md-4 col-12">
+                  <div class="input-group">
+                    <label for="" class="mt-2 mr-2"> Fecha Fin </label>
+                    <input type="date" class="form-control" [(ngModel)]="fechaRecaudacionFin" id="filterFechaBefore" />
+                  </div>
+                </div>
+                <div class="col-md-1 col-12">
+                  <button type="button" class="btn btn-info " (click)="gestionRecaudaciones($event.target.value)">
+                    Buscar
+                  </button>
+                </div>
+                <div class="col-md-3 col-12 mt-2"  *ngIf="bandera">
+                    <b style="font-weight: bold;font-size: 17px;">Valor Recaudado </b> <span style="font-size: 18px;"
+                      class="label label-info">{{valorTotal|currency:'USD':'symbol':'1.2'}}</span>
+                  </div>
+              </div>
+
+
+            <div *ngIf="id_etapa">
                 <h4 class="card-title">Lista de transacciones</h4>
                 <!-- <div class="form-group col-md-4 m-t-20" style="display: inline-flex;float:right">
                     <input type="text" class="form-control" name="filterName" placeholder="Buscar por nombres..."
@@ -44,7 +70,7 @@
                             <tr style="text-align: center;">
                                 <th>No</th>
                                 <!-- <th>Tipo</th> -->
-                                <th>Fecha inicio</th>
+                                <th>Fecha </th>
                                 <!-- <th>Fecha fin</th> -->
                                 <th>Manzana</th>
                                 <th>Villa</th>
@@ -55,20 +81,20 @@
                             </tr>
                         </thead>
                         <tbody style="text-align: center;">
-                            <tr *ngFor="let tran of transacciones | filter:filterName; let i=index ">
+                            <tr *ngFor="let tran of transacciones  let i=index ">
                                 <td>{{i+1}}</td>
                                 <!-- <td><button *ngIf="(tran.estado_pago === 'success')"
                                         class="btn waves-effect waves-light btn-xs btn-success">Exitoso</button>
                                     <button *ngIf="(tran.estado_pago !== 'success')"
                                         class="btn waves-effect waves-light btn-xs btn-danger">Fallido</button>
                                 </td> -->
-                                <td>{{tran.dia_pago}}</td>
+                                <td>{{tran.fecha.split("T")[0]}}</td>
                                 <!-- <td>{{tran.dia_pago}}</td> -->
-                                <td>{{tran.monto}}</td>
-                                <td>{{tran.monto}}</td>
-                                <td>{{tran.monto}}</td>
-                                <td>${{tran.monto}}</td>
-                                <td>{{tran.monto}}</td>
+                                <td>{{tran.mz}}</td>
+                                <td>{{tran.villa}}</td>
+                                <td>{{tran.modulo}}</td>
+                                <td>${{tran.valor}}</td>
+                                <td>{{tran.usuario}}</td>
                                 <!-- <td>
                                     <button style="border-color: transparent;background-color: transparent !important"
                                         (click)="gestionTransaccion(tran.ID)" type="button"
