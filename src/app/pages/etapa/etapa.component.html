@@ -24,6 +24,7 @@
           <thead>
             <tr style="text-align: center">
               <th>No.</th>
+              <th>Urbanización</th>
               <th>Etapa</th>
               <th>Correo</th>
               <th>Télefono</th>
@@ -33,13 +34,14 @@
               <th>Botón de Pago</th>
               <th>Formulario Ingreso</th>
               <th>Formulario Salida</th>
-              <th>Urbanización</th>
+         
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody style="text-align: center">
             <tr *ngFor="let et of etapas | filter: filterName; let i = index">
               <td>{{ i + 1 }}</td>
+              <td>{{ et.nombre_urbanizacion }}</td>
               <td>{{ et.nombre }}</td>
               <td>{{ et.correo }}</td>
               <td>{{ et.telefono }}</td>
@@ -52,7 +54,7 @@
               <td *ngIf="et.formulario_entrada === false">No</td>
               <td *ngIf="et.formulario_salida === true">Sí</td>
               <td *ngIf="et.formulario_salida === false">No</td>
-              <td>{{ et.nombre_urbanizacion }}</td>
+             
               <td>
                 <a data-toggle="tooltip" data-original-title="Editar" (click)="openEtapa(contentEtapa, et)">
                   <i class="fa fa-pencil text-inverse m-r-10"></i>

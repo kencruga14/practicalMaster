@@ -103,6 +103,8 @@ export class TransaccionComponent implements OnInit {
   cargarTabla( ){
     this.bandera =false
     this.valorTotal=0
+    this.fechaRecaudacionInicio=""
+    this.fechaRecaudacionFin=""
       this.auth.getTransaccionTipo(this.id_etapa, this.filtroTipo,"","").subscribe((resp: any) => {
         this.transacciones = resp;
         this.calcularRecaudaciones()
