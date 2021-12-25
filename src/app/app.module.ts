@@ -35,6 +35,7 @@ import { CambiarcontrasenaComponent } from './pages/cambiarcontrasena/cambiarcon
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { ResidenteComponent } from './pages/residente/residente.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
+import { NgxPrintModule } from 'ngx-print';
 
 
 
@@ -67,6 +68,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
     InicioComponent,
   ],
   imports: [
+    NgxPrintModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -80,7 +82,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
     MomentModule,
     NgxChartsModule,
     ColorPickerModule,
- 
+
   ],
   providers: [],
   bootstrap: [AppComponent]

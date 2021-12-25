@@ -12,12 +12,12 @@ import * as moment from "moment";
 })
 export class TransaccionComponent implements OnInit {
   transacciones: any = [];
-  valorTotal=0;
+  valorTotal = 0;
   bandera = false
   etapas: UsuarioModelo[] = [];
-  filtroTipo :any =""
-  fechaRecaudacionInicio =""
-  fechaRecaudacionFin =""
+  filtroTipo: any = ""
+  fechaRecaudacionInicio = ""
+  fechaRecaudacionFin = ""
   estado_pago: "";
   dia_pago: "";
   monto: "";
@@ -52,22 +52,26 @@ export class TransaccionComponent implements OnInit {
     public auth: AuthService,
     private router: Router,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
   ngOnInit() {
     // this.getTransaccion();
     this.getUrb();
-    this.filtroTipo=""
-    this.fechaRecaudacionInicio=""
-    this.fechaRecaudacionFin=""
+    this.filtroTipo = ""
+    this.fechaRecaudacionInicio = ""
+    this.fechaRecaudacionFin = ""
   }
-
+  restablecerFiltroBusqueda() {
+    this.fechaRecaudacionInicio = null
+    this.fechaRecaudacionFin = null
+    this.cargarTabla()
+  }
   getUrbId(id) {
-    this.filtroTipo=""
-    this.id_etapa=""
-    this.fechaRecaudacionInicio=""
-    this.fechaRecaudacionFin=""
-    this.bandera =false
+    this.filtroTipo = ""
+    this.id_etapa = ""
+    this.fechaRecaudacionInicio = ""
+    this.fechaRecaudacionFin = ""
+    this.bandera = false
     this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
       this.etapasid = resp;
     });
@@ -92,47 +96,47 @@ export class TransaccionComponent implements OnInit {
     });
   }
 
-  restablecer(){
-    this.bandera =false
-    this.fechaRecaudacionInicio=""
-    this.fechaRecaudacionFin=""
-    this.filtroTipo=""
+  restablecer() {
+    this.bandera = false
+    this.fechaRecaudacionInicio = ""
+    this.fechaRecaudacionFin = ""
+    this.filtroTipo = ""
     this.cargarTabla();
   }
-  
-  cargarTabla( ){
-    this.bandera =false
-    this.valorTotal=0
-    this.fechaRecaudacionInicio=""
-    this.fechaRecaudacionFin=""
-      this.auth.getTransaccionTipo(this.id_etapa, this.filtroTipo,"","").subscribe((resp: any) => {
-        this.transacciones = resp;
-        this.calcularRecaudaciones()
-      });
-}
 
-cargarTablaFechas( ){
-  this.valorTotal=0
-    this.auth.getTransaccionTipo(this.id_etapa, this.filtroTipo,moment(this.fechaRecaudacionInicio).format("YYYY-MM-DDTHH:mm:ss[Z]"),moment(this.fechaRecaudacionFin).format("YYYY-MM-DDTHH:mm:ss[Z]")).subscribe((resp: any) => {
+  cargarTabla() {
+    this.bandera = false
+    this.valorTotal = 0
+    this.fechaRecaudacionInicio = ""
+    this.fechaRecaudacionFin = ""
+    this.auth.getTransaccionTipo(this.id_etapa, this.filtroTipo, "", "").subscribe((resp: any) => {
       this.transacciones = resp;
       this.calcularRecaudaciones()
     });
-}
-  
+  }
 
-gestionRecaudaciones() {
-  let string = "T00:00:00Z"
-  this.bandera = true
-  this.valorTotal=0
-  this.cargarTablaFechas()
+  cargarTablaFechas() {
+    this.valorTotal = 0
+    this.auth.getTransaccionTipo(this.id_etapa, this.filtroTipo, moment(this.fechaRecaudacionInicio).format("YYYY-MM-DDTHH:mm:ss[Z]"), moment(this.fechaRecaudacionFin).format("YYYY-MM-DDTHH:mm:ss[Z]")).subscribe((resp: any) => {
+      this.transacciones = resp;
+      this.calcularRecaudaciones()
+    });
+  }
 
-}
 
-calcularRecaudaciones() {
-  this.valorTotal = 0;
-  this.transacciones.forEach((item) => {
-    this.valorTotal = this.valorTotal + parseFloat(item.valor);
-  });
-}
+  gestionRecaudaciones() {
+    let string = "T00:00:00Z"
+    this.bandera = true
+    this.valorTotal = 0
+    this.cargarTablaFechas()
+
+  }
+
+  calcularRecaudaciones() {
+    this.valorTotal = 0;
+    this.transacciones.forEach((item) => {
+      this.valorTotal = this.valorTotal + parseFloat(item.valor);
+    });
+  }
 
 }

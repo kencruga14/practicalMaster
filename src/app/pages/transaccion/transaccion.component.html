@@ -14,7 +14,8 @@
 
             <div class="form-group" *ngIf="idUrbanizacion">
                 <label>Etapa</label>
-                <select [(ngModel)]="id_etapa" class="form-control custom-select" (change)="restablecer($event.target.value)">
+                <select [(ngModel)]="id_etapa" class="form-control custom-select"
+                    (change)="restablecer($event.target.value)">
                     <option *ngFor="let ur of etapasid" [ngValue]="ur.ID">
                         {{ ur.nombre }}
                     </option>
@@ -24,7 +25,8 @@
 
             <div class="form-group" *ngIf="id_etapa">
                 <label>Tipo</label>
-                <select [(ngModel)]="filtroTipo" class="form-control custom-select" (change)="cargarTabla($event.target.value)">
+                <select [(ngModel)]="filtroTipo" class="form-control custom-select"
+                    (change)="cargarTabla($event.target.value)">
                     <option value=""> Todas </option>
                     <option value="ALI"> Alicuotas </option>
                 </select>
@@ -32,29 +34,45 @@
 
             <h4 *ngIf="id_etapa"> Recaudaciones </h4>
 
-            <div class="row mb-3"  *ngIf="id_etapa">
-                <div class="col-md-4 col-12">
-                  <div class="input-group">
-                    <label for="" class="mt-2 mr-2"> Fecha Inicio </label>
-                    <input  type="date" class="form-control" [(ngModel)]="fechaRecaudacionInicio" id="filterFechaBefore" />
-                  </div>
+            <div class="row mb-3" *ngIf="id_etapa">
+                <div class="col-md-3 col-12">
+                    <div class="input-group">
+                        <label for="" class="mt-2 mr-2">Desde: </label>
+                        <input type="date" class="form-control" [(ngModel)]="fechaRecaudacionInicio"
+                            id="filterFechaBefore" />
+                    </div>
                 </div>
-                <div class="col-md-4 col-12">
-                  <div class="input-group">
-                    <label for="" class="mt-2 mr-2"> Fecha Fin </label>
-                    <input type="date" class="form-control" [(ngModel)]="fechaRecaudacionFin" id="filterFechaBefore" />
-                  </div>
+                <div class="col-md-3 col-12">
+                    <div class="input-group">
+                        <label for="" class="mt-2 mr-2">Hasta: </label>
+                        <input type="date" class="form-control" [(ngModel)]="fechaRecaudacionFin"
+                            id="filterFechaBefore" />
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <button (click)="restablecerFiltroBusqueda()" type="button" class="btn btn-info"
+                        data-toggle="tooltip" data-placement="right" title="Restablecer filtro">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+
+                <div class="col-md-1 col-12">
+                    <button type="button" class="btn btn-info " (click)="gestionRecaudaciones($event.target.value)">
+                        Buscar
+                    </button>
                 </div>
                 <div class="col-md-1 col-12">
-                  <button type="button" class="btn btn-info " (click)="gestionRecaudaciones($event.target.value)">
-                    Buscar
-                  </button>
+                    <button type="button" class="btn btn-success " printSectionId="print-section"
+                        [useExistingCss]="true" ngxPrint>
+                        Imprimir
+                    </button>
                 </div>
-                <div class="col-md-3 col-12 mt-2"  *ngIf="bandera">
+
+                <div class="col-md-3 col-12 mt-2" *ngIf="bandera">
                     <b style="font-weight: bold;font-size: 17px;">Valor Recaudado </b> <span style="font-size: 18px;"
-                      class="label label-info">{{valorTotal|currency:'USD':'symbol':'1.2'}}</span>
-                  </div>
-              </div>
+                        class="label label-info">{{valorTotal|currency:'USD':'symbol':'1.2'}}</span>
+                </div>
+            </div>
 
 
             <div *ngIf="id_etapa">
@@ -64,6 +82,62 @@
                         [(ngModel)]="filterName">
                 </div> -->
                 <h6 class="card-subtitle"></h6>
+                <div style="display: none;">
+                    <div class="table-responsive m-t-40" id="print-section">
+                        <h3 class="text-center">Reporte de Recaudaciones</h3>
+
+                        <table id="myTable" class="table color-bordered-table inverse-bordered-table">
+                            <thead>
+                                <tr style="text-align: center;">
+                                    <th>No</th>
+                                    <!-- <th>Tipo</th> -->
+                                    <th>Fecha </th>
+                                    <!-- <th>Fecha fin</th> -->
+                                    <th>Manzana</th>
+                                    <th>Villa</th>
+                                    <th>Modulo</th>
+                                    <th>Valor</th>
+                                    <th>Usuario</th>
+                                    <!-- <th>Acciones</th> -->
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: center;">
+                                <tr *ngFor="let tran of transacciones  let i=index ">
+                                    <td>{{i+1}}</td>
+                                    <!-- <td><button *ngIf="(tran.estado_pago === 'success')"
+                                class="btn waves-effect waves-light btn-xs btn-success">Exitoso</button>
+                            <button *ngIf="(tran.estado_pago !== 'success')"
+                                class="btn waves-effect waves-light btn-xs btn-danger">Fallido</button>
+                        </td> -->
+                                    <td>{{tran.fecha.split("T")[0]}}</td>
+                                    <!-- <td>{{tran.dia_pago}}</td> -->
+                                    <td>{{tran.mz}}</td>
+                                    <td>{{tran.villa}}</td>
+                                    <td>{{tran.modulo}}</td>
+                                    <td>${{tran.valor}}</td>
+                                    <td>{{tran.usuario}}</td>
+                                    <!-- <td>
+                            <button style="border-color: transparent;background-color: transparent !important"
+                                (click)="gestionTransaccion(tran.ID)" type="button"
+                                class="btn btn-primary btn-square">
+                                <i style="color: darkorange" class="fas fa-undo"></i>
+                            </button>
+                        </td> -->
+                                </tr>
+                                <tr *ngIf="(transacciones).length === 0">
+                                    <td style="text-align: center !important;" colspan="10"><label
+                                            class="text-primary">No
+                                            existen datos</label></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row justify-content-end" *ngIf="valorTotal">
+                            <div class="col-md-3 text-right">
+                                total {{valorTotal|currency:'USD':'symbol':'1.2'}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="table-responsive m-t-40">
                     <table id="myTable" class="table color-bordered-table inverse-bordered-table">
                         <thead>
