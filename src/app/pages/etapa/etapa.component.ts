@@ -115,7 +115,7 @@ export class EtapaComponent implements OnInit {
       this.modulo_emprendimiento = etapa.modulo_emprendimiento;
       this.modulo_votacion = etapa.modulo_votacion;
       this.modulo_area_social = etapa.modulo_area_social;
-      this.modulo_camaras = etapa.modulos_camaras;
+      this.modulo_camaras = etapa.modulo_camaras;
       this.modulo_directiva = etapa.modulo_directiva;
       this.modulo_galeria = etapa.modulo_galeria;
       this.modulo_horarios = etapa.modulo_horarios;
@@ -187,7 +187,8 @@ export class EtapaComponent implements OnInit {
         formulario_entrada: this.formulario_entrada,
         formulario_salida: this.formulario_salida,
       };
-      // console.log("modificar etapa: ", body);
+      console.log("modificar camaras: ", body.modulo_camaras);
+      console.log("modificar etapa: ", body);
       response = await this.auth.editEtapa(this.id_etapa, body);
     } else {
       const body = {

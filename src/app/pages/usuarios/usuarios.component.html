@@ -16,9 +16,9 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
 
-                    <div class="form-group" *ngIf="idUrbanizacion">
+                    <div class="form-group" >
                         <label>Etapa</label>
-                        <select [(ngModel)]="id_etapa" class="form-control custom-select" (change)="getTabla($event.target.value)">
+                        <select [disabled]="!idUrbanizacion"  [(ngModel)]="id_etapa" class="form-control custom-select" (change)="getTabla($event.target.value)">
                             <option *ngFor="let ur of etapasid" [ngValue]="ur.ID">
                                 {{ ur.nombre }}
                             </option>
