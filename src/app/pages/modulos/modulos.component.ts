@@ -28,7 +28,10 @@ export class ModulosComponent implements OnInit {
   id: 0;
   changeFoto = false;
   etapas: UsuarioModelo[] = [];
+  pagos_tarjeta : boolean;
   miregistro: boolean;
+  formulario_entrada : boolean;
+  formulario_salida : boolean;
   autorizacion: boolean;
   alicuotas: boolean;
   emprendimientos: boolean;
@@ -89,16 +92,13 @@ export class ModulosComponent implements OnInit {
       this.directiva = resp.modulo_directiva;
       this.galeria = resp.modulo_galeria;
       this.horarios = resp.modulo_horarios;
-      console.log("miregistro: ", this.miregistro);
-      console.log("autorizacion: ", this.autorizacion);
-      console.log("alicuotas: ", this.alicuotas);
-      console.log("emprendimientos: ", this.emprendimientos);
-      console.log("votacion: ", this.votacion);
-      console.log("areasocial: ", this.areasocial);
-      console.log("camaras: ", this.camaras);
-      console.log("directiva: ", this.directiva);
-      console.log("galeria: ", this.galeria);
-      console.log("horarios: ", this.horarios);
+      this.pagos_tarjeta = resp.pagos_tarjeta;
+      this.formulario_entrada = resp.formulario_entrada;
+      this.formulario_salida = resp.formulario_salida;
+      console.log("pagos_tarjeta: ", this.pagos_tarjeta);
+      console.log("entrada: ", this.formulario_entrada);
+      console.log("salida: ", this.formulario_salida);
+ 
     });
   }
 
@@ -154,6 +154,9 @@ export class ModulosComponent implements OnInit {
       modulo_galeria: this.galeria,
       modulo_horarios: this.horarios,
       modulo_mi_registro: this.miregistro,
+      pagos_tarjeta : this.pagos_tarjeta,
+      formulario_entrada : this.formulario_entrada,
+      formulario_salida : this.formulario_salida
     };
     console.log("body editar modulo: ", body);
     response = await this.auth.editEtapa(this.id, body);

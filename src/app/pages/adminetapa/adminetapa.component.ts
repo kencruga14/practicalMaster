@@ -57,7 +57,7 @@ export class AdminetapaComponent implements OnInit {
   modulo_votacion: any;
   modulo_area_social: any;
   filterName = "";
-  admin = {
+  admin : any = {
     id_adminetapa: 0,
     id_etapa: 0,
     cedula: "",
@@ -123,11 +123,9 @@ export class AdminetapaComponent implements OnInit {
       this.celular = admin.usuario.celular;
       this.cedula = admin.cedula;
       this.id_etapa = admin.id_etapa;
-    
       // this.imagenPerfila = admin.usuario.imagen;
       this.imagenEdit =  admin.usuario.imagen;
       this.imagen =  admin.usuario.imagen;
-      
     } else {
       this.admin.edit = false
       this.idUrbanizacion =""
@@ -138,6 +136,7 @@ export class AdminetapaComponent implements OnInit {
       this.nombres = "";
       this.apellido = "";
       this.usuario = "";
+      this.admin.urbanizacion ="";
       this.cedula = "";
       this.correo = "";
       this.telefono = "";
@@ -173,7 +172,6 @@ export class AdminetapaComponent implements OnInit {
         },
       };
       JSON.stringify(body);
-      // console.log("cuerpo a editar: ", body);
       response = await this.auth.editAdminEtapa(this.id, body);
     } else {
       const body = {
