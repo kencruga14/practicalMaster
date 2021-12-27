@@ -11,6 +11,7 @@ import * as moment from "moment";
   styleUrls: ["./usuarios.component.css"],
 })
 export class UsuariosComponent implements OnInit {
+  valorTotal : any = 0 ;
   publicidades: UsuarioModelo[] = [];
   imagenPerfil: any;
   tablaEtapa: any = []
@@ -127,6 +128,7 @@ export class UsuariosComponent implements OnInit {
 
   getUrbId(id) {
     this.id_etapa=""
+    this.valorTotal = 0
     this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
       this.etapasid = resp;
       // console.log("etapas por id: ", this.etapasid);
@@ -212,11 +214,11 @@ export class UsuariosComponent implements OnInit {
   }
 
   getTabla(id: number) {
-
     this.auth
       .getEtapaByIdUrbanizacionTabla(this.id_etapa)
       .subscribe((resp: any) => {
         this.tablaEtapa = resp;
+        this.calcularRecaudaciones();
       });
   }
 
@@ -379,6 +381,13 @@ export class UsuariosComponent implements OnInit {
       this.documento = reader.result;
     };
     console.log("pdf base: ", this.documento);
+  }
+
+  calcularRecaudaciones() {
+    this.valorTotal = 0;
+    this.tablaEtapa.forEach((item) => {
+      this.valorTotal = this.valorTotal + 1
+    });
   }
 
 }

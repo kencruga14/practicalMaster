@@ -155,31 +155,44 @@
           <div class="row">
             <div class="col-4">
               <input type="checkbox" id="cbox1" [(ngModel)]="permisos.urbanizacion" name="urbanizacion">
-              <label class="permisos" for="cbox1">Urbanizacion</label>
+              <label class="permisos" for="cbox1">Urbanizaciones</label>
+
+              <input type="checkbox" id="cbox6" [(ngModel)]="permisos.etapa" name="etapa">
+              <label class="permisos" for="cbox6">Etapas</label>
+
+              <input type="checkbox" id="cbox11" [(ngModel)]="permisos.administrador" name="administrador">
+              <label class="permisos" for="cbox11">Administradores</label>
+
+
               <input type="checkbox" id="cbox2" [(ngModel)]="permisos.modulo" name="modulo">
-              <label class="permisos" for="cbox2">Modulo</label>
+              <label class="permisos" for="cbox2">Modulos</label>
+
+            
+      
+            </div>
+
+            <div class="col-4">
+           
+              <input type="checkbox" id="cbox7" [(ngModel)]="permisos.categoria" name="categoria">
+              <label class="permisos" for="cbox7">Categorias</label>
+              <!-- <input type="checkbox" id="cbox8" name="residente" [(ngModel)]="permisos.residente">
+              <label class="permisos" for="cbox8">Residente</label> -->
+                 <input type="checkbox" id="cbox12" [(ngModel)]="permisos.publicidad" name="publicidad">
+              <label class="permisos" for="cbox12">Publicidad</label>
+
+
               <input type="checkbox" id="cbox3" name="facturacion" [(ngModel)]="permisos.facturacion">
               <label class="permisos" for="cbox3">Recaudaciones</label>
-              <input type="checkbox" id="cbox4" name="autorizado" [(ngModel)]="permisos.autorizado">
-              <label class="permisos" for="cbox4">Autorizado</label>
-            </div>
+          
 
-            <div class="col-4">
-              <input type="checkbox" id="cbox6" [(ngModel)]="permisos.etapa" name="etapa">
-              <label class="permisos" for="cbox6">Etapa</label>
-              <input type="checkbox" id="cbox7" [(ngModel)]="permisos.categoria" name="categoria">
-              <label class="permisos" for="cbox7">Categoria</label>
-              <input type="checkbox" id="cbox8" name="residente" [(ngModel)]="permisos.residente">
-              <label class="permisos" for="cbox8">Residente</label>
-              <input type="checkbox" id="cbox11" [(ngModel)]="permisos.administrador" name="administrador">
-              <label class="permisos" for="cbox11">Administrador</label>
-            </div>
-
-            <div class="col-4">
-              <input type="checkbox" id="cbox12" [(ngModel)]="permisos.publicidad" name="publicidad">
-              <label class="permisos" for="cbox12">Publicidad</label>
               <input type="checkbox" id="cbox13" name="usuario" [(ngModel)]="permisos.usuario"> <label class="permisos"
-                for="cbox13">Usuario</label>
+              for="cbox13">Usuarios</label>
+            </div>
+
+            <div class="col-4">
+              <input type="checkbox" id="cbox4" name="autorizado" [(ngModel)]="permisos.autorizado">
+              <label class="permisos" for="cbox4">Autorizados</label>
+          
             </div>
           </div>
 
@@ -210,32 +223,32 @@
           </thead>
           <tbody style="text-align: center;" *ngIf="infoPermisos">
             <tr>
-              <td *ngIf="infoPermisos.urbanizacion">Urbanización</td>
+              <td *ngIf="infoPermisos.urbanizacion">Urbanizaciones</td>
             </tr>
             <tr>
-              <td *ngIf="infoPermisos.etapa">Etapa</td>
+              <td *ngIf="infoPermisos.etapa">Etapas</td>
             </tr>
             <tr>
-              <td *ngIf="infoPermisos.administrador">Administrador</td>
+              <td *ngIf="infoPermisos.administrador">Administradores</td>
             </tr>
             <tr>
-              <td *ngIf="infoPermisos.modulo">Módulo</td>
+              <td *ngIf="infoPermisos.modulo">Módulos</td>
             </tr>
             <tr>
-              <td *ngIf="infoPermisos.categoria">Categoría</td>
+              <td *ngIf="infoPermisos.categoria">Categorías</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td *ngIf="infoPermisos.emprendimiento">Emprendimiento</td>
-            </tr>
+            </tr> -->
             <tr>
               <td *ngIf="infoPermisos.publicidad">Publicidad</td>
             </tr>
             <tr>
-              <td *ngIf="infoPermisos.facturacion">Facturación</td>
+              <td *ngIf="infoPermisos.facturacion">Recaudaciones</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td *ngIf="infoPermisos.residente">Residentes</td>
-            </tr>
+            </tr> -->
             <tr>
               <td *ngIf="infoPermisos.usuario">Usuarios</td>
             </tr>

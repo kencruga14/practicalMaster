@@ -2,29 +2,36 @@
 <div class="container-fluid">
   <div class="card">
     <div class="card-body">
-      <div class="form-group">
-        <label>Urbanización</label>
-        <select [(ngModel)]="idUrbanizacion" name="idUrbanizacion" class="form-control custom-select"
-          id="companydropdown" (change)="getUrbId($event.target.value)">
-          <option *ngFor="let ur of urbanizaciones" value="{{ ur.ID }}">
-            {{ ur.nombre }}
-          </option>
-        </select>
+      <div class="row">
+        <div class="col-6"> 
+          <div class="form-group">
+            <label>Urbanización</label>
+            <select [(ngModel)]="idUrbanizacion" name="idUrbanizacion" class="form-control custom-select"
+              id="companydropdown" (change)="getUrbId($event.target.value)">
+              <option *ngFor="let ur of urbanizaciones" value="{{ ur.ID }}">
+                {{ ur.nombre }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group" *ngIf="idUrbanizacion">
+            <label>Etapa</label>
+            <select [(ngModel)]="id_etapa" class="form-control custom-select"
+              (change)="getEtapaSeleccionada($event.target.value)">
+              <option *ngFor="let ur of etapasid" value="{{ ur.ID }}">
+                {{ ur.nombre }}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
+    
 
-      <div class="form-group" *ngIf="idUrbanizacion">
-        <label>Etapa</label>
-        <select [(ngModel)]="id_etapa" class="form-control custom-select"
-          (change)="getEtapaSeleccionada($event.target.value)">
-          <option *ngFor="let ur of etapasid" value="{{ ur.ID }}">
-            {{ ur.nombre }}
-          </option>
-        </select>
-      </div>
+   
     </div>
   </div>
 </div>
-
 <div *ngIf="id_etapa">
   <div class="container-fluid">
     <div class="card">

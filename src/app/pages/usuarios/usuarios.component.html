@@ -2,28 +2,35 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-body">
-            <div class="form-group">
-                <label>Urbanización</label>
-                <select [(ngModel)]="idUrbanizacion" name="idUrbanizacion" class="form-control custom-select"
-                    id="companydropdown" (change)="getUrbId($event.target.value)">
-                    <option *ngFor="let ur of urbanizaciones" value="{{ ur.ID }}">
-                        {{ ur.nombre }}
-                    </option>
-                </select>
-            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label>Urbanización</label>
+                        <select [(ngModel)]="idUrbanizacion" name="idUrbanizacion" class="form-control custom-select"
+                            id="companydropdown" (change)="getUrbId($event.target.value)">
+                            <option *ngFor="let ur of urbanizaciones" value="{{ ur.ID }}">
+                                {{ ur.nombre }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
 
-            <div class="form-group" *ngIf="idUrbanizacion">
-                <label>Etapa</label>
-                <select [(ngModel)]="id_etapa" class="form-control custom-select" (change)="getTabla($event.target.value)">
-                    <option *ngFor="let ur of etapasid" [ngValue]="ur.ID">
-                        {{ ur.nombre }}
-                    </option>
-                </select>
+                    <div class="form-group" *ngIf="idUrbanizacion">
+                        <label>Etapa</label>
+                        <select [(ngModel)]="id_etapa" class="form-control custom-select" (change)="getTabla($event.target.value)">
+                            <option *ngFor="let ur of etapasid" [ngValue]="ur.ID">
+                                {{ ur.nombre }}
+                            </option>
+                        </select>
+                    </div>
+        
+                </div>
             </div>
-
+        
+          
 
             <div *ngIf="id_etapa">
-               
                 <div class="table-responsive m-t-40">
                     <table style="zoom: 0.80;" id="myTable" class="table color-bordered-table inverse-bordered-table">
                         <thead>
@@ -100,6 +107,17 @@
                     </table>
                 </div>
             
+            </div>
+            <div class="row" *ngIf="id_etapa">
+                <div class="col-6">
+
+                </div>
+                <div class="col-6 text-right">
+                    <div  *ngIf="id_etapa">
+                        <b style="font-weight: bold;font-size: 17px;">Numero de Usuarios : </b> <span style="font-size: 18px;"
+                            class="label label-info">{{valorTotal}}</span>
+                    </div>
+                </div>
             </div>
 
 
