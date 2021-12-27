@@ -1,4 +1,4 @@
-<app-breadcrumb titulo="Módulos de venta"></app-breadcrumb>
+<app-breadcrumb titulo="Lista de Módulos"></app-breadcrumb>
 <div class="container-fluid">
   <div class="card">
     <div class="card-body">
@@ -8,6 +8,7 @@
             <label>Urbanización</label>
             <select [(ngModel)]="idUrbanizacion" name="idUrbanizacion" class="form-control custom-select"
               id="companydropdown" (change)="getUrbId($event.target.value)">
+              <option value="" selected hidden> Seleccione una Urbanización </option>
               <option *ngFor="let ur of urbanizaciones" value="{{ ur.ID }}">
                 {{ ur.nombre }}
               </option>
@@ -19,6 +20,7 @@
             <label>Etapa</label>
             <select  [disabled]="!idUrbanizacion"  [(ngModel)]="id_etapa" class="form-control custom-select"
               (change)="getEtapaSeleccionada($event.target.value)">
+              <option value="" selected hidden> Seleccione una Etapa </option>
               <option *ngFor="let ur of etapasid" value="{{ ur.ID }}">
                 {{ ur.nombre }}
               </option>

@@ -60,6 +60,8 @@ export class TransaccionComponent implements OnInit {
     this.filtroTipo = ""
     this.fechaRecaudacionInicio = ""
     this.fechaRecaudacionFin = ""
+    this.id_etapa=""
+    this.idUrbanizacion=""
   }
   restablecerFiltroBusqueda() {
     this.fechaRecaudacionInicio = null

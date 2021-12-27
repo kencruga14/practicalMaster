@@ -3,39 +3,44 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-6 col-112">
+                <div class="col-md-4 col-12">
                     <div class="form-group">
                         <label>Urbanización</label>
                         <select [(ngModel)]="idUrbanizacion" name="idUrbanizacion" class="form-control custom-select"
                             id="companydropdown" (change)="getUrbId($event.target.value)">
+                            <option value="" selected hidden> Seleccione una Urbanización </option>
                             <option *ngFor="let ur of urbanizaciones" value="{{ ur.ID }}">
                                 {{ ur.nombre }}
                             </option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6 col-12">
- 
+                <div class="col-md-4 col-12">
                     <div class="form-group" >
                         <label>Etapa</label>
                         <select [disabled]="!idUrbanizacion"  [(ngModel)]="id_etapa" class="form-control custom-select"
                             (change)="restablecer($event.target.value)">
+                            <option value="" selected hidden> Seleccione una etapa </option>
                             <option *ngFor="let ur of etapasid" [ngValue]="ur.ID">
                                 {{ ur.nombre }}
                             </option>
                         </select>
                     </div>
                 </div>
+                <div class="col-md-4 col-12">
+                    <div class="form-group" >
+                        <label>Módulo</label>
+                        <select   [disabled]="!idUrbanizacion"  [(ngModel)]="filtroTipo" class="form-control custom-select"
+                            (change)="cargarTabla($event.target.value)">
+                            <option value=""> Todos </option>
+                            <option value="ALI"> Alicuotas </option>
+                        </select>
+                    </div>
+                </div>
+
             </div>
        
-            <div class="form-group" *ngIf="id_etapa">
-                <label>Tipo</label>
-                <select [(ngModel)]="filtroTipo" class="form-control custom-select"
-                    (change)="cargarTabla($event.target.value)">
-                    <option value=""> Todas </option>
-                    <option value="ALI"> Alicuotas </option>
-                </select>
-            </div>
+       
 
             <h4 *ngIf="id_etapa"> Recaudaciones </h4>
 

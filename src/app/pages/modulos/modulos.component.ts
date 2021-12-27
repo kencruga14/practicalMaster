@@ -62,6 +62,8 @@ export class ModulosComponent implements OnInit {
 
   ngOnInit() {
     this.getUrb();
+    this.idUrbanizacion=""
+    this.id_etapa=""
   }
 
   getUrb() {

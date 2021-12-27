@@ -8,6 +8,7 @@
             <label>Urbanización</label>
             <select [(ngModel)]="idUrbanizacion" name="idUrbanizacion" class="form-control custom-select"
               id="companydropdown" (change)="getUrbId($event.target.value)">
+              <option value="" selected hidden> Seleccione una Urbanización </option>
               <option *ngFor="let ur of urbanizaciones" value="{{ ur.ID }}">
                 {{ ur.nombre }}
               </option>
@@ -19,6 +20,7 @@
             <label>Etapa</label>
             <select [disabled]="!idUrbanizacion"  name="id_etapa" [(ngModel)]="id_etapa" class="form-control custom-select"
               (change)="getPublicidadbIdEtapa($event.target.value)">
+              <option value="" selected hidden> Seleccione una Etapa </option>
               <option *ngFor="let ur of etapasid" value="{{ ur.ID }}">
                 {{ ur.nombre }}
               </option>

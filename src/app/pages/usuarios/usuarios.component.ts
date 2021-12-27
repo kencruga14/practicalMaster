@@ -110,6 +110,8 @@ export class UsuariosComponent implements OnInit {
   ngOnInit() {
     this.getUrb();
     this.getEtapa();
+    this.idUrbanizacion=""
+    this.id_etapa=""
   }
   getUrb() {
     this.auth.getUrb().subscribe((resp: any) => {

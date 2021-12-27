@@ -8,6 +8,8 @@
                         <label>Urbanización</label>
                         <select [(ngModel)]="idUrbanizacion" name="idUrbanizacion" class="form-control custom-select"
                             id="companydropdown" (change)="getUrbId($event.target.value)">
+                            <option value="" selected hidden> Seleccione una Urbanización </option>
+
                             <option *ngFor="let ur of urbanizaciones" value="{{ ur.ID }}">
                                 {{ ur.nombre }}
                             </option>
@@ -19,6 +21,8 @@
                     <div class="form-group" >
                         <label>Etapa</label>
                         <select [disabled]="!idUrbanizacion"  [(ngModel)]="id_etapa" class="form-control custom-select" (change)="getTabla($event.target.value)">
+                            <option value="" selected hidden> Seleccione una Etapa </option>
+
                             <option *ngFor="let ur of etapasid" [ngValue]="ur.ID">
                                 {{ ur.nombre }}
                             </option>

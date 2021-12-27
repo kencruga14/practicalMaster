@@ -14,7 +14,7 @@ export class PublicidadComponent implements OnInit {
   urbanizaciones: UsuarioModelo[] = [];
   idUrbanizacion: any;
   id_publicidad: 0;
-  id_etapa: 0;
+  id_etapa: any;
   imagenPerfil: any;
   imagenEdit: any;
   etapasid: any;
@@ -56,6 +56,8 @@ export class PublicidadComponent implements OnInit {
   ngOnInit() {
     this.getUrb();
     // this.getPublicidad();
+    this.idUrbanizacion=""
+    this.id_etapa=""
   }
   getUrb() {
     this.auth.getUrb().subscribe((resp: any) => {
@@ -66,9 +68,10 @@ export class PublicidadComponent implements OnInit {
 
   getUrbId(id) {
     // console.log("id: ", id);
+    this.id_etapa = "";
     this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
       this.etapasid = resp;
-      this.id_etapa = null;
+     
       this.publicidades = [];
     });
   }
