@@ -13,6 +13,7 @@ import * as moment from "moment";
 export class TransaccionComponent implements OnInit {
   transacciones: any = [];
   valorTotal = 0;
+  areasSociales = []
   bandera = false
   etapas: UsuarioModelo[] = [];
   filtroTipo: any = ""
@@ -31,6 +32,7 @@ export class TransaccionComponent implements OnInit {
   id_transaccion: 0;
   id_etapa: any;
   etapasid: any;
+  idAreaSocial : any;
   urbanizaciones: UsuarioModelo[] = [];
   idUrbanizacion: any;
   filterName = "";
@@ -46,6 +48,8 @@ export class TransaccionComponent implements OnInit {
     detalle_devolucion: "",
     tarjeta_id: 0,
   };
+
+  nombreUrbanizacion :any;
 
   menu = ["Transacciones"];
   constructor(
@@ -64,9 +68,14 @@ export class TransaccionComponent implements OnInit {
     this.idUrbanizacion=""
   }
   restablecerFiltroBusqueda() {
+    this.idUrbanizacion=""
+    this.id_etapa =""
+    this.filtroTipo= ""
+    this.idAreaSocial=""
     this.fechaRecaudacionInicio = null
     this.fechaRecaudacionFin = null
-    this.cargarTabla()
+    this.valorTotal = 0
+    // this.cargarTabla()
   }
   getUrbId(id) {
     this.filtroTipo = ""
@@ -76,6 +85,7 @@ export class TransaccionComponent implements OnInit {
     this.bandera = false
     this.auth.getEtapaByIdUrbanizacion(id).subscribe((resp: any) => {
       this.etapasid = resp;
+      if(resp.length >0)  this.nombreUrbanizacion= resp[0].nombre_urbanizacion;
     });
   }
 
@@ -98,39 +108,94 @@ export class TransaccionComponent implements OnInit {
     });
   }
 
-  restablecer() {
-    this.bandera = false
-    this.fechaRecaudacionInicio = ""
-    this.fechaRecaudacionFin = ""
-    this.filtroTipo = ""
-    this.cargarTabla();
+  // restablecer() {
+  //   this.bandera = false
+  //   this.fechaRecaudacionInicio = ""
+  //   this.fechaRecaudacionFin = ""
+  //   this.filtroTipo = ""
+  //   this.cargarTabla();
+  // }
+// refactoring
+  getTablaEtapa(){
+    this.filtroTipo= ""
+    this.idAreaSocial=""
+    this.fechaRecaudacionInicio = null
+    this.fechaRecaudacionFin = null
+    this.valorTotal = 0
+    this.getTabla();
   }
 
-  cargarTabla() {
-    this.bandera = false
+  getTablaModulo(){
+    this.idAreaSocial=""
+    this.fechaRecaudacionInicio = null
+    this.fechaRecaudacionFin = null
     this.valorTotal = 0
-    this.fechaRecaudacionInicio = ""
-    this.fechaRecaudacionFin = ""
-    this.auth.getTransaccionTipo(this.id_etapa, this.filtroTipo, "", "").subscribe((resp: any) => {
+    this.getAreasSociales();
+    this.getTabla();
+  }
+
+  
+  getTablaAreaSocial(){
+    this.fechaRecaudacionInicio = null
+    this.fechaRecaudacionFin = null
+    this.valorTotal = 0
+    this.getTabla();
+  }
+
+  
+  cargarTablaFechas1() {
+    this.valorTotal = 0
+    if(!this.fechaRecaudacionFin) {
+      this.auth.getTransaccionTipo(this.id_etapa.ID, this.filtroTipo, moment(this.fechaRecaudacionInicio).format("YYYY-MM-DDTHH:mm:ss[Z]"),"",this.idAreaSocial.ID).subscribe((resp: any) => {
+        this.transacciones = resp;
+        this.calcularRecaudaciones()
+      });
+    }else{
+      this.auth.getTransaccionTipo(this.id_etapa.ID, this.filtroTipo, moment(this.fechaRecaudacionInicio).format("YYYY-MM-DDTHH:mm:ss[Z]"), moment(this.fechaRecaudacionFin).format("YYYY-MM-DDTHH:mm:ss[Z]"),this.idAreaSocial.ID).subscribe((resp: any) => {
+        this.transacciones = resp;
+        this.calcularRecaudaciones()
+      });
+    }
+   
+  }
+
+
+  cargarTablaFechas2() {
+    this.valorTotal = 0
+    this.auth.getTransaccionTipo(this.id_etapa.ID, this.filtroTipo, moment(this.fechaRecaudacionInicio).format("YYYY-MM-DDTHH:mm:ss[Z]"), moment(this.fechaRecaudacionFin).format("YYYY-MM-DDTHH:mm:ss[Z]"),this.idAreaSocial.ID).subscribe((resp: any) => {
       this.transacciones = resp;
       this.calcularRecaudaciones()
     });
   }
 
-  cargarTablaFechas() {
-    this.valorTotal = 0
-    this.auth.getTransaccionTipo(this.id_etapa, this.filtroTipo, moment(this.fechaRecaudacionInicio).format("YYYY-MM-DDTHH:mm:ss[Z]"), moment(this.fechaRecaudacionFin).format("YYYY-MM-DDTHH:mm:ss[Z]")).subscribe((resp: any) => {
+  // cargarTabla() {
+  //   this.bandera = false
+  //   this.valorTotal = 0
+  //   this.fechaRecaudacionInicio = ""
+  //   this.fechaRecaudacionFin = ""
+  //   this.auth.getTransaccionTipo(this.id_etapa, this.filtroTipo, "", "").subscribe((resp: any) => {
+  //     this.transacciones = resp;
+  //     this.calcularRecaudaciones()
+  //   });
+  // }
+
+
+
+  getTabla(){
+    this.auth.getTransaccionTipo(this.id_etapa.ID, this.filtroTipo, "", "",this.idAreaSocial.ID).subscribe((resp: any) => {
       this.transacciones = resp;
       this.calcularRecaudaciones()
     });
   }
+
+
 
 
   gestionRecaudaciones() {
     let string = "T00:00:00Z"
     this.bandera = true
     this.valorTotal = 0
-    this.cargarTablaFechas()
+    // this.cargarTablaFechas()
 
   }
 
@@ -139,6 +204,18 @@ export class TransaccionComponent implements OnInit {
     this.transacciones.forEach((item) => {
       this.valorTotal = this.valorTotal + parseFloat(item.valor);
     });
+  }
+
+
+  getAreasSociales() {
+    this.auth.getAreaSocial( this.id_etapa).subscribe((resp: any) => {
+      this.areasSociales = resp;
+    });
+  }
+
+  getPrueba(e :any){
+    console.log(this.idAreaSocial.ID)
+    console.log(this.idAreaSocial.nombre)
   }
 
 }

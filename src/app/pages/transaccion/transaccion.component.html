@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-4 col-12">
+                <div class="col-md-3 col-12">
                     <div class="form-group">
                         <label>Urbanización</label>
                         <select [(ngModel)]="idUrbanizacion" name="idUrbanizacion" class="form-control custom-select"
@@ -15,29 +15,42 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 col-12">
+                <div class="col-md-3 col-12">
                     <div class="form-group" >
                         <label>Etapa</label>
                         <select [disabled]="!idUrbanizacion"  [(ngModel)]="id_etapa" class="form-control custom-select"
-                            (change)="restablecer($event.target.value)">
+                            (change)="getTablaEtapa($event.target.value)">
                             <option value="" selected hidden> Seleccione una etapa </option>
-                            <option *ngFor="let ur of etapasid" [ngValue]="ur.ID">
+                            <option *ngFor="let ur of etapasid" [ngValue]="ur">
                                 {{ ur.nombre }}
                             </option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 col-12">
+                <div class="col-md-3 col-12">
                     <div class="form-group" >
                         <label>Módulo</label>
-                        <select   [disabled]="!idUrbanizacion"  [(ngModel)]="filtroTipo" class="form-control custom-select"
-                            (change)="cargarTabla($event.target.value)">
+                        <select   [disabled]="!id_etapa"  [(ngModel)]="filtroTipo" class="form-control custom-select"
+                            (change)="getTablaModulo($event.target.value)">
                             <option value=""> Todos </option>
-                            <option value="ALI"> Alicuotas </option>
+                            <option value="ALI"> Alícuotas </option>
+                            <option value="RES"> Area Social </option>
                         </select>
                     </div>
                 </div>
 
+                <div *ngIf="filtroTipo==='RES'" class="col-md-3 col-12">
+                    <div class="form-group" >
+                        <label>Area:</label>
+                        <select   [disabled]="!idUrbanizacion"  [(ngModel)]="idAreaSocial" class="form-control custom-select"
+                            (change)="getTablaAreaSocial($event.target.value)">
+                            <option value=""> Todos </option>
+                            <option *ngFor="let div of areasSociales" [ngValue]="div">
+                                {{ div.nombre }}
+                              </option>
+                        </select>
+                    </div>
+                </div>
             </div>
        
        
@@ -48,29 +61,30 @@
                 <div class="col-md-3 col-12">
                     <div class="input-group">
                         <label for="" class="mt-2 mr-2">Desde: </label>
-                        <input type="date" class="form-control" [(ngModel)]="fechaRecaudacionInicio"
+                        <input (change)="cargarTablaFechas1()" type="date" class="form-control" [(ngModel)]="fechaRecaudacionInicio"
                             id="filterFechaBefore" />
                     </div>
                 </div>
                 <div class="col-md-3 col-12">
                     <div class="input-group">
                         <label for="" class="mt-2 mr-2">Hasta: </label>
-                        <input type="date" class="form-control" [(ngModel)]="fechaRecaudacionFin"
+                        <input (change)="cargarTablaFechas2()" type="date" class="form-control" [(ngModel)]="fechaRecaudacionFin"
                             id="filterFechaBefore" />
                     </div>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <button (click)="restablecerFiltroBusqueda()" type="button" class="btn btn-info"
                         data-toggle="tooltip" data-placement="right" title="Restablecer filtro">
-                        <i class="fas fa-sync-alt"></i>
+                        Restablecer Filtros <i class="fas fa-sync-alt ml-1"></i>
                     </button>
                 </div>
 
-                <div class="col-md-1 col-12">
+                <!-- <div class="col-md-1 col-12">
                     <button type="button" class="btn btn-info " (click)="gestionRecaudaciones($event.target.value)">
                         Buscar
                     </button>
-                </div>
+                </div> -->
+
                 <div class="col-md-1 col-12">
                     <button type="button" class="btn btn-success " printSectionId="print-section"
                         [useExistingCss]="true" ngxPrint>
@@ -78,7 +92,7 @@
                     </button>
                 </div>
 
-                <div class="col-md-3 col-12 mt-2" *ngIf="bandera">
+                <div class="col-md-3 col-12 mt-2" >
                     <b style="font-weight: bold;font-size: 17px;">Valor Recaudado </b> <span style="font-size: 18px;"
                         class="label label-info">{{valorTotal|currency:'USD':'symbol':'1.2'}}</span>
                 </div>
@@ -96,96 +110,113 @@
                     <div class="table-responsive m-t-40" id="print-section">
                         <h3 class="text-center">Reporte de Recaudaciones</h3>
 
+                        <div class="row mb-3 mt-3">
+                            <div    class="col-3 mt-1">
+                                Urbanizacion : {{nombreUrbanizacion}}
+                            </div>
+                        
+                            <div    class="col-3 mt-1">
+                                Etapa : {{id_etapa.nombre}}
+                            </div>
+
+                            <div   *ngIf="!filtroTipo"   class="col-3 mt-1">
+                                Modulo : Todos
+                            </div>
+
+                            <div  *ngIf="filtroTipo==='ALI'"   class="col-3 mt-1">
+                                Modulo : Alícuotas
+                            </div>
+
+                            <div  *ngIf="filtroTipo==='RES'"   class="col-3 mt-1">
+                                Modulo : Area Social
+                            </div>
+
+                            <div   *ngIf="!idAreaSocial && filtroTipo==='RES'"   class="col-3 mt-1">
+                                Area : Todas
+                            </div>
+
+                            <div   *ngIf="idAreaSocial"  class="col-3 mt-1">
+                                Area : {{idAreaSocial.nombre}}
+                            </div>
+                        
+                        
+                            <div class="col-3 mt-1">
+                                Recaudado : {{valorTotal|currency:'USD':'symbol':'1.2'}}
+                            </div>
+                            <div *ngIf="fechaRecaudacionInicio"  class="col-3 mt-1">
+                                Fecha Inicio: {{ fechaRecaudacionInicio}}
+                            </div>
+                            <div *ngIf="fechaRecaudacionFin"  class="col-3 mt-1">
+                                Fecha Fin: {{ fechaRecaudacionFin}}
+                            </div>
+                         </div>
+
                         <table id="myTable" class="table color-bordered-table inverse-bordered-table">
                             <thead>
                                 <tr style="text-align: center;">
                                     <th>No</th>
-                                    <!-- <th>Tipo</th> -->
                                     <th>Fecha </th>
-                                    <!-- <th>Fecha fin</th> -->
                                     <th>Manzana</th>
                                     <th>Villa</th>
                                     <th>Modulo</th>
+                                    <th>Area</th>
                                     <th>Valor</th>
                                     <th>Usuario</th>
-                                    <!-- <th>Acciones</th> -->
+    
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
                                 <tr *ngFor="let tran of transacciones  let i=index ">
                                     <td>{{i+1}}</td>
-                                    <!-- <td><button *ngIf="(tran.estado_pago === 'success')"
-                                class="btn waves-effect waves-light btn-xs btn-success">Exitoso</button>
-                            <button *ngIf="(tran.estado_pago !== 'success')"
-                                class="btn waves-effect waves-light btn-xs btn-danger">Fallido</button>
-                        </td> -->
-                                    <td>{{tran.fecha.split("T")[0]}}</td>
-                                    <!-- <td>{{tran.dia_pago}}</td> -->
+                                    <td>{{tran.fecha.split("T")[0]| date: 'M/dd/yyyy'	  }}</td>
                                     <td>{{tran.mz}}</td>
                                     <td>{{tran.villa}}</td>
                                     <td>{{tran.modulo}}</td>
+                                    <td> {{tran.area_social}}  </td>
                                     <td>${{tran.valor}}</td>
                                     <td>{{tran.usuario}}</td>
-                                    <!-- <td>
-                            <button style="border-color: transparent;background-color: transparent !important"
-                                (click)="gestionTransaccion(tran.ID)" type="button"
-                                class="btn btn-primary btn-square">
-                                <i style="color: darkorange" class="fas fa-undo"></i>
-                            </button>
-                        </td> -->
                                 </tr>
                                 <tr *ngIf="(transacciones).length === 0">
-                                    <td style="text-align: center !important;" colspan="10"><label
-                                            class="text-primary">No
+                                    <td style="text-align: center !important;" colspan="10"><label class="text-primary">No
                                             existen datos</label></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="row justify-content-end" *ngIf="valorTotal">
-                            <div class="col-md-3 text-right">
-                                total {{valorTotal|currency:'USD':'symbol':'1.2'}}
-                            </div>
-                        </div>
+                  
                     </div>
                 </div>
+                
                 <div class="table-responsive m-t-40">
                     <table id="myTable" class="table color-bordered-table inverse-bordered-table">
                         <thead>
                             <tr style="text-align: center;">
                                 <th>No</th>
-                                <!-- <th>Tipo</th> -->
                                 <th>Fecha </th>
-                                <!-- <th>Fecha fin</th> -->
                                 <th>Manzana</th>
                                 <th>Villa</th>
                                 <th>Modulo</th>
+                                <th *ngIf="filtroTipo==='RES'">Area</th>
                                 <th>Valor</th>
                                 <th>Usuario</th>
-                                <!-- <th>Acciones</th> -->
+                                <th>Banco</th>
+                                <th>Cuenta</th>
+                                <th>Tipo</th>
+
                             </tr>
                         </thead>
                         <tbody style="text-align: center;">
                             <tr *ngFor="let tran of transacciones  let i=index ">
                                 <td>{{i+1}}</td>
-                                <!-- <td><button *ngIf="(tran.estado_pago === 'success')"
-                                        class="btn waves-effect waves-light btn-xs btn-success">Exitoso</button>
-                                    <button *ngIf="(tran.estado_pago !== 'success')"
-                                        class="btn waves-effect waves-light btn-xs btn-danger">Fallido</button>
-                                </td> -->
-                                <td>{{tran.fecha.split("T")[0]}}</td>
-                                <!-- <td>{{tran.dia_pago}}</td> -->
+                                <td>{{tran.fecha.split("T")[0]| date: 'MM/dd/yyyy'	  }}</td>
                                 <td>{{tran.mz}}</td>
                                 <td>{{tran.villa}}</td>
                                 <td>{{tran.modulo}}</td>
+                                <td *ngIf="filtroTipo==='RES'"> {{tran.area_social}}</td>
                                 <td>${{tran.valor}}</td>
                                 <td>{{tran.usuario}}</td>
-                                <!-- <td>
-                                    <button style="border-color: transparent;background-color: transparent !important"
-                                        (click)="gestionTransaccion(tran.ID)" type="button"
-                                        class="btn btn-primary btn-square">
-                                        <i style="color: darkorange" class="fas fa-undo"></i>
-                                    </button>
-                                </td> -->
+                                <td>{{tran.nombre_banco}}</td>
+                                <td>{{tran.numero_cuenta}}</td>
+                                <td>{{tran.tipo_cuenta}}</td>
                             </tr>
                             <tr *ngIf="(transacciones).length === 0">
                                 <td style="text-align: center !important;" colspan="10"><label class="text-primary">No

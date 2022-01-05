@@ -5,26 +5,36 @@ import { Pipe, PipeTransform } from "@angular/core";
   name: "multifilter",
 })
 export class MultiFilterPipe implements PipeTransform {
-  transform(items: any, filter: any): any {
-    // console.log("items:", items);
-    // console.log("filter:", filter);
-    // console.log("defaultFilter:", defaultFilter);
-    if (!filter || !Array.isArray(items)) {
-      return items;
-    }
+  transform(value: any, key: string[], texto: string): any {
 
-    if (filter && Array.isArray(items)) {
-      let filterKeys = Object.keys(filter);
+    if (texto.length > 0) {
+      return value.filter((info: any) => {
+        let bandera = false;
+        for (let index = 0; index < key.length; index++) {
+          if (key[index].indexOf('.') > -1) {
+            let arg1 = key[index].split('.')[0];
+            let arg2 = key[index].split('.')[1];
+            if (info[arg1][arg2].toLowerCase().indexOf(texto.toLowerCase()) > -1) {
+              bandera = true
+              break
+            }
+          }
+          else {
+            if (info[key[index]].toLowerCase().indexOf(texto.toLowerCase()) > -1) {
+              bandera = true
+              break
+            }
+          }
 
-      return items.filter((item) => {
-        return filterKeys.some((keyName) => {
-          return (
-            new RegExp(filter[keyName], "gi").test(item[keyName]) ||
-            new RegExp(filter[keyName], "gi").test(item.usuario[keyName]) ||
-            filter[keyName] == ""
-          );
-        });
+        }
+        return bandera
+
+
       });
+
     }
+    return value;
   }
+
 }
+

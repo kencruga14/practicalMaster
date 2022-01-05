@@ -14,7 +14,7 @@
         </button>
       </div>
       <div class="form-group col-md-4 m-t-20" style="display: inline-flex; float: right">
-        <input type="text" [(ngModel)]="searchText" class="form-control" name="searchText" placeholder="Buscar" />
+        <input type="text" [(ngModel)]="searchText" class="form-control" name="searchText" placeholder="Buscar por etapa ..." />
       </div>
       <div style="zoom: 0.8;" class="table-responsive m-t-40">
         <table class="table color-bordered-table inverse-bordered-table">
@@ -25,8 +25,9 @@
               <th>Apellidos</th>
               <th>Nombres</th>
               <th>Usuario</th>
-              <th>Urbanización</th>
               <th>Etapa</th>
+              <th>Urbanización</th>
+         
               <th>Cédula</th>
               <th>Correo</th>
               <th>Teléfono</th>
@@ -36,7 +37,7 @@
           <tbody style="text-align: center">
             <tr *ngFor="
                 let admin of admins
-                  | multifilter: { apellido: searchText };
+                  | multifilter: ['etapa.nombre']:searchText;
                 let i = index
               ">
               <!-- <tr *ngFor="let admin of admins; let i = index"> -->
@@ -50,8 +51,9 @@
               <td>{{ admin.usuario.apellido }}</td>
               <td>{{ admin.usuario.nombres }}</td>
               <td>{{ admin.usuario.usuario }}</td>
-              <td>{{ admin.etapa.urbanizacion.nombre }}</td>
               <td>{{ admin.etapa.nombre }}</td>
+              <td>{{ admin.etapa.urbanizacion.nombre }}</td>
+            
               <td>{{ admin.cedula }}</td>
      
 

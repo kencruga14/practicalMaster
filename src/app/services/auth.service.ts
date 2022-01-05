@@ -454,6 +454,18 @@ export class AuthService {
     });
   }
 
+  getAreaSocial( id:number) {
+    // console.log("hola");
+    const headers = new HttpHeaders({
+      token: this.userToken,
+    });
+    return this.http.get(`${environment.apiUrl}/area-social?id_etapa=${id}`, { headers }).pipe(
+      map((resp: any) => {
+        return resp.respuesta;
+      })
+    );
+  }
+
   // MARKET
   getMarket() {
     // console.log("hola");
@@ -877,7 +889,7 @@ export class AuthService {
   ) {
     // console.log("mensaje error: showalert: ", message);
     Swal.fire({
-      title: "P&S",
+      
       text: message,
       icon: tipo,
       confirmButtonText: confirmBtnText,
@@ -893,12 +905,12 @@ export class AuthService {
   }
 
 
-  getTransaccionTipo(id: number, tipo: number, fechaI : string, fechaF:string) {
+  getTransaccionTipo(id: number, tipo: number, fechaI : string, fechaF:string , idArea:number) {
     const headers = new HttpHeaders({
       token: this.userToken,
     });
     return this.http
-      .get(`${environment.apiUrl}/recaudacion?id_etapa=${id}&tipo=${tipo}&fecha_inicio=${fechaI}&fecha_fin=${fechaF}`, {
+      .get(`${environment.apiUrl}/recaudacion?id_etapa=${id}&tipo=${tipo}&fecha_inicio=${fechaI}&fecha_fin=${fechaF}&id_area_social=${idArea}`, {
         headers,
       })
       .pipe(

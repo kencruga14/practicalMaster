@@ -133,8 +133,7 @@ export class MarketComponent implements OnInit {
   delete(id: number) {
     Swal.fire({
       title: "¿Seguro que desea eliminar este registro?",
-      text: "Esta acción no se puede reversar",
-      icon: "warning",
+     
       showCancelButton: true,
       confirmButtonColor: "#343A40",
       cancelButtonColor: "#d33",
