@@ -19,9 +19,10 @@ import { CambiarcontrasenaComponent } from "./pages/cambiarcontrasena/cambiarcon
 import { UsuariosComponent } from "./pages/usuarios/usuarios.component";
 import { ResidenteComponent } from "./pages/residente/residente.component";
 import { InicioComponent } from "./pages/inicio/inicio.component";
+import { HomeGuard } from "./guards/home.guard";
 
 const routes: Routes = [
-  { path: "login", component: LoginComponent },
+  { path: "login", component: LoginComponent, canActivate: [HomeGuard] },
   { path: "cambiarcontrasena/:usuario", component: CambiarcontrasenaComponent },
   {
     path: "home",
