@@ -210,6 +210,10 @@ export class EtapaComponent implements OnInit {
         modulo_directiva: true,
         modulo_galeria: true,
         modulo_horarios: true,
+        modulo_taxi: true,
+        modulo_carnes: true,
+        modulo_servicios:true,
+        modulo_agua_gas: true,
         formulario_entrada: this.formulario_entrada,
         formulario_salida: this.formulario_salida,
       };

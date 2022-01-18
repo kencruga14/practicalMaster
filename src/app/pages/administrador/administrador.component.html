@@ -41,7 +41,7 @@
           <tbody style="text-align: center">
             <tr *ngFor="
                 let admin of admins
-                  | multifilter: {nombres: searchText,apellido: searchText,usuario: searchText,correo: searchText,telefono: searchText}
+                  | multifilter: ['usuario.nombres','usuario.apellido','usuario.correo','usuario.telefono']:searchText
                 let i = index
               ">
               <!-- <tr *ngFor="let admin of admins; let i = index"> -->
