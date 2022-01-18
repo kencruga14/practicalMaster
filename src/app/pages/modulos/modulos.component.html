@@ -220,7 +220,7 @@
                     <img class="card-img-top centrado"
                       (click)="openModulo('../assets/images/horarios.png',etapaseleccionada.modulo_horarios,'Horarios',contentModulo)"
                       src="../assets/images/horarios.png" alt="Error Horarios" />
-                 
+        
                   <div class="row text-center">
                     <div class="col-12 text-center">
                       <div *ngIf="etapaseleccionada.modulo_horarios true">
@@ -234,8 +234,97 @@
                       </div>
                     </div>
                   </div>
+                 </div>
+               </div>
+
+               <div class="col-4">
+                <div class="card" style="width: 380px; height: 250px">
+                  <img class="card-img-top centrado"
+                    (click)="openModulo('../assets/images/Agua_Gas.png',etapaseleccionada.modulo_agua_gas,'Agua & Gas',contentModulo)"
+                    src="../assets/images/Agua_Gas.png" alt="Error Agua Gas" />
+      
+                <div class="row text-center">
+                  <div class="col-12 text-center">
+                    <div *ngIf="etapaseleccionada.modulo_agua_gas=== true">
+                      <p class="card-text ">Agua & Gas: <span
+                          class="badge badge-pill badge-success">Activo</span></p>
+                    </div>
+                    <div *ngIf="etapaseleccionada.modulo_agua_gas=== false">
+                      <p class="card-text ">Agua & Gas: <span
+                          class="badge badge-pill badge-danger">Inactivo</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+               </div>
+             </div>
+             
+             <div class="col-4">
+              <div class="card" style="width: 380px; height: 250px">
+                <img class="card-img-top centrado"
+                  (click)="openModulo('../assets/images/servicios.png',etapaseleccionada.modulo_servicios,'Servicios',contentModulo)"
+                  src="../assets/images/servicios.png" height="170" width="210" alt="Error " />
+    
+              <div class="row text-center">
+                <div class="col-12 text-center">
+                  <div *ngIf="etapaseleccionada.modulo_servicios=== true">
+                    <p class="card-text ">Servicios : <span
+                        class="badge badge-pill badge-success">Activo</span></p>
+                  </div>
+                  <div *ngIf="etapaseleccionada.modulo_servicios=== false">
+                    <p class="card-text ">Servicios : <span
+                        class="badge badge-pill badge-danger">Inactivo</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+             </div>
+           </div>
+
+           <div class="col-4">
+            <div class="card" style="width: 380px; height: 250px">
+              <img class="card-img-top centrado"
+                (click)="openModulo('../assets/images/taxi.png',etapaseleccionada.modulo_taxi,'Taxi',contentModulo)"
+                src="../assets/images/taxi.png" alt="Error " />
+  
+            <div class="row text-center">
+              <div class="col-12 text-center">
+                <div *ngIf="etapaseleccionada.modulo_taxi=== true">
+                  <p class="card-text "> Taxi : <span
+                      class="badge badge-pill badge-success">Activo</span></p>
+                </div>
+                <div *ngIf="etapaseleccionada.modulo_taxi=== false">
+                  <p class="card-text "> Taxi : <span
+                      class="badge badge-pill badge-danger">Inactivo</span>
+                  </p>
+                </div>
               </div>
             </div>
+           </div>
+         </div>
+
+         <div class="col-4">
+          <div class="card" style="width: 380px; height: 250px">
+            <img class="card-img-top centrado"
+              (click)="openModulo('../assets/images/carnes.png',etapaseleccionada.modulo_carnes,'Carnes',contentModulo)"
+              src="../assets/images/carnes.png" alt="Error " />
+
+          <div class="row text-center">
+            <div class="col-12 text-center">
+              <div *ngIf="etapaseleccionada.modulo_carnes=== true">
+                <p class="card-text "> Carnes : <span
+                    class="badge badge-pill badge-success">Activo</span></p>
+              </div>
+              <div *ngIf="etapaseleccionada.modulo_carnes=== false">
+                <p class="card-text "> Carnes : <span
+                    class="badge badge-pill badge-danger">Inactivo</span>
+                </p>
+              </div>
+            </div>
+          </div>
+         </div>
+       </div>
+        
           
          
        
@@ -255,7 +344,7 @@
   <div class="modal-body">
     <div class="container">
       <figure class="centrado">
-        <img [src]="imagenseleccionada" alt="image" />
+        <img height="170" width="210"  [src]="imagenseleccionada" alt="image" />
       </figure>
       <br>
       <div *ngIf="estadoseleccionado === true">

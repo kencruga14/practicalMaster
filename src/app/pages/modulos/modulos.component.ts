@@ -41,6 +41,10 @@ export class ModulosComponent implements OnInit {
   directiva: boolean;
   galeria: boolean;
   horarios: boolean;
+  carnes: boolean;
+  taxis: boolean;
+  agua_gas:boolean;
+  servicios:boolean;
   filterName = "";
   publicidad = {
     id_publicidad: 0,
@@ -94,6 +98,10 @@ export class ModulosComponent implements OnInit {
       this.directiva = resp.modulo_directiva;
       this.galeria = resp.modulo_galeria;
       this.horarios = resp.modulo_horarios;
+      this.agua_gas = resp.modulo_agua_gas;
+      this.taxis = resp.modulo_taxi;
+      this.servicios = resp.modulo_servicios;
+      this.carnes = resp.modulo_carnes;
       this.pagos_tarjeta = resp.pagos_tarjeta;
       this.formulario_entrada = resp.formulario_entrada;
       this.formulario_salida = resp.formulario_salida;
@@ -145,6 +153,20 @@ export class ModulosComponent implements OnInit {
       console.log("entro Horarios");
       this.horarios = valor;
     }
+    else if (nombre === "Agua & Gas") {
+      this.agua_gas = valor;
+    }
+    else if (nombre === "Servicios") {
+      this.servicios = valor;
+    }
+    else if (nombre === "Taxi") {
+      this.taxis = valor;
+    }
+    else if (nombre === "Carnes") {
+
+      this.carnes = valor;
+    }
+    
     let body = {
       modulo_autorizacion : this.autorizacion,
       modulo_votacion: this.votacion,
@@ -155,6 +177,10 @@ export class ModulosComponent implements OnInit {
       modulo_directiva: this.directiva,
       modulo_galeria: this.galeria,
       modulo_horarios: this.horarios,
+      modulo_carnes: this.carnes,
+      modulo_agua_gas: this.agua_gas,
+      modulo_taxi: this.taxis,
+      modulo_servicios : this.servicios,
       modulo_mi_registro: this.miregistro,
       pagos_tarjeta : this.pagos_tarjeta,
       formulario_entrada : this.formulario_entrada,
